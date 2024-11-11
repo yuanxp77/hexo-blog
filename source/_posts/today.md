@@ -1,5 +1,5 @@
 ---
-title: today
+title: Today
 date: 2024-11-06 09:36:43
 tags:
 ---
