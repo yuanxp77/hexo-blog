@@ -12,9 +12,7 @@ test:
 
 .PHONY: live
 live:
-	git add .
-	git commit -m "commit by makefile"
-	git push
+	@git add . && git commit -m "commit by makefile" && git push &
 	hexo clean
 	hexo g -d
 
