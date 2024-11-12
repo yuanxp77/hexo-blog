@@ -4,11 +4,8 @@ PORT=4000
 test:
 	@git add . && git commit -m "commit by makefile" && git push &
 
-	@nohup if lsof -i :$(PORT); then \
-		echo "Port $(PORT) is in use. Killing the process..."; \
+	@if lsof -i :$(PORT); then \
 		kill -9 $$(lsof -t -i :$(PORT)); \
-	else \
-		echo "Port $(PORT) is not in use."; \
 	fi
 	@nohup hexo s &
 
