@@ -12,8 +12,8 @@ test:
 		echo "Port $(PORT) is not in use."; \
 	fi
 	nohup hexo s &
+	@sleep 1
 	open -a "/Applications/Safari.app" 'http://localhost:$(PORT)'
-	osascript -e 'tell application "Safari" to tell front document to do JavaScript "location.reload()"'
 
 .PHONY: live
 live:
