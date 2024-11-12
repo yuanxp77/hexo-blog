@@ -6,6 +6,7 @@ test:
 	@git add . && git commit -m "commit by makefile" && git push &
 
 	@if lsof -i :$(PORT); then kill -9 $$(lsof -t -i :$(PORT)); fi
+	@nohup hexo g &
 	@nohup hexo s &
 
 	@sleep 2;
