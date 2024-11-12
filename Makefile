@@ -3,8 +3,8 @@ PORT=4000
 .PHONY: test
 test:
 	git add . && git commit -m "commit by makefile" && git push &
-	
-	@if lsof -i :$(PORT); then \
+
+	nohup @if lsof -i :$(PORT); then \
 		echo "Port $(PORT) is in use. Killing the process..."; \
 		kill -9 $$(lsof -t -i :$(PORT)); \
 	else \
