@@ -13,6 +13,7 @@ test:
 
 .PHONY: live
 live:
+	@rm nohup.out
 	@git add . && git commit -m "commit by makefile" && git push &
 	hexo clean
 	hexo g -d
