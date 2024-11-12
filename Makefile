@@ -13,7 +13,7 @@ test:
 	nohup hexo s &
 
 	@sleep 2;
-	open -a "/Applications/Safari.app" 'http://localhost:$(PORT)'
+	open -a "/Applications/Safari.app" 'http://localhost:$(PORT)' &
 
 .PHONY: live
 live:
