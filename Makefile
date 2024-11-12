@@ -1,11 +1,18 @@
+PORT=4000
+
 .PHONY: test
 test:
 	git add .
 	git commit -m "commit by makefile"
 	git push
-	kill -9 4000
-	nohup hexo s 
-	open -a "/Applications/Safari.app" 'http://localhost:4000'
+	@if lsof -i :$(PORT); then \
+		echo "Port $(PORT) is in use. Killing the process..."; \
+		kill -9 $$(lsof -t -i :$(PORT)); \
+	else \
+		echo "Port $(PORT) is not in use."; \
+	fi
+	nohup hexo s & 
+	open -a "/Applications/Safari.app" 'http://localhost:$(PORT)'
 
 
 .PHONY: live
@@ -13,6 +20,7 @@ live:
 	git add .
 	git commit -m "commit by makefile"
 	git push
+	hexo clean
 	hexo g -d
 
 .DEFAULT_GOAL:= test
