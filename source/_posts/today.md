@@ -6,4 +6,4 @@ tags:
 
 Hello，你好！这是我的博客，我会在这里分享我的学习情况，还有我的代码。😁
 
-![a](smile.gif)
+![smile.gif](smile.gif)
