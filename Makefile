@@ -4,9 +4,7 @@ PORT=4000
 test:
 	@git add . && git commit -m "commit by makefile" && git push &
 
-	@if lsof -i :$(PORT); then \
-		kill -9 $$(lsof -t -i :$(PORT)); \
-	fi
+	@if lsof -i :$(PORT); then kill -9 $$(lsof -t -i :$(PORT)); fi
 	@nohup hexo s &
 
 	@sleep 2;
