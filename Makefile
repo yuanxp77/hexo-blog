@@ -9,7 +9,8 @@ test:
 	else \
 		echo "Port $(PORT) is not in use."; \
 	fi
-	nohup hexo s 
+	nohup hexo s &
+	sleep 2;
 	open -a "/Applications/Safari.app" 'http://localhost:$(PORT)'
 
 .PHONY: live
