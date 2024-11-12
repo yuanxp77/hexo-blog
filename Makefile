@@ -11,7 +11,7 @@ test:
 	else \
 		echo "Port $(PORT) is not in use."; \
 	fi
-	nohup hexo s & 
+	nohup hexo s
 	open -a "/Applications/Safari.app" 'http://localhost:$(PORT)'
 
 
