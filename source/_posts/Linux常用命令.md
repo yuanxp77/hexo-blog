@@ -7,7 +7,7 @@ tags:
 
 - 检查是否已安装
 
-```bash
+```shell
 [root@localhost ~]# java -version
 ```
 
@@ -20,7 +20,7 @@ tags:
 [root@localhost ~]# yum install -y java-1.8.0-openjdk-devel.x86_64
 ```
 
-```bash
+```shell
 # 卸载
 [root@localhost ~]# yum list installed | grep java
 [root@localhost ~]# yum -y remove java-1.8.0*
@@ -30,14 +30,14 @@ tags:
 
 - 压缩包方法
 
-```bash
+```shell
 # 解压JDK到指定的目录，如果不存在请建立该目录：/usr/lib/jvm
 [root@localhost ~]# tar -xvf jdk-8u131-linux-x64.tar.gz -C /usr/lib/jvm
 # 修改环境变量
 [root@localhost ~]# vim /etc/profile
 ```
 
-```bash
+```shell
 JAVA_HOME=/usr/lib/jvm/jdk1.8.0_131
 JRE_HOME=$JAVA_HOME/jre
 PATH=$PATH:$JAVA_HOME/bin
@@ -48,7 +48,7 @@ export PATH
 export CLASSPATH
 ```
 
-```bash
+```shell
 # 刷新环境变量
 [root@localhost ~]# source /etc/profile
 # 配置超链接
