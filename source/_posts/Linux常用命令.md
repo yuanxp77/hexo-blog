@@ -13,7 +13,7 @@ tags:
 
 - yum方法
 
-```bash
+```shell
 # 获取 jdk 列表
 # 选择带-devel的版本，不带的是jre
 [root@localhost ~]# yum -y list java*
