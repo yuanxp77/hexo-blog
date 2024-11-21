@@ -19,7 +19,7 @@ tags: 轻松一下
 正常来说，使用hexo写一篇博客，需要以下步骤：
 
 1. `hexo new blog-title`开一篇新博客
-2. 哼哧哼哧地写
+2. 哼哧哼哧开始写
 3. `hexo g`生成一下博客内容
 4. `hexo s`并且打开浏览器，输入`http://localhost:4000`进行预览
 5. `hexo d`发布
