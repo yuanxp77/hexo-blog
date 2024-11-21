@@ -59,13 +59,13 @@ tags: 轻松一下
 
       管理员运行power shell
 
-      ```pgsql
+      ```bash
       Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       ```
 
       接着在power shell中键入如下命令安装make
 
-      ```cmake
+      ```bash
       choco install make
       ```
 
