@@ -317,3 +317,40 @@ INFO  Generated: Moments/index.html
 INFO  Generated: archives/2024/index.html
 INFO  Generated: tags/轻松一下/index.html
 INFO  10 files generated in 82 ms
+INFO  Validating config
+INFO  Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  Start processing
+INFO  Start processing
+INFO  Files loaded in 1.43 s
+INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.
+INFO  Generated: 2024/11/11/一种写Hexo博客的姿势/index.html
+INFO  Generated: 404.html
+INFO  Generated: 2024/11/05/hello-world/index.html
+INFO  Generated: archives/2024/index.html
+INFO  Generated: 2024/11/20/Linux常用命令/index.html
+INFO  Generated: archives/2024/11/index.html
+INFO  Generated: Moments/index.html
+INFO  Generated: index.html
+INFO  Generated: archives/index.html
+INFO  Generated: tags/轻松一下/index.html
+INFO  10 files generated in 63 ms
