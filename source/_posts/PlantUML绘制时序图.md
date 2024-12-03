@@ -46,3 +46,20 @@ Alice <-- Bob: Another authentication Response
 ```
 ![2024-12-03-18-26-46.png](2024-12-03-18-26-46.png)
 
+使用 `as` 关键字来重新命名参与者，你可以把它理解成定义变量一样, `as` 后面跟着的就是变量，声明后我们后面就可以使用这个变量了。
+使用 `order` 关键字来定制参与者的显示顺序，数字越小，越往前排。
+使用 `title` 关键字定义时序图的标题。
+参与者后加上冒号(`:`)，后面跟上当前连线上的说明。如果连线上的文本过长，可以使用 `\n` 使长文本换行展示，不至于导致连线过长。
+
+```shell
+@startuml
+title 测试PlantUML绘图
+participant Last as L order 30
+participant Middle as M order 20
+participant First as F order 10
+
+F -> M: 开始到中间
+L <-- M: 中间到最后
+@enduml
+```
+![2024-12-03-18-31-43.png](2024-12-03-18-31-43.png)
