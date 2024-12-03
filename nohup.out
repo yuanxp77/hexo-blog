@@ -613,3 +613,40 @@ INFO  Generated: tags/轻松一下/index.html
 INFO  Generated: 2024/11/20/Linux常用命令/时序图/2024-12-03-18-48-51.png
 INFO  Generated: 2024/11/20/Linux常用命令/时序图/2024-12-03-18-47-52.png
 INFO  11 files generated in 72 ms
+INFO  INFO  Validating config
+Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  Start processing
+INFO  Start processing
+INFO  Files loaded in 1.32 s
+INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/index.html
+INFO  Generated: archives/2024/11/index.html
+INFO  Generated: archives/2024/index.html
+INFO  Generated: archives/2024/12/index.html
+INFO  Generated: archives/index.html
+INFO  Generated: 404.html
+INFO  Generated: Moments/index.html
+INFO  Generated: index.html
+INFO  Generated: tags/轻松一下/index.html
+INFO  Generated: 2024/11/20/Linux常用命令/时序图/2024-12-03-18-49-25.png
+INFO  10 files generated in 66 ms
