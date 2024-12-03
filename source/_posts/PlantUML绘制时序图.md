@@ -15,7 +15,7 @@ tags:
 用 `->` 来绘制参与者之间传递的消息，`-->` 表示虚线。
 各种箭头的写法：
 
-```
+```shell
 @startuml
 Bob ->x Alice
 Bob -> Alice
@@ -35,7 +35,7 @@ Bob <->o Alice
 
 关键字 `autonumber` 用于自动对消息编号
 
-```rust
+```shell
 @startuml
 autonumber
 Alice -> Bob: Authentication Request
