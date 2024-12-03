@@ -113,3 +113,61 @@ deactivate M
 @enduml
 ```
 ![2024-12-03-18-39-41.png](2024-12-03-18-39-41.png)
+
+上面例子可以看出，每次需要手写关键字激活，不是很方便，也可以使用自动激活关键字（`autoactivate`），这需要与 `return` 关键字配合：
+
+```
+@startuml
+autoactivate on
+title 测试PlantUML绘图
+participant Last as L order 30
+participant Middle as M order 20
+participant First as F order 10
+
+F -> M: 开始到中间
+M -> M: 中间到最后
+M --> L: 中间到最后
+return 开始到中间
+return 开始到中间
+return 开始到中间
+@enduml
+```
+
+注意，`return` 返回的点是导致最近一次激活生命线的点。
+
+
+
+
+
+## 声明参与者
+
+使用关键字 `participant` 可以来声明参与者，默认使用长方形表示参与者，参与者如果没有明确指定类型，默认是 `participant` 类型。
+PlantUML 还预制了一些默认参与者，其形状不同。
+`actor`（角色）
+`boundary`（边界）
+`control`（控制）
+`entity`（实体）
+`database`（数据库）
+`collections`（集合）
+`queue`（队列）
+
+```
+@startuml
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+```
+![2024-12-03-18-45-50.png](2024-12-03-18-45-50.png)
