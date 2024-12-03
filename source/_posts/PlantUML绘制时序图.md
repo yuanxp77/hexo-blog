@@ -63,3 +63,53 @@ L <-- M: 中间到最后
 @enduml
 ```
 ![2024-12-03-18-31-43.png](2024-12-03-18-31-43.png)
+
+使用 `activate` 和 `deactivate` 表示参与者的生命线。比如上面例子，如果加上参与者的生命线，一旦参与者被激活，生命线就会被显示出来，会变成这个样子。
+`destroy` 表示一个参与者的生命线的终结。
+
+```
+@startuml
+title 测试PlantUML绘图
+participant Last as L order 30
+participant Middle as M order 20
+participant First as F order 10
+
+F -> M: 开始到中间
+activate M
+
+L <-- M: 中间到最后
+
+activate L
+L --> M: 中间到最后
+destroy L
+
+M--> F: 中间到开始结束
+deactivate M
+@enduml
+```
+![2024-12-03-18-36-06.png](2024-12-03-18-36-06.png)
+
+还可以使用嵌套的生命线，并且运行给生命线添加颜色。
+
+```
+@startuml
+title 测试PlantUML绘图
+participant Last as L order 30
+participant Middle as M order 20
+participant First as F order 10
+
+F -> M: 开始到中间
+activate M #FFBBBB
+
+L <-- M: 中间到最后
+activate M #DarkSalmon
+
+activate L
+L --> M: 中间到最后
+destroy L
+
+M--> F: 中间到开始结束
+deactivate M
+@enduml
+```
+![2024-12-03-18-39-41.png](2024-12-03-18-39-41.png)
