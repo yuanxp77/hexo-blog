@@ -205,3 +205,51 @@ Bob -> Alice: 您好，我有一些想法，但我想先征求您的意见。
 ```
 ![2024-12-03-18-49-25.png](2024-12-03-18-49-25.png)
 ![2024-12-03-18-48-51.png](2024-12-03-18-48-51.png)
+
+# 注释
+
+可以使用 `note left` 或 `note right` 关键字在信息后面加上注释。
+你可以使用 `end note` 关键字有一个多行注释。
+
+```
+@startuml
+== 初始化 ==
+Alice -> Bob: 你好，我是Alice，请问有什么可以帮助您？
+note right of Alice: 请问您有什么想法或建议吗？
+Bob -> Alice: 您好，我是Bob，很高兴为您服务。
+note left of Bob: 您有什么想法或建议吗？
+
+
+== 商机分析 ==
+Alice -> Bob: 请问您有什么想法或建议吗？
+note right: 您好，我有一些想法，但我想先征求您的意见。
+Bob -> Alice: 您好，我有一些想法，但我想先征求您的意见。
+note right
+这是多行的版本
+1
+2
+3
+end note
+@enduml
+```
+![2024-12-03-18-54-55.png](2024-12-03-18-54-55.png)
+
+可以使用 `note left of`，`note right of` 或 `note over` 在节点(`participant`)的相对位置放置注释。
+还可以通过修改背景色来高亮显示注释。
+
+```
+@startuml
+== 初始化 ==
+Alice -> Bob: 你好，我是Alice，请问有什么可以帮助您？
+note right of Alice: 请问您有什么想法或建议吗？
+Bob -> Alice: 您好，我是Bob，很高兴为您服务。
+note left of Bob: 您有什么想法或建议吗？
+
+
+== 商机分析 ==
+Alice -> Bob: 请问您有什么想法或建议吗？
+note over Alice, Bob #lightblue: 您好，我有一些想法，但我想先征求您的意见。
+Bob -> Alice: 您好，我有一些想法，但我想先征求您的意见。
+@enduml
+```
+![2024-12-03-18-57-08.png](2024-12-03-18-57-08.png)
