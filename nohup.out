@@ -926,3 +926,45 @@ INFO  Generated: tags/轻松一下/index.html
 INFO  Generated: index.html
 INFO  13 files generated in 76 ms
 WARN  Trying to "create" monents/index.md, but the file already exists!
+INFO  Validating config
+INFO  Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  Start processing
+INFO  Start processing
+INFO  Files loaded in 1.3 s
+INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.
+INFO  Deleted: Moments/index.html
+INFO  Generated: monents/index.html
+INFO  Generated: 2024/11/11/一种写Hexo博客的姿势/index.html
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/index.html
+INFO  Generated: 404.html
+INFO  Generated: 2024/11/05/hello-world/index.html
+INFO  Generated: tags/轻松一下/index.html
+INFO  Generated: 2024/11/28/待填坑列表/index.html
+INFO  Generated: 2024/11/20/Linux常用命令/index.html
+INFO  Generated: archives/2024/11/index.html
+INFO  Generated: archives/2024/12/index.html
+INFO  Generated: archives/2024/index.html
+INFO  Generated: index.html
+INFO  Generated: archives/index.html
+INFO  13 files generated in 71 ms
+WARN  Trying to "create" moments/index.md, but the file already exists!
