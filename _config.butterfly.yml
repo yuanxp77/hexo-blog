@@ -855,7 +855,7 @@ canvas_fluttering_ribbon:
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
 canvas_nest:
-  enable: false
+  enable: true
   # Color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
   color: '0,0,255'
   # The opacity of line (0~1)
@@ -864,7 +864,7 @@ canvas_nest:
   zIndex: -1
   # The number of lines
   count: 99
-  mobile: false
+  mobile: true
 
 # Mouse click effects: fireworks
 fireworks:
