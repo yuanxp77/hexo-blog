@@ -24,6 +24,7 @@ menu:
   #   Movie: /movies/ || fas fa-video
   Home: / || fas fa-home
   Moments: /Moments/ || fas fa-images
+  About: /about/ || fas fa-heart
   List||fas fa-list||hide:
     Movie: /movies/ || fas fa-video
 
