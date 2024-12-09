@@ -1277,3 +1277,72 @@ INFO  Generated: 404.html
 INFO  Generated: index.html
 INFO  Generated: archives/index.html
 INFO  8 files generated in 68 ms
+INFO  Validating config
+INFO  Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  Start processing
+INFO  Start processing
+INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.
+INFO  Files loaded in 1.4 s
+INFO  Generated: moments/index.html
+INFO  Generated: 404.html
+INFO  Generated: archives/index.html
+INFO  Generated: index.html
+INFO  Generated: img/favicon.ico
+INFO  Generated: archives/2024/11/index.html
+INFO  Generated: img/friend_404.gif
+INFO  Generated: img/smile.gif
+INFO  Generated: img/404.jpg
+INFO  Generated: tags/轻松一下/index.html
+INFO  Generated: img/error-page.png
+INFO  Generated: css/var.css
+INFO  Generated: js/search/algolia.js
+INFO  Generated: css/index.css
+INFO  Generated: js/tw_cn.js
+INFO  Generated: archives/2024/12/index.html
+INFO  Generated: css/mac-osx.css
+INFO  Generated: js/main.js
+INFO  Generated: js/search/local-search.js
+INFO  Generated: img/cat.png
+INFO  Generated: archives/2024/index.html
+INFO  Generated: img/1.png
+INFO  Generated: js/utils.js
+INFO  Generated: 2024/11/28/待填坑列表/index.html
+INFO  Generated: img/2.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/index.html
+INFO  Generated: img/butterfly-icon.png
+INFO  Generated: 2024/11/05/hello-world/index.html
+INFO  Generated: 2024/11/20/Linux常用命令/index.html
+INFO  Generated: 2024/11/11/一种写Hexo博客的姿势/index.html
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-25-51.png
+INFO  Generated: img/bg.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-31-43.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-26-46.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-36-06.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-39-41.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-49-25.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-48-51.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-47-52.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-57-08.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-54-55.png
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/2024-12-03-18-45-50.png
+INFO  42 files generated in 446 ms
