@@ -786,7 +786,7 @@ preloader:
   # 2. pace (progress bar)
   source: 1
   # pace theme (see https://codebyzach.github.io/pace/)
-  pace_css_url:
+  pace_css_url: /css/mac-osx.css
 
 # Page Transition
 enter_transitions: true
