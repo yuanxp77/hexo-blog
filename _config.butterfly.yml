@@ -780,13 +780,13 @@ mask:
 
 # Loading Animation
 preloader:
-  enable: true
+  enable: false
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
   source: 1
   # pace theme (see https://codebyzach.github.io/pace/)
-  pace_css_url: https://codebyzach.github.io/246db4b2-66a3-4f87-9e48-ca86eefbe44b
+  pace_css_url:
 
 # Page Transition
 enter_transitions: true
