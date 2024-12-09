@@ -849,8 +849,8 @@ canvas_ribbon:
 
 # Fluttering Ribbon
 canvas_fluttering_ribbon:
-  enable: true
-  mobile: true
+  enable: false
+  mobile: false
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
