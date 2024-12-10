@@ -1,5 +1,5 @@
 ---
-title: about
+title: About
 date: 2024-12-09 18:31:23
 ---
 
