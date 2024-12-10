@@ -23,7 +23,7 @@ Affiliate Network项目
 
 ### 云计算开发 | 超聚变 Xfusion
 *2023年7月 – 2024年1月*
-FusionOne HCI项目
+FusionOne HCI项目（实习）
 
 ### Java 后端开发 | 喜马拉雅 Himalaya
 *2023年3月 – 2023年6月*
