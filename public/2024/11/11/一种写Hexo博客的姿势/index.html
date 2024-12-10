@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一种写Hexo博客的姿势 | yuanxp77</title><meta name="author" content="yuanxp77,yuanxp77@outlook.com"><meta name="copyright" content="yuanxp77"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="写在前面 本文旨在介绍一种技巧来简化使用hexo的一些步骤，使我们能专注于写文章的过程，提高效率。博主用的是macos，部分内容其他系统可能不适用，需要自行探索（doge）。  首先我想介绍一个工具，叫makefile。什么是makefile？或许一些平时使用ide的程序员不太了解这个东西，因为它的主要能力——构建，已经融入了ide。在这篇博客里，我们只需要知道它可以将多行的命令打包成一句，然后执">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一种写Hexo博客的姿势">
+<meta property="og:url" content="https://yuanxp77.github.io/2024/11/11/%E4%B8%80%E7%A7%8D%E5%86%99Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%A7%BF%E5%8A%BF/index.html">
+<meta property="og:site_name" content="yuanxp77">
+<meta property="og:description" content="写在前面 本文旨在介绍一种技巧来简化使用hexo的一些步骤，使我们能专注于写文章的过程，提高效率。博主用的是macos，部分内容其他系统可能不适用，需要自行探索（doge）。  首先我想介绍一个工具，叫makefile。什么是makefile？或许一些平时使用ide的程序员不太了解这个东西，因为它的主要能力——构建，已经融入了ide。在这篇博客里，我们只需要知道它可以将多行的命令打包成一句，然后执">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/79731325">
+<meta property="article:published_time" content="2024-11-11T12:23:11.000Z">
+<meta property="article:modified_time" content="2024-12-09T10:50:47.027Z">
+<meta property="article:author" content="yuanxp77">
+<meta property="article:tag" content="轻松一下">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/79731325"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanxp77.github.io/2024/11/11/%E4%B8%80%E7%A7%8D%E5%86%99Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%A7%BF%E5%8A%BF/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6fae23de65d9cf430a614cabc671210b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Y5QERZ6FJL"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-Y5QERZ6FJL')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-Y5QERZ6FJL', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;56348b4984d948b4a3f76bbd3623dcc1&quot;}"></script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "ouu7xdnzrn");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"Author: yuanxp77","link":"Link: ","source":"Source: yuanxp77","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一种写Hexo博客的姿势',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-09 18:50:47',
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars.githubusercontent.com/u/79731325" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/moments/"><i class="fa-fw fas fa-images"></i><span> Moments</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/smile.gif" alt="Logo"><span class="site-name">yuanxp77</span></a><a class="nav-page-title" href="/"><span class="site-name">一种写Hexo博客的姿势</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/moments/"><i class="fa-fw fas fa-images"></i><span> Moments</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">一种写Hexo博客的姿势</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-11-11T12:23:11.000Z" title="Created 2024-11-11 20:23:11">2024-11-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-12-09T10:50:47.027Z" title="Updated 2024-12-09 18:50:47">2024-12-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><blockquote>
+<p>本文旨在介绍一种技巧来简化使用hexo的一些步骤，使我们能专注于写文章的过程，提高效率。博主用的是macos，部分内容其他系统可能不适用，需要自行探索（doge）。</p>
+</blockquote>
+<p>首先我想介绍一个工具，叫makefile。什么是makefile？或许一些平时使用ide的程序员不太了解这个东西，因为它的主要能力——构建，已经融入了ide。在这篇博客里，我们只需要知道它可以将多行的命令打包成一句，然后执行。本文不会展开讲makefile的教学，只从当前的使用场景来讲讲我自己的用法和理解，抛砖引玉（大佬如有意见，可在文章底部留言）。</p>
+<p>展开学习makefile可参考：<a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/makefile/makefile-basic/index.html">https://liaoxuefeng.com/books/makefile/makefile-basic/index.html</a></p>
+<h2 id="使用前"><a href="#使用前" class="headerlink" title="使用前"></a>使用前</h2><p>正常来说，使用hexo写一篇博客，需要以下步骤：</p>
+<ol>
+<li><code>hexo new blog-title</code>开一篇新博客</li>
+<li>哼哧哼哧开始写</li>
+<li><code>hexo g</code>生成一下博客内容</li>
+<li><code>hexo s</code>并且打开浏览器，输入<code>http://localhost:4000</code>进行预览</li>
+<li><code>hexo d</code>发布</li>
+<li>（如有）除了发布hexo博客本身之外，hexo博客工程也要在github等远端上做备份，需要<code>git add, commit, push</code></li>
+</ol>
+<p><strong>现在我说，后面四步都可以一行指令解决，并且很简单。</strong></p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li><p>已经能使用上面提到的命令，正常使用hexo</p>
+</li>
+<li><p>为你本地的hexo博客工程也在代码托管平台（github等）创建一个仓库（建议为私有的），并能够git push</p>
+</li>
+<li><p>检查makefile环境：<code>make -v</code>，如果没有版本信息等，则需要安装，参考：</p>
+<ul>
+<li><p>Linux：<code>sudo apt install build-essential</code></p>
+</li>
+<li><p>Maxos：<code>brew install make gcc</code></p>
+</li>
+<li><p>Windows：参考 <a target="_blank" rel="noopener" href="https://tehub.com/a/aCYp1uw0tG">https://tehub.com/a/aCYp1uw0tG</a></p>
+<ul>
+<li><p>渠道1，从官网下载 make.exe Make for Windows</p>
+<p>官网首页：<a target="_blank" rel="noopener" href="https://www.gnu.org/software/make/">https://www.gnu.org/software/make/</a></p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://gnuwin32.sourceforge.net/downlinks/make.php">https://gnuwin32.sourceforge.net/downlinks/make.php</a></p>
+<p>完整安装后。把安装路径添加到环境变量 PATH 中.</p>
+</li>
+<li><p>渠道2，参考chocolaty官网安装chocolatey</p>
+<p><a target="_blank" rel="noopener" href="https://community.chocolatey.org/packages/make">https://community.chocolatey.org/packages/make</a></p>
+<p>管理员运行power shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&#x27;https://chocolatey.org/install.ps1&#x27;))</span><br></pre></td></tr></table></figure>
+
+<p>接着在power shell中键入如下命令安装make</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install make</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>渠道3，安装mingw</p>
+<p>下载路径：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw">https://sourceforge.net/projects/mingw</a></p>
+<p>里面有mingw32-make.exe，拷贝之后重命名为make.exe添加到环境变量PATH</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在你的博客工程下新建一个<code>Makefile</code>的文件，为其添加以下内容：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PORT=4000</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>: test</span></span><br><span class="line"><span class="section">test:</span></span><br><span class="line">	@git add . &amp;&amp; git commit -m <span class="string">&quot;commit by makefile&quot;</span> &amp;&amp; git push &amp;</span><br><span class="line"></span><br><span class="line">	@if lsof -i :<span class="variable">$(PORT)</span>; then kill -9 $<span class="variable">$(lsof -t -i :<span class="variable">$(PORT)</span>)</span>; fi</span><br><span class="line">	@nohup hexo g &amp;</span><br><span class="line">	@nohup hexo s &amp;</span><br><span class="line"></span><br><span class="line">	@sleep 2;</span><br><span class="line">	@open -a <span class="string">&quot;/Applications/Safari.app&quot;</span> &#x27;http://localhost:<span class="variable">$(PORT)</span>&#x27; &amp;</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>: live</span></span><br><span class="line"><span class="section">live:</span></span><br><span class="line">	@git add . &amp;&amp; git commit -m <span class="string">&quot;commit by makefile&quot;</span> &amp;&amp; git push &amp;</span><br><span class="line">	hexo clean</span><br><span class="line">	hexo g -d</span><br><span class="line"></span><br><span class="line"><span class="section">.DEFAULT_GOAL:= test</span></span><br></pre></td></tr></table></figure>
+
+<p>随后的效果就是，你在完成了博客编写的前两步，保存好你的博客。</p>
+<p>在控制台输入<code>make</code></p>
+<p>你会发现你的整个工程被push到托管仓库，并且本地新写的文章被生成好hexo工程，启动了本地预览。浏览器也自动跳出来博客的最新版本，你简单检查一下觉得满意。</p>
+<p>在控制台输入<code>make live</code></p>
+<p>你会发现你的整个工程被push到托管仓库，并且本地新写的文章被生成好hexo工程，博客也发布到github page上。</p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>其实稍微看一下Makefile文件里的内容，发现也蛮好理解的，就算没有学过。如果需要修改，注意以下的细节：</p>
+<ol>
+<li>上面的代码<code>make</code>等价于<code>make test</code>，原因是最后一行的<code>.DEFAULT_GOAL:= test</code>，可以省略参数。</li>
+<li><code>@open -a &quot;/Applications/Safari.app&quot; &#39;http://localhost:$(PORT)&#39; &amp;</code>是macos适用的，默认打开Safari浏览器进行预览，Windows需自行探索，或去掉这一行。</li>
+</ol>
+<p>引用廖雪峰大佬的博客内容：<a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/makefile/introduction/index.html">https://liaoxuefeng.com/books/makefile/introduction/index.html</a></p>
+<blockquote>
+<p><code>Makefile</code>相当于Java项目的<code>pom.xml</code>，Node工程的<code>package.json</code>，Rust项目的<code>Cargo.toml</code>，不同之处在于，<code>make</code>虽然最初是针对C语言开发，但它实际上并不限定C语言，而是可以应用到任意项目，甚至不是编程语言。此外，<code>make</code>主要用于Unix&#x2F;Linux环境的自动化开发，掌握<code>Makefile</code>的写法，可以更好地在Linux环境下做开发，也可以为后续开发Linux内核做好准备。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://yuanxp77.github.io">yuanxp77</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://yuanxp77.github.io/2024/11/11/%E4%B8%80%E7%A7%8D%E5%86%99Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%A7%BF%E5%8A%BF/">https://yuanxp77.github.io/2024/11/11/%E4%B8%80%E7%A7%8D%E5%86%99Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%A7%BF%E5%8A%BF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%BB%E6%9D%BE%E4%B8%80%E4%B8%8B/">轻松一下</a></div><div class="post-share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/79731325" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/11/20/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Linux常用命令</div></div><div class="info-2"><div class="info-item-1">安装JDK 检查是否已安装  1[root@localhost ~]# java -version   yum方法  1234# 获取 jdk 列表# 选择带-devel的版本，不带的是jre[root@localhost ~]# yum -y list java*[root@localhost ~]# yum install -y java-1.8.0-openjdk-devel.x86_64  12345# 卸载[root@localhost ~]# yum list installed | grep java[root@localhost ~]# yum -y remove java-1.8.0*[root@localhost ~]# yum -y remove tzdata-java.noarch[root@localhost ~]# yum -y remove javapackages-tools.noarch   压缩包方法  1234# 解压JDK到指定的目录，如果不存在请建立该目录：/usr/lib/jvm[root@localhost ~]# tar -xvf...</div></div></div></a><a class="pagination-related" href="/2024/11/05/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Hello World</div></div><div class="info-2"><div class="info-item-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;  More info: Writing Run server1$ hexo server  More info: Server Generate static files1$ hexo generate  More info: Generating Deploy to remote sites1$ hexo deploy  More info: Deployment </div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/79731325" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yuanxp77</div><div class="author-info-description">a programmer</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanxp77"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:yuanxp77@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Under constructioning 建设中...</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%89%8D"><span class="toc-number">2.</span> <span class="toc-text">使用前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">如何使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">3.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="toc-number">4.</span> <span class="toc-text">写在后面</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/03/PlantUML%E7%BB%98%E5%88%B6%E6%97%B6%E5%BA%8F%E5%9B%BE/" title="PlantUML绘制时序图">PlantUML绘制时序图</a><time datetime="2024-12-03T10:20:21.000Z" title="Created 2024-12-03 18:20:21">2024-12-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/28/%E5%BE%85%E5%A1%AB%E5%9D%91%E5%88%97%E8%A1%A8/" title="待填坑列表">待填坑列表</a><time datetime="2024-11-28T09:57:32.000Z" title="Created 2024-11-28 17:57:32">2024-11-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/20/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令">Linux常用命令</a><time datetime="2024-11-20T09:18:47.000Z" title="Created 2024-11-20 17:18:47">2024-11-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/11/%E4%B8%80%E7%A7%8D%E5%86%99Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%A7%BF%E5%8A%BF/" title="一种写Hexo博客的姿势">一种写Hexo博客的姿势</a><time datetime="2024-11-11T12:23:11.000Z" title="Created 2024-11-11 20:23:11">2024-11-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/05/hello-world/" title="Hello World">Hello World</a><time datetime="2024-11-05T06:06:07.938Z" title="Created 2024-11-05 14:06:07">2024-11-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By yuanxp77</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional and Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liZK5jiVBFAtBCFJ',
+      clientSecret: '142acb9fce312d852e8f9739a2a093e217215d79',
+      repo: 'yuanxp77.github.io',
+      owner: 'yuanxp77',
+      admin: ['yuanxp77'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '6abdfc7ba18f965803389301d2ab400a'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
