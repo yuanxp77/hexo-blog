@@ -23,6 +23,7 @@ menu:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
   Home: / || fas fa-home
+  News: /news/ || fas fas fa-archive
   About: /about/ || fas fa-heart
   List||fas fa-list||hide:
     Release Plan: /release-plan/ || fas fa-archive

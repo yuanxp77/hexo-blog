@@ -2213,3 +2213,4 @@ INFO  Generated: 404.html
 INFO  Generated: tags/轻松一下/index.html
 INFO  Generated: index.html
 INFO  10 files generated in 81 ms
+WARN  Trying to "create" news/index.md, but the file already exists!
