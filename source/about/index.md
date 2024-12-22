@@ -9,13 +9,13 @@ date: 2024-12-09 18:31:23
 
 ---
 
-## 个人简介
+## 个人简介 Profile
 
 憨批，于2020年8月写下第一个Hello World。
 
 ---
 
-## 工作经历
+## 工作经历 Work experience
 
 ### Go 后端开发 | 虾皮 [Shopee](https://shopee.cn/about)
 *2024年3月 – 至今*
@@ -31,7 +31,7 @@ date: 2024-12-09 18:31:23
 
 ---
 
-## 教育背景
+## 教育背景 Educational background
 
 ### 软件工程 | 广东工业大学 [GDUT](https://www.gdut.edu.cn)
 *2020年9月 – 2024年6月*
@@ -39,7 +39,7 @@ date: 2024-12-09 18:31:23
 
 ---
 
-## 兴趣爱好
+## 兴趣爱好 Hobbies
 
 - 明月
 - FPS（[CSGO](https://zh.wikipedia.org/wiki/反恐精英：全球攻势)、[无畏契约](https://zh.wikipedia.org/wiki/无畏契约)）
