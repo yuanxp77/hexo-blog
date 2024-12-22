@@ -17,7 +17,7 @@ date: 2024-12-09 18:31:23
 
 ## 工作经历
 
-### Go 后端开发 | 虾皮 Shopee
+### Go 后端开发 | 虾皮 [Shopee](https://shopee.cn/about)
 *2024年3月 – 至今*
 Affiliate Network项目
 
