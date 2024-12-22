@@ -19,15 +19,15 @@ date: 2024-12-09 18:31:23
 
 ### Go 后端开发 | 虾皮 [Shopee](https://shopee.cn/about)
 *2024年3月 – 至今*
-Affiliate Network项目
+[Affiliate Network](https://help.shopee.sg/portal/10/article/123798-What-is-Shopee-Ambassador-Programme)
 
-### 云计算开发 | 超聚变 Xfusion
+### 云计算开发 | 超聚变 [Xfusion](https://www.xfusion.com/cn/about)
 *2023年7月 – 2024年1月*
-FusionOne HCI项目（实习）
+[FusionOne HCI](https://www.xfusion.com/cn/product/hyperconverged-solutions/hci)（实习）
 
-### Java 后端开发 | 喜马拉雅 Himalaya
+### Java 后端开发 | 喜马拉雅 [Himalaya](https://www.ximalaya.com/more/aboutus/)
 *2023年3月 – 2023年6月*
-Titan、Yitian项目（实习）
+[Titan](https://www.aliyun.com/product/yunxiao)、Yitian（实习）
 
 ---
 
