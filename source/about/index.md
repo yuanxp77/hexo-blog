@@ -42,3 +42,5 @@ Titan、Yitian项目（实习）
 ## 兴趣爱好
 
 - 明月
+- FPS（[CSGO](https://zh.wikipedia.org/wiki/反恐精英：全球攻势)、[无畏契约](https://zh.wikipedia.org/wiki/无畏契约)）
+- Jazz Hiphop（[Nujabes](https://zh.wikipedia.org/wiki/Nujabes)、西原健一郎、[蛋堡](https://zh.wikipedia.org/wiki/蛋堡_(音樂人))）
