@@ -10,7 +10,7 @@ date: 2024-12-10 20:09:41
 | 电影、音乐专栏 | P2     |
 | 英语学习专栏   | P2     |
 | tag专栏        | P0     |
-| about me       | P0     |
+| Golang进阶学习   | P1     |
 | promethues学习 | P1     |
-| PlantUML学习   | P1     |
+| Elastic学习   | P1     |
 | 。。。         |        |
