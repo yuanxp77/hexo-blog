@@ -188,3 +188,6 @@ INFO  Generated: tags/轻松一下/index.html
 INFO  Generated: archives/index.html
 INFO  Generated: index.html
 INFO  11 files generated in 83 ms
+WARN  Trying to "create" release-plan copy/index.md, but the file already exists!
+WARN  Trying to "create" learn/index.md, but the file already exists!
+WARN  Trying to "create" resources/index.md, but the file already exists!

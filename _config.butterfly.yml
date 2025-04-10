@@ -27,6 +27,7 @@ menu:
   About: /about/ || fas fa-heart
   List||fas fa-list||hide:
     Release Plan: /release-plan/ || fas fa-archive
+    Resources: /resources/ || fas fa-archive
 
 # --------------------------------------
 # Code Blocks Settings
