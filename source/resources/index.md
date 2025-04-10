@@ -8,14 +8,12 @@ date: 2025-04-10 10:09:41
 - Golang
     - https://go101.org/article/unofficial-faq.html
     - https://go101.org/quizzes/101.html
-    - 
 
 - DB
     - 阿里数据库月报 http://mysql.taobao.org/monthly/
 
 - middleware
     - 详解Prometheus https://juejin.cn/post/7315720126988124175
-    - 
 
 - frame
     - DDIA 阅读笔记 https://www.yuque.com/fuxuemingzhu/ddia/kpqcs3
@@ -31,7 +29,6 @@ date: 2025-04-10 10:09:41
 - tool
     - 文本对比 https://www.jq22.com/textDifference#google_vignette
     - 时间戳 https://www.sojson.com/unixtime.html
-    - 
 
 - web3
     - https://defi-learning.org/f22
