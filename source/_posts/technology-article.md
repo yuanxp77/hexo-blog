@@ -4,7 +4,7 @@ date: 2025-04-15 12:06:37
 tags: 学习
 ---
 
-> 转自https://www.piglei.com/articles/programmer-reading-list-1，仅用于个人记录、学习，以下为原文：
+> 转自https://www.piglei.com/articles/programmer-reading-list-1 ,仅用于个人记录、学习，以下为原文：
 
 程序员们也许是互联网上最爱分享的群体之一，他们不仅喜欢开源自己写的软件，也爱通过写文章来分享知识。从业以来，我阅读过大量技术文章，其中不乏一些佳作。这些佳作中，有些凭借深刻的技术洞见令我深受启发，也有些以庖丁解牛般的精湛手法解释一项技术，让我读后大呼过瘾。
 
