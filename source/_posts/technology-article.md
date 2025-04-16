@@ -29,6 +29,7 @@ tags: 学习
 开发一个通知机器人，当自己的软件有新订阅时通知自己——外力驱动；
 每天的开发任务做到 90% 后停止，留到第二天完成——让新一天有盼头；
 为了避免自己被“今日一事无成”的罪恶感击溃，先干点高产出的正事，再做其他。
+
 3. 《用 Go 语言分析 10 亿行数据，从 95 秒到 1.96 秒》
 
 原文链接：[One Billion Row Challenge in Golang - From 95s to 1.96s](https://r2p.dev/b/2024-03-18-1brc-go/)
@@ -202,6 +203,7 @@ range 是 Python 语言中最常用的内置对象之一，功能是生产一段
 可如果不是迭代器的话，range 究竟是什么？在文章中，作者用精要的说明和代码片段做出了解答。看起来像咬文嚼字，实则是相当重要的 Python 基础概念。
 
 😊 有关迭代器和可迭代对象这个主题，我也很推荐另一篇自己写的内容：[《Python工匠》第六章 6.1.1 “迭代器与可迭代对象](https://www.piglei.com/book/ch06_loop.html)”。
+
 24. 《有关 TLS/SSL 证书的一切》
 
 原文链接：[有关 TLS/SSL 证书的一切](https://www.kawabangga.com/posts/5330)
@@ -317,6 +319,7 @@ Alex 非常优秀，但是，如果把时间拨回几年前，他根本不会被
 Ned Batchelder 的这篇文章细致解释了“mock 不生效”问题。因为写的是个常见问题，所以文章中的知识点对你来说可能并不新鲜。但即便如此，我还是很推荐它。文章结构清晰、措辞准确，里面的每张示意图和每段代码，都出现得恰到好处。哪怕不为学知识，略读一遍后，也让人心情舒畅。在技术写作方面，能从中学到不少。
 
 同时推荐作者的另一篇文章：《Python 的名字和值》，内容与 mock 这篇有关联。
+
 36. 《实用的 Go：来自真实世界的编写可维护 Go 程序的建议》
 
 原文链接：[Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
@@ -415,7 +418,7 @@ Kevin 提到的另一条原则是“让无效状态不可表示”。软件的�
 
 本来只是一件普普通通的糟心事，但作者显然不这么想，他在文章后半居然从洗衣机转向了软件开发。从故障码到说明书，从 debug 到选品牌，真是很有意思。相当好的观察与思考。
 
-46.《你的函数是什么颜色？》
+46. 《你的函数是什么颜色？》
 
 原文链接：[What Color is Your Function?](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)
 作者：Bob Nystrom
@@ -443,9 +446,9 @@ Kevin 提到的另一条原则是“让无效状态不可表示”。软件的�
 
 强烈推荐给每一位需要参与代码评审的程序员。
 
-49. [《关于 Python 3.13 你需要了解的一切 - JIT 和 GIL》](https://drew.silcock.dev/blog/everything-you-need-to-know-about-python-3-13/)
+49. 《关于 Python 3.13 你需要了解的一切 - JIT 和 GIL》
 
-原文链接：Everything you need to know about Python 3.13 – JIT and GIL went up the hill
+原文链接：[Everything you need to know about Python 3.13 – JIT and GIL went up the hill](https://drew.silcock.dev/blog/everything-you-need-to-know-about-python-3-13/)
 作者：Drew Silcock
 Python 3.13 版本引入了许多激动人心的改动，比如基于 “copy-and-patch”技术的即时编译（JIT），以及终于去掉了全局解释器锁（GIL）的“自由线程”模式，等等。
 
