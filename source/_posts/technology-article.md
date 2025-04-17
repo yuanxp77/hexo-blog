@@ -14,37 +14,37 @@ tags: 学习
 
 1. 《开发者应学习的 10 件有关“学习”的事》
 
-原文链接：[10 Things Software Developers Should Learn about Learning](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
-作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux
-学习对于任何一个人都很重要，对于软件开发者来说更是如此。这是一篇有关“学习”的科普类文章，从介绍人类记忆的工作原理开始，引出专家与新手的区别、间隔与重复的重要性等主题。
+   原文链接：[10 Things Software Developers Should Learn about Learning](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
+   作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux
+   学习对于任何一个人都很重要，对于软件开发者来说更是如此。这是一篇有关“学习”的科普类文章，从介绍人类记忆的工作原理开始，引出专家与新手的区别、间隔与重复的重要性等主题。
 
-文章中的一些观点相当具有启发性。比如“抽象和具象”：新知识对于初学者来说先是抽象的，然后通过大量例子将其具象化，最终彻底掌握后又重新变回抽象。又比如：做智力题和编程能力并没有关联性——这和我们认知中的“聪明人更会编程”大不相同。
+   文章中的一些观点相当具有启发性。比如“抽象和具象”：新知识对于初学者来说先是抽象的，然后通过大量例子将其具象化，最终彻底掌握后又重新变回抽象。又比如：做智力题和编程能力并没有关联性——这和我们认知中的“聪明人更会编程”大不相同。
 
 2. 《开发者如何管理自驱力》
 
-原文链接：[Managing My Motivation, as a Solo Dev](https://mbuffett.com/posts/maintaining-motivation/)
-作者：Marcus Buffett
-作者是一名单兵作战的开发者，分享在管理自驱力方面的心得。文章提供了许多提高自驱力的切实可行的小点子，比如：
+   原文链接：[Managing My Motivation, as a Solo Dev](https://mbuffett.com/posts/maintaining-motivation/)
+   作者：Marcus Buffett
+   作者是一名单兵作战的开发者，分享在管理自驱力方面的心得。文章提供了许多提高自驱力的切实可行的小点子，比如：
 
-开发一个通知机器人，当自己的软件有新订阅时通知自己——外力驱动；
-每天的开发任务做到 90% 后停止，留到第二天完成——让新一天有盼头；
-为了避免自己被“今日一事无成”的罪恶感击溃，先干点高产出的正事，再做其他。
+   开发一个通知机器人，当自己的软件有新订阅时通知自己——外力驱动；
+   每天的开发任务做到 90% 后停止，留到第二天完成——让新一天有盼头；
+   为了避免自己被“今日一事无成”的罪恶感击溃，先干点高产出的正事，再做其他。
 
 3. 《用 Go 语言分析 10 亿行数据，从 95 秒到 1.96 秒》
 
-原文链接：[One Billion Row Challenge in Golang - From 95s to 1.96s](https://r2p.dev/b/2024-03-18-1brc-go/)
-作者：Renato Pereira
-一篇很不错的 Go 语言性能优化文章，涉及到这些知识点：文件读取性能优化、生产者消费者模型优化、channel 对比 mutex、自定义 hash 算法，等等。
+   原文链接：[One Billion Row Challenge in Golang - From 95s to 1.96s](https://r2p.dev/b/2024-03-18-1brc-go/)
+   作者：Renato Pereira
+   一篇很不错的 Go 语言性能优化文章，涉及到这些知识点：文件读取性能优化、生产者消费者模型优化、channel 对比 mutex、自定义 hash 算法，等等。
 
-作者的思维模式、用到的工具链及优化手法非常规范，整个调优过程层层递进，文章行文也很工整。非常值得一读。
+   作者的思维模式、用到的工具链及优化手法非常规范，整个调优过程层层递进，文章行文也很工整。非常值得一读。
 
 4. 《在开发高质量软件上的花费值得吗？》
 
-原文链接：[Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
-作者：Martin Fowler
-对于大多数事物而言，如果想要追求更高的质量，必然要花费更多的成本，但对软件而言是否也是如此？作者 Martin Fowler 将软件质量分为两类：外在与内在。
+   原文链接：[Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
+   作者：Martin Fowler
+   对于大多数事物而言，如果想要追求更高的质量，必然要花费更多的成本，但对软件而言是否也是如此？作者 Martin Fowler 将软件质量分为两类：外在与内在。
 
-由于软件的内在质量很难被外人所感知，因此花在改善内在质量上的成本常被质疑。但实际上，在内在质量上投入并不增加成本，反而能降低整体花费。文章会通过详细的分析与对比告诉你为什么。
+   由于软件的内在质量很难被外人所感知，因此花在改善内在质量上的成本常被质疑。但实际上，在内在质量上投入并不增加成本，反而能降低整体花费。文章会通过详细的分析与对比告诉你为什么。
 
 5. 《错误抽象》
 
