@@ -8,8 +8,6 @@ test:
 	@nohup hexo g &
 	@nohup hexo s &
 
-
-
 	cd ./public/gua/ && chmod +x generate.sh && ./generate.sh
 
 	@sleep 2;
