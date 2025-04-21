@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件目录列表</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 5px 0; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h2>文件目录列表</h2>
+    <input type="file" id="fileInput" webkitdirectory directory multiple>
+    <ul id="fileList"></ul>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                
+                link.href = URL.createObjectURL(file);
+                link.textContent = file.name;
+                link.target = "_blank";
+                
+                listItem.appendChild(link);
+                fileList.appendChild(listItem);
+            }
+        });
+    </script>
+</body>
+</html>
