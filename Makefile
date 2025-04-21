@@ -8,8 +8,8 @@ test:
 	@nohup hexo g &
 	@nohup hexo s &
 
-	cd ./public/gua
-	sh generate.sh
+	cd ./public/gua/ && ./generate.sh
+	
 
 	@sleep 2;
 	@open -a "/Applications/Safari.app" 'http://localhost:$(PORT)' &
