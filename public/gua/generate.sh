@@ -29,7 +29,7 @@ EOF
 
 # 遍历当前目录
 for item in *; do
-    if [ "$item" != "$HTML_FILE" ] || [ "$item" != "generate.sh" ]; then
+    if [ "$item" != "$HTML_FILE" ] && [ "$item" != "generate.sh" ]; then
         if [ -d "$item" ]; then
             # 目录项
             echo "        <li class=\"dir\">📁 <a href=\"$item/\">$item/</a></li>" >> $HTML_FILE
