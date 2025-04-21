@@ -49,3 +49,4 @@ date: 2025-04-10 10:09:41
     - 实现你自己的xxx https://github.com/codecrafters-io/build-your-own-x
     - 让github每天都是绿的 https://cloud.tencent.com/developer/article/1796848
     - shell 十三问 http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=218853&page=1#pid1452197
+    - 妙匠良品 https://seiyacasa.netlify.app/?dt_platform=wechat_friends&dt_dapp=1
