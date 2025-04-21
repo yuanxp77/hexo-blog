@@ -44,11 +44,10 @@ done
 cat >> $HTML_FILE <<EOF
     </ul>
     <footer style=\"margin-top: 20px; color: #7f8c8d; font-size: 0.9em;\">
-        共 $(ls | grep -v $HTML_FILE | wc -l) 个项目
+        total $(ls | grep -v $HTML_FILE | wc -l) 
     </footer>
 </body>
 </html>
 EOF
 
-echo "已生成 $HTML_FILE"
 # xdg-open $HTML_FILE 2>/dev/null || open $HTML_FILE 2>/dev/null
