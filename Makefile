@@ -8,7 +8,7 @@ test:
 	@nohup hexo g &
 	@nohup hexo s &
 
-	cd /public/gua
+	cd ./public/gua
 	sh generate.sh
 
 	@sleep 2;
