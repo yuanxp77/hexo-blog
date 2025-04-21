@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>文件列表</title>
+    <title>当前目录文件列表 2025-04-21</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 8px 0; padding: 5px; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .file-item { display: flex; align-items: center; }
+        .file-icon { margin-right: 10px; }
+        .dir { color: #e74c3c; font-weight: bold; }
+    </style>
 </head>
 <body>
+    <h1>当前目录文件列表 2025-04-21</h1>
+    <p>生成时间: 2025-04-21 18:59:08</p>
     <ul>
-        <?php
-        $files = scandir(__DIR__);
-        foreach ($files as $file) {
-            if ($file !== '.' && $file !== '..' && $file !== basename(__FILE__)) {
-                echo "<li><a href='$file'>$file</a></li>";
-            }
-        }
-        ?>
+        <li class="file-item">📄 <a href="anker.pdf">anker.pdf</a></li>
+        <li class="file-item">📄 <a href="blg.pdf">blg.pdf</a></li>
+        <li class="file-item">📄 <a href="generate.sh">generate.sh</a></li>
     </ul>
+    <footer style=\"margin-top: 20px; color: #7f8c8d; font-size: 0.9em;\">
+        共        3 个项目
+    </footer>
 </body>
 </html>

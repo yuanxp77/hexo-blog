@@ -53,4 +53,4 @@ cat >> $HTML_FILE <<EOF
 EOF
 
 echo "已生成 $HTML_FILE"
-xdg-open $HTML_FILE 2>/dev/null || open $HTML_FILE 2>/dev/null
+# xdg-open $HTML_FILE 2>/dev/null || open $HTML_FILE 2>/dev/null
