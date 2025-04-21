@@ -1,8 +1,6 @@
 #!/bin/sh
-# 生成当前目录文件列表的HTML页面
 
 HTML_FILE="index.html"
-TITLE="当前目录文件列表 $(date '+%Y-%m-%d')"
 
 # 创建HTML文件头部
 cat > $HTML_FILE <<EOF
@@ -24,14 +22,14 @@ cat > $HTML_FILE <<EOF
     </style>
 </head>
 <body>
-    <h1>$TITLE</h1>
-    <p>生成时间: $(date '+%Y-%m-%d %H:%M:%S')</p>
+    <h1>Melon</h1>
+    <p>update time: $(date '+%Y-%m-%d %H:%M:%S')</p>
     <ul>
 EOF
 
 # 遍历当前目录
 for item in *; do
-    if [ "$item" != "$HTML_FILE" ]; then
+    if [ "$item" != "$HTML_FILE" ] || [ "$item" != "generate.sh" ]; then
         if [ -d "$item" ]; then
             # 目录项
             echo "        <li class=\"dir\">📁 <a href=\"$item/\">$item/</a></li>" >> $HTML_FILE
