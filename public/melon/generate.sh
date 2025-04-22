@@ -44,7 +44,7 @@ done
 cat >> $HTML_FILE <<EOF
     </ul>
     <footer style=\"margin-top: 20px; color: #7f8c8d; font-size: 0.9em;\">
-        total $(ls | grep -v $HTML_FILE -1 | wc -l) 
+        total $(ls | grep -v $HTML_FILE +1 | wc -l) 
     </footer>
 </body>
 </html>
