@@ -14,8 +14,8 @@ tags: 学习
 
 1. 《开发者应学习的 10 件有关"学习"的事》
 
-    原文链接：[10 Things Software Developers Should Learn about Learning](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
-    作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux
+   - 原文链接：[10 Things Software Developers Should Learn about Learning](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
+   - 作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux
 
     学习对于任何一个人都很重要，对于软件开发者来说更是如此。这是一篇有关"学习"的科普类文章，从介绍人类记忆的工作原理开始，引出专家与新手的区别、间隔与重复的重要性等主题。
 
