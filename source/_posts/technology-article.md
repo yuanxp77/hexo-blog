@@ -14,457 +14,506 @@ tags: 学习
 
 1. 《开发者应学习的 10 件有关"学习"的事》
 
-原文链接：[10 Things Software Developers Should Learn about Learning](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
-作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux
-学习对于任何一个人都很重要，对于软件开发者来说更是如此。这是一篇有关"学习"的科普类文章，从介绍人类记忆的工作原理开始，引出专家与新手的区别、间隔与重复的重要性等主题。
+    原文链接：[10 Things Software Developers Should Learn about Learning](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
+    作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux
 
-文章中的一些观点相当具有启发性。比如"抽象和具象"：新知识对于初学者来说先是抽象的，然后通过大量例子将其具象化，最终彻底掌握后又重新变回抽象。又比如：做智力题和编程能力并没有关联性——这和我们认知中的"聪明人更会编程"大不相同。
+    学习对于任何一个人都很重要，对于软件开发者来说更是如此。这是一篇有关"学习"的科普类文章，从介绍人类记忆的工作原理开始，引出专家与新手的区别、间隔与重复的重要性等主题。
+
+    文章中的一些观点相当具有启发性。比如"抽象和具象"：新知识对于初学者来说先是抽象的，然后通过大量例子将其具象化，最终彻底掌握后又重新变回抽象。又比如：做智力题和编程能力并没有关联性——这和我们认知中的"聪明人更会编程"大不相同。
 
 2. 《开发者如何管理自驱力》
 
-原文链接：[Managing My Motivation, as a Solo Dev](https://mbuffett.com/posts/maintaining-motivation/)
-作者：Marcus Buffett
-作者是一名单兵作战的开发者，分享在管理自驱力方面的心得。文章提供了许多提高自驱力的切实可行的小点子，比如：
+    原文链接：[Managing My Motivation, as a Solo Dev](https://mbuffett.com/posts/maintaining-motivation/)
+    作者：Marcus Buffett
 
-开发一个通知机器人，当自己的软件有新订阅时通知自己——外力驱动；
-每天的开发任务做到 90% 后停止，留到第二天完成——让新一天有盼头；
-为了避免自己被"今日一事无成"的罪恶感击溃，先干点高产出的正事，再做其他。
+    作者是一名单兵作战的开发者，分享在管理自驱力方面的心得。文章提供了许多提高自驱力的切实可行的小点子，比如：
+
+    开发一个通知机器人，当自己的软件有新订阅时通知自己——外力驱动；
+    每天的开发任务做到 90% 后停止，留到第二天完成——让新一天有盼头；
+    为了避免自己被"今日一事无成"的罪恶感击溃，先干点高产出的正事，再做其他。
 
 3. 《用 Go 语言分析 10 亿行数据，从 95 秒到 1.96 秒》
 
-原文链接：[One Billion Row Challenge in Golang - From 95s to 1.96s](https://r2p.dev/b/2024-03-18-1brc-go/)
-作者：Renato Pereira
-一篇很不错的 Go 语言性能优化文章，涉及到这些知识点：文件读取性能优化、生产者消费者模型优化、channel 对比 mutex、自定义 hash 算法，等等。
+    原文链接：[One Billion Row Challenge in Golang - From 95s to 1.96s](https://r2p.dev/b/2024-03-18-1brc-go/)
+    作者：Renato Pereira
 
-作者的思维模式、用到的工具链及优化手法非常规范，整个调优过程层层递进，文章行文也很工整。非常值得一读。
+    一篇很不错的 Go 语言性能优化文章，涉及到这些知识点：文件读取性能优化、生产者消费者模型优化、channel 对比 mutex、自定义 hash 算法，等等。
+
+    作者的思维模式、用到的工具链及优化手法非常规范，整个调优过程层层递进，文章行文也很工整。非常值得一读。
 
 4. **《在开发高质量软件上的花费值得吗？》**
 
-原文链接：[Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)  
-作者：Martin Fowler
+    原文链接：[Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)  
+    作者：Martin Fowler
 
-对于大多数事物而言，如果想要追求更高的质量，必然要花费更多的成本，但对软件而言是否也是如此？作者 Martin Fowler 将软件质量分为两类：外在与内在。
+    对于大多数事物而言，如果想要追求更高的质量，必然要花费更多的成本，但对软件而言是否也是如此？作者 Martin Fowler 将软件质量分为两类：外在与内在。
 
-由于软件的内在质量很难被外人所感知，因此花在改善内在质量上的成本常被质疑。但实际上，在内在质量上投入并不增加成本，反而能降低整体花费。文章会通过详细的分析与对比告诉你为什么。
+    由于软件的内在质量很难被外人所感知，因此花在改善内在质量上的成本常被质疑。但实际上，在内在质量上投入并不增加成本，反而能降低整体花费。文章会通过详细的分析与对比告诉你为什么。
 
 5. **《错误抽象》**
 
-原文链接：[The Wrong Abstraction](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction)  
-作者：Sandi Metz
+    原文链接：[The Wrong Abstraction](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction)  
+    作者：Sandi Metz
 
-如果你想要建造一栋楼房，假如地基不正，最终只能收获一栋歪歪扭扭的残次品。对编程而言，抽象便是地基，良好的抽象是一切美好事物的前提。
+    如果你想要建造一栋楼房，假如地基不正，最终只能收获一栋歪歪扭扭的残次品。对编程而言，抽象便是地基，良好的抽象是一切美好事物的前提。
 
-这篇文章探讨了复用与抽象间的关系，作者犀利地指出一个事实：对"沉没成本"的恐惧常常孕育出错误抽象，而后者将引发项目质量恶化。
+    这篇文章探讨了复用与抽象间的关系，作者犀利地指出一个事实：对"沉没成本"的恐惧常常孕育出错误抽象，而后者将引发项目质量恶化。
 
-一篇短小精悍的经典之作，不容错过。
+    一篇短小精悍的经典之作，不容错过。
 
 6. 《谷歌技术写作课：编写有帮助的错误信息》
 
-原文链接：[Writing Helpful Error Messages](https://developers.google.com/tech-writing/error-messages)
-作者：谷歌工程团队
-在软件开发中，错误信息是一种极为微妙的存在，糟糕的错误信息使人沮丧，时刻提醒着我们："魔鬼藏在细节中"。
+    原文链接：[Writing Helpful Error Messages](https://developers.google.com/tech-writing/error-messages)
+    作者：谷歌工程团队
 
-对此，谷歌团队提供了一份关于错误信息的写作建议，包含：精确描述、提供解决方案、面向目标读者写作、用正确的语气写作，等等。我认为这应该成为每位程序员的必修课。
+    在软件开发中，错误信息是一种极为微妙的存在，糟糕的错误信息使人沮丧，时刻提醒着我们："魔鬼藏在细节中"。
+
+    对此，谷歌团队提供了一份关于错误信息的写作建议，包含：精确描述、提供解决方案、面向目标读者写作、用正确的语气写作，等等。我认为这应该成为每位程序员的必修课。
 
 7. 《深入 Python 字典——一份"可探索"的解释》
 
-原文链接：[Inside python dict — an explorable explanation](https://just-taking-a-ride.com/inside_python_dict/chapter1.html)
-作者：Alexander Putilin
-毫不夸张的说，网上介绍 Python 字典原理的文章多到泛滥。但这篇比较特别，它的特别主要体现在标题里的"可探索"上。
+    原文链接：[Inside python dict — an explorable explanation](https://just-taking-a-ride.com/inside_python_dict/chapter1.html)
+    作者：Alexander Putilin
 
-在文章中，作者用一些 Python 代码模拟了字典数据类型。这些代码可在页面上点击执行，过程完全可视化。比如当字典中出现哈希冲突时，会有非常细致的动画，看起来妙趣横生。
+    毫不夸张的说，网上介绍 Python 字典原理的文章多到泛滥。但这篇比较特别，它的特别主要体现在标题里的"可探索"上。
+
+    在文章中，作者用一些 Python 代码模拟了字典数据类型。这些代码可在页面上点击执行，过程完全可视化。比如当字典中出现哈希冲突时，会有非常细致的动画，看起来妙趣横生。
 
 8. 《愿意让自己显得愚蠢》
 
-原文链接：[Willingness to look stupid](https://danluu.com/look-stupid/)
-作者：Dan Luu
-人们天生在意他人的看法，每个人都希望自己是别人眼里的"聪明人"，而不是"傻瓜"。不过，本文作者分享了一个不太常见的观点：做一些让自己显得愚蠢的事，利远大于弊。 比方说：提出愚蠢问题往往能获得对事物更深入的理解；用别人眼中的蠢办法学习，效果更好。
+    原文链接：[Willingness to look stupid](https://danluu.com/look-stupid/)
+    作者：Dan Luu
+
+    人们天生在意他人的看法，每个人都希望自己是别人眼里的"聪明人"，而不是"傻瓜"。不过，本文作者分享了一个不太常见的观点：做一些让自己显得愚蠢的事，利远大于弊。 比方说：提出愚蠢问题往往能获得对事物更深入的理解；用别人眼中的蠢办法学习，效果更好。
 
 9. 《我们为什么坚持使用 Ruby on Rails》
 
-原文链接：[Why we're sticking with Ruby on Rails](https://about.gitlab.com/blog/2022/07/06/why-were-sticking-with-ruby-on-rails/)
-作者：Sid Sijbrandij
-著名的开源软件 GitLab 的大部分代码都在一个 Rails 单体项目里。GitLab 采用"模块化单体"架构，并未使用近年颇为流行的微服务架构。作者在文章中解释了 GitLab 这么做的原因：微服务架构徒增偶然复杂度，却对降低本质复杂度帮助不大。
+    原文链接：[Why we're sticking with Ruby on Rails](https://about.gitlab.com/blog/2022/07/06/why-were-sticking-with-ruby-on-rails/)
+    作者：Sid Sijbrandij
 
-我很认同文章中的一句话：架构该为需求服务，而不是反过来。
+    著名的开源软件 GitLab 的大部分代码都在一个 Rails 单体项目里。GitLab 采用"模块化单体"架构，并未使用近年颇为流行的微服务架构。作者在文章中解释了 GitLab 这么做的原因：微服务架构徒增偶然复杂度，却对降低本质复杂度帮助不大。
+
+    我很认同文章中的一句话：架构该为需求服务，而不是反过来。
 
 10. 《ChatGPT 是互联网的一张模糊的 JPEG 图》
 
-原文链接：[ChatGPT Is a Blurry JPEG of the Web](https://readwise.io/reader/shared/01gry4pcabx8kh4k1pkpf2e2pe/)
-作者：Ted Chiang
-这篇文章发表于大语言模型爆发前夜：GPT-3.5 已经问世，GPT-4 蓄势待发。虽然文章的主体论调偏（有理由的）消极，但是文章中的大量精彩类比，以及作者优美的文笔，令人击节称叹。也许你不一定认同作者关于大模型的观点，但你很难不被作者字里行间所流露出的深邃思考所打动。
+    原文链接：[ChatGPT Is a Blurry JPEG of the Web](https://readwise.io/reader/shared/01gry4pcabx8kh4k1pkpf2e2pe/)
+    作者：Ted Chiang
 
-阅读这篇文章时，我曾多次感叹："怎么写得这么好？"。我将页面拖动到顶部，仔细检查作者的名字——谜底揭开："难怪，作者是特德·姜！"
+    这篇文章发表于大语言模型爆发前夜：GPT-3.5 已经问世，GPT-4 蓄势待发。虽然文章的主体论调偏（有理由的）消极，但是文章中的大量精彩类比，以及作者优美的文笔，令人击节称叹。也许你不一定认同作者关于大模型的观点，但你很难不被作者字里行间所流露出的深邃思考所打动。
 
-注：特德·姜，当代美国著名科幻作家，小说作品曾获得星云奖、雨果奖等多项大奖。
+    阅读这篇文章时，我曾多次感叹："怎么写得这么好？"。我将页面拖动到顶部，仔细检查作者的名字——谜底揭开："难怪，作者是特德·姜！"
+
+    注：特德·姜，当代美国著名科幻作家，小说作品曾获得星云奖、雨果奖等多项大奖。
 
 11. 《重新发明 Python notebook 时学到的教训》
 
-原文链接：[Lessons learned reinventing the Python notebook](https://marimo.io/blog/lessons-learned)
-作者：Akshay
-一篇与产品设计有关的总结文章。文章主角是 marimo——一个类似 Jupyter 的 Python 笔记本软件。本文所涉及的内容包括：如何利用有向无环图让笔记总是可重现；为什么强约束的简单设计优于弱约束的复杂，等等。
+    原文链接：[Lessons learned reinventing the Python notebook](https://marimo.io/blog/lessons-learned)
+    作者：Akshay
 
-我很爱读这类文章，因为由技术人写的优秀产品设计经验，如珍珠般少见。
+    一篇与产品设计有关的总结文章。文章主角是 marimo——一个类似 Jupyter 的 Python 笔记本软件。本文所涉及的内容包括：如何利用有向无环图让笔记总是可重现；为什么强约束的简单设计优于弱约束的复杂，等等。
+
+    我很爱读这类文章，因为由技术人写的优秀产品设计经验，如珍珠般少见。
 
 12. 《断点单步跟踪是一种低效的调试方法》
 
-原文链接： [断点单步跟踪是一种低效的调试方法](https://blog.codingnow.com/2018/05/ineffective_debugger.html)
-作者：云风
-曾经的我以为编程像解数学题，不同人的解法或稍有区别，但终究殊途同归。然而最近两年，我发现编程更像是画画或写作，每个人信奉着自己的道。
+    原文链接： [断点单步跟踪是一种低效的调试方法](https://blog.codingnow.com/2018/05/ineffective_debugger.html)
+    作者：云风
 
-云风的这篇文章的标题，坦率来说有些骇人听闻，但仔细读过后，的确能感受到一种独特的编程智慧，一种专属于有着数十年经验的编程匠人的哲思。
+    曾经的我以为编程像解数学题，不同人的解法或稍有区别，但终究殊途同归。然而最近两年，我发现编程更像是画画或写作，每个人信奉着自己的道。
+
+    云风的这篇文章的标题，坦率来说有些骇人听闻，但仔细读过后，的确能感受到一种独特的编程智慧，一种专属于有着数十年经验的编程匠人的哲思。
 
 13. 《作为"胶水"》
 
-原文链接：[Being Glue](https://noidea.dog/glue)
-作者：Tanya Reilly
-软件工程师的日常工作除编码以外，还有大量其他事务，比如总结文档、优化工具链等，作者将这类事务统称为"胶水工作"。
+    原文链接：[Being Glue](https://noidea.dog/glue)
+    作者：Tanya Reilly
 
-胶水工作看似不起眼，但对于项目的成败至关重要。本文指出了一个被人忽视的事实：承担更多胶水工作的有责任心的工程师，反而更不易晋升。针对这一点，作者提供了一些有用的建议。
+    软件工程师的日常工作除编码以外，还有大量其他事务，比如总结文档、优化工具链等，作者将这类事务统称为"胶水工作"。
+
+    胶水工作看似不起眼，但对于项目的成败至关重要。本文指出了一个被人忽视的事实：承担更多胶水工作的有责任心的工程师，反而更不易晋升。针对这一点，作者提供了一些有用的建议。
 
 14. 《拥抱苦差事》
 
-原文链接：[Embrace the Grind](https://jacobian.org/2021/apr/7/embrace-the-grind/)
-中文翻译：[拥抱苦差事](https://www.piglei.com/articles/embrace-the-grind-cn-translation/)
-作者：Jacob Kaplan-Moss
-本文以一个魔术揭秘开头，引出作者如何通过完成"苦差事"，将整个开发团队拉出泥沼的故事；之间穿插着对程序员金句"懒惰是程序员的美德"的思考。
+    原文链接：[Embrace the Grind](https://jacobian.org/2021/apr/7/embrace-the-grind/)
+    中文翻译：[拥抱苦差事](https://www.piglei.com/articles/embrace-the-grind-cn-translation/)
+    作者：Jacob Kaplan-Moss
 
-重读这篇文章时，我想起最近在一本书上看到的另一句话，大意是这样的："外行人做事时渴求及时反馈与成就感，而专业人士在一切变得乏味后，仍然继续向前。"
+    本文以一个魔术揭秘开头，引出作者如何通过完成"苦差事"，将整个开发团队拉出泥沼的故事；之间穿插着对程序员金句"懒惰是程序员的美德"的思考。
+
+    重读这篇文章时，我想起最近在一本书上看到的另一句话，大意是这样的："外行人做事时渴求及时反馈与成就感，而专业人士在一切变得乏味后，仍然继续向前。"
 
 15. 《也许是时候停止推荐〈代码整洁之道了〉》
 
-原文链接：[It's probably time to stop recommending Clean Code](https://qntm.org/clean)
-作者：qntm
-作为一本经典书籍，《代码整洁之道》长期出现在各类编程书单中。但是，本文作者发现，这本出版于十几年前的书中的大量内容已经过时，其中的不少代码示例质量糟糕。
+    原文链接：[It's probably time to stop recommending Clean Code](https://qntm.org/clean)
+    作者：qntm
 
-在这篇文章中，本文作者对书中的部分 Java 代码片段进行了几乎称得上是"凶残"的 Code Review。文章观点有一定争议性，但也不乏道理。
+    作为一本经典书籍，《代码整洁之道》长期出现在各类编程书单中。但是，本文作者发现，这本出版于十几年前的书中的大量内容已经过时，其中的不少代码示例质量糟糕。
+
+    在这篇文章中，本文作者对书中的部分 Java 代码片段进行了几乎称得上是"凶残"的 Code Review。文章观点有一定争议性，但也不乏道理。
 
 16. 《我在编辑时考虑的事》
 
-原文链接：[What I think about when I edit](https://evaparish.com/blog/how-i-edit)
-作者：Eva Parish
-作为一名专业的技术写作者，作者 Eva 常常帮其他人编辑技术文档。久而久之，她总结出了 9 条编辑建议，比如：明确文章主题、有理由的重复，等等。
+    原文链接：[What I think about when I edit](https://evaparish.com/blog/how-i-edit)
+    作者：Eva Parish
 
-虽然文章中的部分建议更适用于英文写作场景，但我仍然很推荐它。因为你很容易发现，这篇文章虽然信息量大，但读来非常流畅、舒服——我想这就是优秀的"编辑"带来的魔力。
+    作为一名专业的技术写作者，作者 Eva 常常帮其他人编辑技术文档。久而久之，她总结出了 9 条编辑建议，比如：明确文章主题、有理由的重复，等等。
+
+    虽然文章中的部分建议更适用于英文写作场景，但我仍然很推荐它。因为你很容易发现，这篇文章虽然信息量大，但读来非常流畅、舒服——我想这就是优秀的"编辑"带来的魔力。
 
 17. 《修复流行 Python 库的内存泄露问题》
 
-原文链接：[Fixing Memory Leaks In Popular Python Libraries](https://www.paulsprogrammingnotes.com/2021/12/python-memory-leaks.html)
-作者：Paul Brown
-这篇文章的标题很大，但其实只是一篇短文，里面的 Python 示例代码不超过 10 行。
+    原文链接：[Fixing Memory Leaks In Popular Python Libraries](https://www.paulsprogrammingnotes.com/2021/12/python-memory-leaks.html)
+    作者：Paul Brown
 
-在一次黑客马拉松活动中， 本文作者和同事一起定位了 py-amqp 库的一个内存泄露问题。提交 PR 后，他在 redis-py 等流行的库中发现了类似的情况。问题和 Python 中的 try/except 语句块有关，迷惑性很强。
+    这篇文章的标题很大，但其实只是一篇短文，里面的 Python 示例代码不超过 10 行。
+
+    在一次黑客马拉松活动中， 本文作者和同事一起定位了 py-amqp 库的一个内存泄露问题。提交 PR 后，他在 redis-py 等流行的库中发现了类似的情况。问题和 Python 中的 try/except 语句块有关，迷惑性很强。
 
 18. 《UI 设计原则》
 
-原文链接：[Principles of_ User Interface Design](http://bokardo.com/principles-of-user-interface-design/)
-作者：Joshua Porter
-文章总结了 19 条 UI 设计原则，包括：清晰最重要、让用户有掌控感、渐进式披露，等等。我最喜欢的是第 17 条原则："伟大的设计是隐形的"，它让我想起一些优秀的开源软件库。
+    原文链接：[Principles of_ User Interface Design](http://bokardo.com/principles-of-user-interface-design/)
+    作者：Joshua Porter
 
-虽然名为 UI 设计，但这些原则并不只属于设计师，我认为每个人都可以从中受益。作为程序员，每当我们写下一个函数定义语句，实际就是在做一次 UI 设计。
+    文章总结了 19 条 UI 设计原则，包括：清晰最重要、让用户有掌控感、渐进式披露，等等。我最喜欢的是第 17 条原则："伟大的设计是隐形的"，它让我想起一些优秀的开源软件库。
+
+    虽然名为 UI 设计，但这些原则并不只属于设计师，我认为每个人都可以从中受益。作为程序员，每当我们写下一个函数定义语句，实际就是在做一次 UI 设计。
 
 19. 《你的数据库技能不是"锦上添花"》
 
-原文链接：[Your Database Skills Are Not 'Good to Have'](https://renegadeotter.com/2023/11/12/your-database-skills-are-not-good-to-have.html)
-作者：Andrei Taranchenko
-在文章中，作者 Andrei 先分享了一个 20 年前的故事：用 MySQL 巧妙完成了一项困难的业务需求。然后引出文章主题：如今大家对数据库技能的关注度不应该这么低。
+    原文链接：[Your Database Skills Are Not 'Good to Have'](https://renegadeotter.com/2023/11/12/your-database-skills-are-not-good-to-have.html)
+    作者：Andrei Taranchenko
 
-我很认同作者对于关系数据库和 ORM 等工具的观点。有时候，当项目遇到性能问题时，分明加个索引、优化下查询就能解决，许多人却大喊着："快点，上缓存！换 DB！"——实在大可不必。
+    在文章中，作者 Andrei 先分享了一个 20 年前的故事：用 MySQL 巧妙完成了一项困难的业务需求。然后引出文章主题：如今大家对数据库技能的关注度不应该这么低。
+
+    我很认同作者对于关系数据库和 ORM 等工具的观点。有时候，当项目遇到性能问题时，分明加个索引、优化下查询就能解决，许多人却大喊着："快点，上缓存！换 DB！"——实在大可不必。
 
 20. 《预估开发时间很难，但还是得做》
 
-原文链接：[Software Estimation Is Hard. Do It Anyway.](https://jacobian.org/2021/may/20/estimation/)
-作者：Jacob Kaplan-Moss
-在软件开发中，"估时间"是一项令人头疼的事。我们都曾有过类似的经历：拍胸脯说 3 天搞定的任务，最后足足耗费了大半个月。
+    原文链接：[Software Estimation Is Hard. Do It Anyway.](https://jacobian.org/2021/may/20/estimation/)
+    作者：Jacob Kaplan-Moss
 
-到后来，"估时间"成了到底留 1 倍还是 2 倍 buffer 的无聊游戏。但正如本文的标题所言，预估开发时间虽然难，却不可避免。这篇文章（系列）提供了一些与之相关的技巧，相信可以给你一些启发。
+    在软件开发中，"估时间"是一项令人头疼的事。我们都曾有过类似的经历：拍胸脯说 3 天搞定的任务，最后足足耗费了大半个月。
+
+    到后来，"估时间"成了到底留 1 倍还是 2 倍 buffer 的无聊游戏。但正如本文的标题所言，预估开发时间虽然难，却不可避免。这篇文章（系列）提供了一些与之相关的技巧，相信可以给你一些启发。
 
 21. 《人生短暂》
 
-原文链接：[Life Is Short](https://paulgraham.com/vb.html)
-作者：Paul Graham
-人生很短，到底该如何花费自己的时间？传奇投资人、程序员 Paul Graham 在文章中给出了他的建议。总结起来，一共 3 条：尽你所能地避免 bullshit 类事务，比如无用会议、网上吵架；对重要的事情不拖拉，意识到有些东西不会永远停在原地等你；珍惜你所拥有的每一滴时间。
+    原文链接：[Life Is Short](https://paulgraham.com/vb.html)
+    作者：Paul Graham
 
-从任何角度看，上面这些建议都称不上有多新奇。但是，作者通过真诚地分享自身经历和感受，给内容注入了不一样的灵魂。或许你会像我一样，读后能获得一些新的感悟。
+    人生很短，到底该如何花费自己的时间？传奇投资人、程序员 Paul Graham 在文章中给出了他的建议。总结起来，一共 3 条：尽你所能地避免 bullshit 类事务，比如无用会议、网上吵架；对重要的事情不拖拉，意识到有些东西不会永远停在原地等你；珍惜你所拥有的每一滴时间。
+
+    从任何角度看，上面这些建议都称不上有多新奇。但是，作者通过真诚地分享自身经历和感受，给内容注入了不一样的灵魂。或许你会像我一样，读后能获得一些新的感悟。
 
 22. 《有"产品意识"的软件工程师》
 
-原文链接：[The Product-Minded Software Engineer](https://blog.pragmaticengineer.com/the-product-minded-engineer/)
-作者：Gergely Orosz
-从事程序员越久，你大概率会越来越频繁地听到一个词："产品意识"。人人都说产品意识好，但是它看不见摸不着，到底是个什么东西？是指程序员该自己画线框图？还是说程序员应该写用户故事？
+    原文链接：[The Product-Minded Software Engineer](https://blog.pragmaticengineer.com/the-product-minded-engineer/)
+    作者：Gergely Orosz
 
-本文作者以软件工程师的视角，对"产品意识"做了全面的解读。简单来说，产品意识就是关注产品、对产品拥有好奇心、对用户拥有同理心；有产品意识的人在做技术方案时，不光思考工程角度，更能靠全局的"产品+工程"视角思考决策。
+    从事程序员越久，你大概率会越来越频繁地听到一个词："产品意识"。人人都说产品意识好，但是它看不见摸不着，到底是个什么东西？是指程序员该自己画线框图？还是说程序员应该写用户故事？
 
-"产品意识"——工程师们最为强大的思维杠杆之一。
+    本文作者以软件工程师的视角，对"产品意识"做了全面的解读。简单来说，产品意识就是关注产品、对产品拥有好奇心、对用户拥有同理心；有产品意识的人在做技术方案时，不光思考工程角度，更能靠全局的"产品+工程"视角思考决策。
+
+    "产品意识"——工程师们最为强大的思维杠杆之一。
 
 23. 《Python 的 range 不是迭代器》
 
-原文链接：[Python: range is not an iterator](https://treyhunner.com/2018/02/python-range-is-not-an-iterator/)
-作者：Trey Hunner
-range 是 Python 语言中最常用的内置对象之一，功能是生产一段数字序列，比如 range(10) => 0, 1, ..., 9。作为循环语句中被迭代的常客，range 常被误认为是一种迭代器（iterator）。但是，正如文章标题所说，虽然可被迭代，但 range 却并不是迭代器。
+    原文链接：[Python: range is not an iterator](https://treyhunner.com/2018/02/python-range-is-not-an-iterator/)
+    作者：Trey Hunner
 
-可如果不是迭代器的话，range 究竟是什么？在文章中，作者用精要的说明和代码片段做出了解答。看起来像咬文嚼字，实则是相当重要的 Python 基础概念。
+    range 是 Python 语言中最常用的内置对象之一，功能是生产一段数字序列，比如 range(10) => 0, 1, ..., 9。作为循环语句中被迭代的常客，range 常被误认为是一种迭代器（iterator）。但是，正如文章标题所说，虽然可被迭代，但 range 却并不是迭代器。
 
-😊 有关迭代器和可迭代对象这个主题，我也很推荐另一篇自己写的内容：[《Python工匠》第六章 6.1.1 "迭代器与可迭代对象](https://www.piglei.com/book/ch06_loop.html)"。
+    可如果不是迭代器的话，range 究竟是什么？在文章中，作者用精要的说明和代码片段做出了解答。看起来像咬文嚼字，实则是相当重要的 Python 基础概念。
+
+    😊 有关迭代器和可迭代对象这个主题，我也很推荐另一篇自己写的内容：[《Python工匠》第六章 6.1.1 "迭代器与可迭代对象](https://www.piglei.com/book/ch06_loop.html)"。
 
 24. 《有关 TLS/SSL 证书的一切》
 
-原文链接：[有关 TLS/SSL 证书的一切](https://www.kawabangga.com/posts/5330)
-作者：laixintao
-一篇和证书有关的科普文。
+    原文链接：[有关 TLS/SSL 证书的一切](https://www.kawabangga.com/posts/5330)
+    作者：laixintao
 
-虽是科普，但这篇和其他科普文章不太一样。你除了能读到一些轻松愉快的小故事，还会被一些不知从哪里冒出来的 shell 命令和大段伪代码"突然袭击"。看似不协调的素材，在作者的精心编排下，却如交响乐团般演奏出一段优美流畅的乐章，让人读来如沐春风。
+    一篇和证书有关的科普文。
+
+    虽是科普，但这篇和其他科普文章不太一样。你除了能读到一些轻松愉快的小故事，还会被一些不知从哪里冒出来的 shell 命令和大段伪代码"突然袭击"。看似不协调的素材，在作者的精心编排下，却如交响乐团般演奏出一段优美流畅的乐章，让人读来如沐春风。
 
 25. 《让困难的事情变容易》
 
-原文链接：[New talk: Making Hard Things Easy](https://jvns.ca/blog/2023/10/06/new-talk--making-hard-things-easy/)
-作者：Julia Evans
-也许是胡说八道，但我还是想说：技术人普遍有一种"复杂崇拜"情结。实践一门技术，人们常常会踩进许多坑、遇到很多困难，但大部分人对此绝口不提，仿佛抱怨一门技术过于复杂，会显得自己能力不足似的。
+    原文链接：[New talk: Making Hard Things Easy](https://jvns.ca/blog/2023/10/06/new-talk--making-hard-things-easy/)
+    作者：Julia Evans
 
-尤其，当这些技术是大家口中公认的"基础技术"（比如 DNS、HTTP）时，更是如此。技术人接受复杂、理解复杂，最终认同复杂为理所当然。
+    也许是胡说八道，但我还是想说：技术人普遍有一种"复杂崇拜"情结。实践一门技术，人们常常会踩进许多坑、遇到很多困难，但大部分人对此绝口不提，仿佛抱怨一门技术过于复杂，会显得自己能力不足似的。
 
-正因如此，我很喜欢 Julia Evans 的这个分享。它指出在许多所谓的"基础技术"背后，隐藏着太多难以掌握的复杂元素。不少人都会在它们上面栽跟斗，但并非所有人都会站出来，改善现状。
+    尤其，当这些技术是大家口中公认的"基础技术"（比如 DNS、HTTP）时，更是如此。技术人接受复杂、理解复杂，最终认同复杂为理所当然。
 
-所以，我们需要让复杂事物变得更容易。针对这一点，文章挑选了几种有代表性的技术，比如 DNS、BASH、SQL 等，提供了切实可行的建议，包括：分享有用的工具和参考文档、从大的功能列表中筛选你真正使用的、展示不可见的内容，等等。
+    正因如此，我很喜欢 Julia Evans 的这个分享。它指出在许多所谓的"基础技术"背后，隐藏着太多难以掌握的复杂元素。不少人都会在它们上面栽跟斗，但并非所有人都会站出来，改善现状。
+
+    所以，我们需要让复杂事物变得更容易。针对这一点，文章挑选了几种有代表性的技术，比如 DNS、BASH、SQL 等，提供了切实可行的建议，包括：分享有用的工具和参考文档、从大的功能列表中筛选你真正使用的、展示不可见的内容，等等。
 
 26. 《The Hiring Post》
 
-原文链接：[The Hiring Post](https://sockpuppet.org/blog/2015/03/06/the-hiring-post/)
-作者：Thomas & Erin Ptacek
-作者在一家名为 Matasano 的安全公司任职。一天，他接到一份报告，其中描述了一种针对 DSA 的新型攻击手法。由于步骤复杂、条件苛刻，作者认为这种攻击方式有些不切实际，难以实施（时间以月为单位计算）。不过，他还是把报告分享到了团队中（忘了提及"不切实际"）。
+    原文链接：[The Hiring Post](https://sockpuppet.org/blog/2015/03/06/the-hiring-post/)
+    作者：Thomas & Erin Ptacek
 
-两天后，团队里一位名叫 Alex 的新人找到他，说自己完成了一个可工作的漏洞利用程序。
+    作者在一家名为 Matasano 的安全公司任职。一天，他接到一份报告，其中描述了一种针对 DSA 的新型攻击手法。由于步骤复杂、条件苛刻，作者认为这种攻击方式有些不切实际，难以实施（时间以月为单位计算）。不过，他还是把报告分享到了团队中（忘了提及"不切实际"）。
 
-Alex 非常优秀，但是，如果把时间拨回几年前，他根本不会被招进公司。他的简历平平无奇，而当时公司依赖简历和面试来招聘人才。直到后来，Matasano 公司优化了招聘策略，才挖掘出越来越多像 Alex 的人才。
+    两天后，团队里一位名叫 Alex 的新人找到他，说自己完成了一个可工作的漏洞利用程序。
 
-接着开篇的小故事，作者探讨了技术行业在人才招聘方面的一些问题。比方说，许多能力出众的候选人常因招聘环节不合理而无法通过面试。与之相对的是，一些善于面试、对抽象概念总能侃侃而谈的人，却能轻松拿到 offer。针对这些问题，文章给出了一些建议，比如：让候选人热身、使用接近工作场景的测试问题，等等。值得一读。
+    Alex 非常优秀，但是，如果把时间拨回几年前，他根本不会被招进公司。他的简历平平无奇，而当时公司依赖简历和面试来招聘人才。直到后来，Matasano 公司优化了招聘策略，才挖掘出越来越多像 Alex 的人才。
+
+    接着开篇的小故事，作者探讨了技术行业在人才招聘方面的一些问题。比方说，许多能力出众的候选人常因招聘环节不合理而无法通过面试。与之相对的是，一些善于面试、对抽象概念总能侃侃而谈的人，却能轻松拿到 offer。针对这些问题，文章给出了一些建议，比如：让候选人热身、使用接近工作场景的测试问题，等等。值得一读。
 
 27. 《13 年后，我如何用 Go 写 HTTP 服务》
 
-原文链接：[How I write HTTP services in Go after 13 years](https://grafana.com/blog/2024/02/09/how-i-write-http-services-in-go-after-13-years/)
-作者：Mat Ryer
-一篇 Go 语言方面的最佳实践类文章，只涉及标准库中的 HTTP 基建，不涉及其他第三方 Web 框架或库。作者有十余年的 Go 编程经验，经验丰富。
+    原文链接：[How I write HTTP services in Go after 13 years](https://grafana.com/blog/2024/02/09/how-i-write-http-services-in-go-after-13-years/)
+    作者：Mat Ryer
 
-文章除了展示具体的代码编写与组织技巧，也谈了一些"为什么如此处理"背后的设计考量，包括：长参数列表的函数、请求编解码处理、用闭包结合 http.Handler、E2E 测试和单元测试，等等。透过这些考量，能感受到作者多年经验与智慧的沉淀。
+    一篇 Go 语言方面的最佳实践类文章，只涉及标准库中的 HTTP 基建，不涉及其他第三方 Web 框架或库。作者有十余年的 Go 编程经验，经验丰富。
+
+    文章除了展示具体的代码编写与组织技巧，也谈了一些"为什么如此处理"背后的设计考量，包括：长参数列表的函数、请求编解码处理、用闭包结合 http.Handler、E2E 测试和单元测试，等等。透过这些考量，能感受到作者多年经验与智慧的沉淀。
 
 28. 《Rust std fs 比 Python 更慢！？》
 
-原文链接：[Rust std fs slower than Python!? No, it's hardware!](https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/)
-作者：Xuanwo
-一篇精彩的短篇侦探小说。
+    原文链接：[Rust std fs slower than Python!? No, it's hardware!](https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/)
+    作者：Xuanwo
 
-有一天，Xuanwo 接到用户上报一个奇怪的案件：一段 Rust 实现的 Python SDK 中的文件操作代码，执行起来却比原生 Python 代码更慢。一通排查后，更离谱的事件出现，不止 Rust，甚至同样的 C 代码也比 Python 更慢。但这怎么可能，Python 语言解释器本身都是用 C 写的呀？！
+    一篇精彩的短篇侦探小说。
 
-就像任何一篇精彩的侦探小说一样，最后，悬疑气氛推到最高点，凶手身份被揭露时，你会自言自语道："意料之外，情理之中"。
+    有一天，Xuanwo 接到用户上报一个奇怪的案件：一段 Rust 实现的 Python SDK 中的文件操作代码，执行起来却比原生 Python 代码更慢。一通排查后，更离谱的事件出现，不止 Rust，甚至同样的 C 代码也比 Python 更慢。但这怎么可能，Python 语言解释器本身都是用 C 写的呀？！
+
+    就像任何一篇精彩的侦探小说一样，最后，悬疑气氛推到最高点，凶手身份被揭露时，你会自言自语道："意料之外，情理之中"。
 
 29. 《选择乏味的技术》
 
-原文链接：[Choose Boring Technology](https://boringtechnology.club/)
-作者：Dan McKinley
-作为技术人员，我们喜欢尝试新技术，这让我们感到快乐。但许多时候，比起闪闪发光的新玩意，"乏味"的技术才是更优的选择。
+    原文链接：[Choose Boring Technology](https://boringtechnology.club/)
+    作者：Dan McKinley
 
-当我们觉得一项技术"乏味"、痛恨它时，根本原因是我们过于了解它，无法从它身上获得任何新鲜感（比如 Django 之于我）。但别忘了，这同时也意味着我们对这项技术的每个坑都了如指掌。在项目中采用它，能让我们更容易专注在核心业务问题上。
+    作为技术人员，我们喜欢尝试新技术，这让我们感到快乐。但许多时候，比起闪闪发光的新玩意，"乏味"的技术才是更优的选择。
 
-很喜欢本文里的"创新代币"比喻。"创新代币"是一种用来处理创造性任务的有限能力。假设你一共拥有 3 枚"创新代币"，你会如何花费它们？也许，和某个新奇的技术栈比起来，产品核心功能上的创新，更需要那枚代币。
+    当我们觉得一项技术"乏味"、痛恨它时，根本原因是我们过于了解它，无法从它身上获得任何新鲜感（比如 Django 之于我）。但别忘了，这同时也意味着我们对这项技术的每个坑都了如指掌。在项目中采用它，能让我们更容易专注在核心业务问题上。
+
+    很喜欢本文里的"创新代币"比喻。"创新代币"是一种用来处理创造性任务的有限能力。假设你一共拥有 3 枚"创新代币"，你会如何花费它们？也许，和某个新奇的技术栈比起来，产品核心功能上的创新，更需要那枚代币。
 
 30. 《Python 3.10 中的结构化模式匹配》
 
-原文链接：[Structural pattern matching in Python 3.10](https://benhoyt.com/writings/python-pattern-matching/)
-作者：Ben Hoyt
-在 3.10 版本中，Python 新增了"结构化模式匹配"语法（ match ... case）。因为看上去和 switch ... case 语句十分相似，不少人认为"结构化模式匹配"就是 switch 换皮。但事实上，它和 switch 语句有着比较大的差异，用作者的话讲：它更适合被当成"迭代式解包"来理解。
+    原文链接：[Structural pattern matching in Python 3.10](https://benhoyt.com/writings/python-pattern-matching/)
+    作者：Ben Hoyt
 
-本文发布于 2021 年（Python 3.10 发布前夕），其中简单介绍了"结构化模式匹配"的功能，并列举了一些它最适用的代码场景。在总结中，针对该语法的未来，作者持略为悲观的复杂态度。
+    在 3.10 版本中，Python 新增了"结构化模式匹配"语法（ match ... case）。因为看上去和 switch ... case 语句十分相似，不少人认为"结构化模式匹配"就是 switch 换皮。但事实上，它和 switch 语句有着比较大的差异，用作者的话讲：它更适合被当成"迭代式解包"来理解。
 
-和"结构化模式匹配"相关的文章中，除几篇 PEP 之外，我认为这是最值得阅读的一篇。
+    本文发布于 2021 年（Python 3.10 发布前夕），其中简单介绍了"结构化模式匹配"的功能，并列举了一些它最适用的代码场景。在总结中，针对该语法的未来，作者持略为悲观的复杂态度。
+
+    和"结构化模式匹配"相关的文章中，除几篇 PEP 之外，我认为这是最值得阅读的一篇。
 
 31. 《你想要的是模块，不是微服务》
 
-原文链接：[You Want Modules, Not Microservices](https://blogs.newardassociates.com/blog/2023/you-want-modules-not-microservices.html)
-作者：Neward & Associates
-文章的开头很有意思。从一篇介绍微服务的文章中，作者摘抄出了微服务架的 10 条优势。随后，他逐条分析这些优势，发现其中至少有一半，可以原封不动地套用在"模块"上。
+    原文链接：[You Want Modules, Not Microservices](https://blogs.newardassociates.com/blog/2023/you-want-modules-not-microservices.html)
+    作者：Neward & Associates
 
-"只关注一小块代码"、"独立开发"、"版本化"、"独立发布"——以上能力模块无一不具备。对了，此处谈及的"模块"，就是那个诞生于 20 世纪 70 年代的技术概念，也是如今所有编程语言的标配能力。
+    文章的开头很有意思。从一篇介绍微服务的文章中，作者摘抄出了微服务架的 10 条优势。随后，他逐条分析这些优势，发现其中至少有一半，可以原封不动地套用在"模块"上。
 
-分析完模块和微服务的相似性后，文章继续层层推进，试着回答一个重要问题：微服务架构解决的本质矛盾究竟是什么？
+    "只关注一小块代码"、"独立开发"、"版本化"、"独立发布"——以上能力模块无一不具备。对了，此处谈及的"模块"，就是那个诞生于 20 世纪 70 年代的技术概念，也是如今所有编程语言的标配能力。
+
+    分析完模块和微服务的相似性后，文章继续层层推进，试着回答一个重要问题：微服务架构解决的本质矛盾究竟是什么？
 
 32. 《我不喜欢 Go 语言默认的 HTTP Handlers》
 
-原文链接：[I Don't Like Go's Default HTTP Handlers](https://preslav.me/2022/08/09/i-dont-like-golang-default-http-handlers/)
-作者：Preslav Rachev
-在编写 HTTP handler 函数时，作者意识到这类函数存在一个设计问题，它会促使人们写出有 bug 的代码。该问题大多数 Go 开发者都知道（也可能犯过）：回写响应体后忘记 return，导致代码错误地继续执行。为了优化它，作者提出了一种思路。
+    原文链接：[I Don't Like Go's Default HTTP Handlers](https://preslav.me/2022/08/09/i-dont-like-golang-default-http-handlers/)
+    作者：Preslav Rachev
 
-技术层面上，这是一篇非常简单的文章，最终方案也无非是"多封装一层"而已。不过，我喜欢作者对细节的关注，也认可文章的价值观：通过优化工具与环境，来杜绝人类犯错的可能性。
+    在编写 HTTP handler 函数时，作者意识到这类函数存在一个设计问题，它会促使人们写出有 bug 的代码。该问题大多数 Go 开发者都知道（也可能犯过）：回写响应体后忘记 return，导致代码错误地继续执行。为了优化它，作者提出了一种思路。
+
+    技术层面上，这是一篇非常简单的文章，最终方案也无非是"多封装一层"而已。不过，我喜欢作者对细节的关注，也认可文章的价值观：通过优化工具与环境，来杜绝人类犯错的可能性。
 
 33. 《对人类更友好的"超时"与"取消"》
 
-原文链接：[Timeouts and cancellation for humans](https://vorpus.org/blog/timeouts-and-cancellation-for-humans/)
-作者：Nathaniel J. Smith
-做网络编程时，"超时配置"是一个非常重要但又常常被忽视的细节。不当的超时配置就像是鞋底里的一粒沙，开始你甚至觉察不到它的存在，但随着时间累积，沙子会磨破脚底，产生巨大危害。
+    原文链接：[Timeouts and cancellation for humans](https://vorpus.org/blog/timeouts-and-cancellation-for-humans/)
+    作者：Nathaniel J. Smith
 
-"作为最常见的超时配置方式，为什么 get(url, timeout=10) 这类 API 不够好？"
+    做网络编程时，"超时配置"是一个非常重要但又常常被忽视的细节。不当的超时配置就像是鞋底里的一粒沙，开始你甚至觉察不到它的存在，但随着时间累积，沙子会磨破脚底，产生巨大危害。
 
-从这个问题出发，作者列举并分析了一些常见的超时 API 设计，最后详细介绍了 trio 库的相关功能。作者认为它是一种"对人类更友好"的设计。
+    "作为最常见的超时配置方式，为什么 get(url, timeout=10) 这类 API 不够好？"
+
+    从这个问题出发，作者列举并分析了一些常见的超时 API 设计，最后详细介绍了 trio 库的相关功能。作者认为它是一种"对人类更友好"的设计。
 
 34. 《20 年软件工程师生涯，学到 20 件事》
 
-原文链接：[20 Things I've Learned in my 20 Years as a Software Engineer](https://www.simplethread.com/20-things-ive-learned-in-my-20-years-as-a-software-engineer/)
-作者：Justin Etheredge
-从业 20 年后，软件工程师 Justin Etheredge 回顾自己的职业生涯，总结出了 20 条经验。这些经验短小精悍、富有洞见，我读后对其中大部分都很有共鸣。
+    原文链接：[20 Things I've Learned in my 20 Years as a Software Engineer](https://www.simplethread.com/20-things-ive-learned-in-my-20-years-as-a-software-engineer/)
+    作者：Justin Etheredge
 
-比如其中的第 5 条："最好的工程师像设计师一样思考"。有许多次，我在一个问题卡住，苦思冥想，寻不到最优解。但当我转换思路，学着像设计师一样站在用户（或调用方、依赖方）角度思考时，答案呼之欲出。再比如其中的第 9 条："问'为什么'，永远不嫌多"——旺盛的好奇心和求知欲，正是助我们精进技术的最佳催化剂。
+    从业 20 年后，软件工程师 Justin Etheredge 回顾自己的职业生涯，总结出了 20 条经验。这些经验短小精悍、富有洞见，我读后对其中大部分都很有共鸣。
+
+    比如其中的第 5 条："最好的工程师像设计师一样思考"。有许多次，我在一个问题卡住，苦思冥想，寻不到最优解。但当我转换思路，学着像设计师一样站在用户（或调用方、依赖方）角度思考时，答案呼之欲出。再比如其中的第 9 条："问'为什么'，永远不嫌多"——旺盛的好奇心和求知欲，正是助我们精进技术的最佳催化剂。
 
 35. 《为什么你的 mock 不工作》
 
-原文链接：[Why your mock doesn't work](https://nedbatchelder.com/blog/201908/why_your_mock_doesnt_work.html)
-作者：Ned Batchelder
-用 Python 写测试代码时，经常会用到 mock 模块。初次接触 mock，不少人都遇到过 mock 不生效的问题。明明用 mock.patch(...) 替换了模块，代码执行时，引用到的却依旧是原始值。
+    原文链接：[Why your mock doesn't work](https://nedbatchelder.com/blog/201908/why_your_mock_doesnt_work.html)
+    作者：Ned Batchelder
 
-Ned Batchelder 的这篇文章细致解释了"mock 不生效"问题。因为写的是个常见问题，所以文章中的知识点对你来说可能并不新鲜。但即便如此，我还是很推荐它。文章结构清晰、措辞准确，里面的每张示意图和每段代码，都出现得恰到好处。哪怕不为学知识，略读一遍后，也让人心情舒畅。在技术写作方面，能从中学到不少。
+    用 Python 写测试代码时，经常会用到 mock 模块。初次接触 mock，不少人都遇到过 mock 不生效的问题。明明用 mock.patch(...) 替换了模块，代码执行时，引用到的却依旧是原始值。
 
-同时推荐作者的另一篇文章：《Python 的名字和值》，内容与 mock 这篇有关联。
+    Ned Batchelder 的这篇文章细致解释了"mock 不生效"问题。因为写的是个常见问题，所以文章中的知识点对你来说可能并不新鲜。但即便如此，我还是很推荐它。文章结构清晰、措辞准确，里面的每张示意图和每段代码，都出现得恰到好处。哪怕不为学知识，略读一遍后，也让人心情舒畅。在技术写作方面，能从中学到不少。
+
+    同时推荐作者的另一篇文章：《Python 的名字和值》，内容与 mock 这篇有关联。
 
 36. 《实用的 Go：来自真实世界的编写可维护 Go 程序的建议》
 
-原文链接：[Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
-作者：Dave Cheney
-互联网上，"Go 代码可读性"方面的资料不算太多，这篇或许是你能找到的最好的之一。
+    原文链接：[Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
+    作者：Dave Cheney
 
-本文包含数十条与提升 Go 代码可维护性有关的建议，覆盖从变量命名到 API 设计等多项主题，十分全面。我喜欢它最重要的原因，除了其写作质量上佳之外，还在于作者为每条建议精心搭配了示例代码，这些代码使得文章内容非常容易阅读，知识很好消化。一篇干货满满的经典之作，值得每位 Go 工程师阅读。
+    互联网上，"Go 代码可读性"方面的资料不算太多，这篇或许是你能找到的最好的之一。
+
+    本文包含数十条与提升 Go 代码可维护性有关的建议，覆盖从变量命名到 API 设计等多项主题，十分全面。我喜欢它最重要的原因，除了其写作质量上佳之外，还在于作者为每条建议精心搭配了示例代码，这些代码使得文章内容非常容易阅读，知识很好消化。一篇干货满满的经典之作，值得每位 Go 工程师阅读。
 
 37. 《编写系统软件：代码注释》
 
-原文链接：[Writing system software: code comments.](http://antirez.com/news/124)
-作者：antirez
-在"代码注释"这个主题上，Redis 作者 antirez 的这篇文章是我的最爱之一。通过整理 redis 项目里的所有注释，antirez 将注释一共划分成 9 类，各自承担不同功用。
+    原文链接：[Writing system software: code comments.](http://antirez.com/news/124)
+    作者：antirez
 
-本文的独到之处，在于立足"用注释解释代码中的 'why？'"这条共识上，重点介绍了"教学性/指引性注释"这类不太常规的注释。文章提到，指引性注释是 redis 中数量最多的注释，充斥整个项目，人们认为 Redis 的源码可读性佳，指引性注释功不可没。
+    在"代码注释"这个主题上，Redis 作者 antirez 的这篇文章是我的最爱之一。通过整理 redis 项目里的所有注释，antirez 将注释一共划分成 9 类，各自承担不同功用。
 
-某种程度上，这篇文章影响了我的编码习惯。再次回顾它，脑海闪过那句人们重复提及的老话： "代码主要是写给人看的，顺便被计算机执行。"
+    本文的独到之处，在于立足"用注释解释代码中的 'why？'"这条共识上，重点介绍了"教学性/指引性注释"这类不太常规的注释。文章提到，指引性注释是 redis 中数量最多的注释，充斥整个项目，人们认为 Redis 的源码可读性佳，指引性注释功不可没。
+
+    某种程度上，这篇文章影响了我的编码习惯。再次回顾它，脑海闪过那句人们重复提及的老话： "代码主要是写给人看的，顺便被计算机执行。"
 
 38. 《编写易于删除，而不是易于扩展的代码》
 
-原文链接：[Write code that is easy to delete, not easy to extend.](https://programmingisterrible.com/post/139222674273/write-code-that-is-easy-to-delete-not-easy-to)
-作者：tef
-程序员们有一条朴素的共识："重复代码坏，复用代码好"。这篇文章站在另一个角度，反思了这条共识。人们习惯于讨论复用的好处，却往往忽视了它的缺点：一段代码被复用越多，意味着它与更多的使用方产生了耦合关系，自然也导致它更难被修改。
+    原文链接：[Write code that is easy to delete, not easy to extend.](https://programmingisterrible.com/post/139222674273/write-code-that-is-easy-to-delete-not-easy-to)
+    作者：tef
 
-代码写出来后便需要被维护，而业务发展又会让旧代码不断过时。以这个为前提，重新思考软件项目的可维护性，会发现"易于删除"变成了一个形容代码的好特征。这篇文章或许写得没那么易读，但个中观点确能引发思考。
+    程序员们有一条朴素的共识："重复代码坏，复用代码好"。这篇文章站在另一个角度，反思了这条共识。人们习惯于讨论复用的好处，却往往忽视了它的缺点：一段代码被复用越多，意味着它与更多的使用方产生了耦合关系，自然也导致它更难被修改。
+
+    代码写出来后便需要被维护，而业务发展又会让旧代码不断过时。以这个为前提，重新思考软件项目的可维护性，会发现"易于删除"变成了一个形容代码的好特征。这篇文章或许写得没那么易读，但个中观点确能引发思考。
 
 39. 《如何提出好问题》
 
-原文链接：[How to ask good questions](https://jvns.ca/blog/good-questions/)
-作者：Julia Evans
-在人际沟通中，"善于提问"是一种顶级技能（ 评级：SSR✨）。在关键时刻提出一个好问题，能让沟通事半功倍，事情水到渠成。
+    原文链接：[How to ask good questions](https://jvns.ca/blog/good-questions/)
+    作者：Julia Evans
 
-Julia Evans 的这篇文章，囊括了与提问有关的若干条经验和技巧，比如：向对方陈述并确认你所知道的现状；选择向谁提问；通过提问让不够显而易见的概念变得明确，等等。文章不止内容好，写作风格也是一如既往的友善、清晰易读，强力推荐。
+    在人际沟通中，"善于提问"是一种顶级技能（ 评级：SSR✨）。在关键时刻提出一个好问题，能让沟通事半功倍，事情水到渠成。
+
+    Julia Evans 的这篇文章，囊括了与提问有关的若干条经验和技巧，比如：向对方陈述并确认你所知道的现状；选择向谁提问；通过提问让不够显而易见的概念变得明确，等等。文章不止内容好，写作风格也是一如既往的友善、清晰易读，强力推荐。
 
 40. 《每天写代码》
 
-原文链接：[Write Code Every Day](https://johnresig.com/blog/write-code-every-day/)
-作者：John Resig
-程序员 John Resig （JQuery 库作者） 遇上了一件烦心事。他想完成一些兴趣项目（side projects），却发现在保证全职工作效率的前提下，很难推进。他常在每个周末疯狂赶工，力求完成更多，但压力和焦虑感总是爆棚，状态难以维系。
+    原文链接：[Write Code Every Day](https://johnresig.com/blog/write-code-every-day/)
+    作者：John Resig
 
-有一天，在他人启发下，John 决定换一种策略：每天写代码。原本用整个周末投入兴趣项目，如今拆分到每一天，花不少于 30 分钟编程。半年后，他发现新策略产生了神奇的效果，他取得了超多成果：开发多个新网站、重写若干个框架、完成大量新模块。更重要的是，曾经困扰他的焦虑感，也烟消云散。
+    程序员 John Resig （JQuery 库作者） 遇上了一件烦心事。他想完成一些兴趣项目（side projects），却发现在保证全职工作效率的前提下，很难推进。他常在每个周末疯狂赶工，力求完成更多，但压力和焦虑感总是爆棚，状态难以维系。
 
-我很喜欢这篇文章，它是程序员版本的"日拱一卒"，John 也是一位极好的榜样。
+    有一天，在他人启发下，John 决定换一种策略：每天写代码。原本用整个周末投入兴趣项目，如今拆分到每一天，花不少于 30 分钟编程。半年后，他发现新策略产生了神奇的效果，他取得了超多成果：开发多个新网站、重写若干个框架、完成大量新模块。更重要的是，曾经困扰他的焦虑感，也烟消云散。
+
+    我很喜欢这篇文章，它是程序员版本的"日拱一卒"，John 也是一位极好的榜样。
 
 41. 《抽象泄露法则》
 
-原文链接：[The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)
-作者：Joel Spolsky
-用 AI，花 5 分钟开发一个新功能。验证时，却发现新功能在某个特殊情况下无法正常工作。为了解决这个 bug，你只能逐行排查调试。等修复好问题，一看表， 1 个小时过去了。
+    原文链接：[The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)
+    作者：Joel Spolsky
 
-上面的经历对你来说是否有些似曾相识？早在 2002 年，程序员 Joel Spolsky 就敏锐地发现了这类现象，并将它们总结为："抽象泄露法则"。软件世界是一层抽象套着另一层的千层饼，就好像 HTTP 协议下有 TCP、TCP 下有 IP，每一层抽象都声称自己是完美的："你无需关注在我之下的任何细节"。
+    用 AI，花 5 分钟开发一个新功能。验证时，却发现新功能在某个特殊情况下无法正常工作。为了解决这个 bug，你只能逐行排查调试。等修复好问题，一看表， 1 个小时过去了。
 
-但事实却是，所有抽象必定泄露。而当抽象泄露时，就像要从 AI 的 1000 行代码里找到那个错误——事情非常棘手，但我们别无选择。
+    上面的经历对你来说是否有些似曾相识？早在 2002 年，程序员 Joel Spolsky 就敏锐地发现了这类现象，并将它们总结为："抽象泄露法则"。软件世界是一层抽象套着另一层的千层饼，就好像 HTTP 协议下有 TCP、TCP 下有 IP，每一层抽象都声称自己是完美的："你无需关注在我之下的任何细节"。
+
+    但事实却是，所有抽象必定泄露。而当抽象泄露时，就像要从 AI 的 1000 行代码里找到那个错误——事情非常棘手，但我们别无选择。
 
 42. 《如何设计一个好的 API 及其重要性》
 
-原文链接：[How to Design a Good API and Why it Matters](https://fwdinnovations.net/whitepaper/APIDesign.pdf)
-演讲视频：[How To Design A Good API and Why it Matters - Youtube](https://www.youtube.com/watch?v=aAb7hSCtvGw&ab_channel=GoogleTechTalks)
-作者：Joshua Bloch
-这份资料来自 Joshua Bloch（时任首席 Java 架构师）在 Google 公司的内部演讲。虽然距今已 17 年，但它读起来却没有任何过时的感觉，对现代软件开发仍具备指导价值。
+    原文链接：[How to Design a Good API and Why it Matters](https://fwdinnovations.net/whitepaper/APIDesign.pdf)
+    演讲视频：[How To Design A Good API and Why it Matters - Youtube](https://www.youtube.com/watch?v=aAb7hSCtvGw&ab_channel=GoogleTechTalks)
+    作者：Joshua Bloch
 
-Joshua 系统性地阐述了 API 设计的方方面面。包括：
+    这份资料来自 Joshua Bloch（时任首席 Java 架构师）在 Google 公司的内部演讲。虽然距今已 17 年，但它读起来却没有任何过时的感觉，对现代软件开发仍具备指导价值。
 
-带着怀疑的眼光收集用户用例（use cases）；
-写代码前，先用最简单的文字描述 API（一页纸以内），并和相关人员讨论完善；
-如果迟疑于是否提供某个功能，就先不要提供（后续新增比删除要简单得多）；
-API 应当和它所被使用的平台和谐共存，比如 SDK 不应被原样从一门语言搬运到另一门。
-如果你之前从未深入思考过 API 设计，读读看，它极有可能改变你未来开发软件的方式。
+    Joshua 系统性地阐述了 API 设计的方方面面。包括：
+
+    带着怀疑的眼光收集用户用例（use cases）；
+    写代码前，先用最简单的文字描述 API（一页纸以内），并和相关人员讨论完善；
+    如果迟疑于是否提供某个功能，就先不要提供（后续新增比删除要简单得多）；
+    API 应当和它所被使用的平台和谐共存，比如 SDK 不应被原样从一门语言搬运到另一门。
+
+    如果你之前从未深入思考过 API 设计，读读看，它极有可能改变你未来开发软件的方式。
 
 43. 《我构建软件的原则+实践"让无效状态不可表示"》
 
-原文链接：[My Principles for Building Software](https://kevinmahoney.co.uk/articles/my-principles-for-building-software/)
-原文链接：[Applying "Make Invalid States Unrepresentable"](https://kevinmahoney.co.uk/articles/applying-misu/)
-作者：Kevin Mahoney
-关于软件开发原则的文章有很多，这篇的特别之处在于，作者 Kevin 着重强调了数据对于软件设计的影响。
+    原文链接：[My Principles for Building Software](https://kevinmahoney.co.uk/articles/my-principles-for-building-software/)
+    原文链接：[Applying "Make Invalid States Unrepresentable"](https://kevinmahoney.co.uk/articles/applying-misu/)
+    作者：Kevin Mahoney
 
-比如，Kevin 提出在设计时，应当优先考虑数据结构而不是代码，因为前者更为重要。正如《人月神话》的作者 Fred Brooks 曾经说过："如果提供了程序流程图，而没有表数据，我仍然会很迷惑。而给我看表数据，往往就不再需要流程图，程序结构是非常清晰的。"
+    关于软件开发原则的文章有很多，这篇的特别之处在于，作者 Kevin 着重强调了数据对于软件设计的影响。
 
-Kevin 提到的另一条原则是"让无效状态不可表示"。软件的业务逻辑中，难免会存在一些"无效状态"。为了处理它们，代码常需要做一些额外工作。然而，通过调整数据结构设计，使得数据层无法表现无效状态后，程序复杂度就可以降低。《实践"让无效状态不可表示"》中有本原则的一个具体应用案例。
+    比如，Kevin 提出在设计时，应当优先考虑数据结构而不是代码，因为前者更为重要。正如《人月神话》的作者 Fred Brooks 曾经说过："如果提供了程序流程图，而没有表数据，我仍然会很迷惑。而给我看表数据，往往就不再需要流程图，程序结构是非常清晰的。"
 
-除了上述原则外，文章中的其他原则，比如"关注基础概念而不是具体技术"、"避免用局部简单换取全局复杂"，等等，都充满智慧。
+    Kevin 提到的另一条原则是"让无效状态不可表示"。软件的业务逻辑中，难免会存在一些"无效状态"。为了处理它们，代码常需要做一些额外工作。然而，通过调整数据结构设计，使得数据层无法表现无效状态后，程序复杂度就可以降低。《实践"让无效状态不可表示"》中有本原则的一个具体应用案例。
+
+    除了上述原则外，文章中的其他原则，比如"关注基础概念而不是具体技术"、"避免用局部简单换取全局复杂"，等等，都充满智慧。
 
 44. 《不，不是编译器的问题，从来都不是》
 
-原文链接：[No, it is not a compiler error. It is never a compiler error.](https://blog.plover.com/2017/11/12/)
-作者：Mark Dominus
-一段代码的正常运行，依赖着无数隐藏在其背后的组件和库。当程序出现 bug 时，程序员不在第一时间怀疑自己的代码，而是去质疑那些久经考验的依赖库，从来不是一个明智的选择。正如文章的标题所言："从来都不是编译器的问题。"
+    原文链接：[No, it is not a compiler error. It is never a compiler error.](https://blog.plover.com/2017/11/12/)
+    作者：Mark Dominus
 
-然而，"编译器"也是由人编写，并非真的永远正确。"编译器"一旦犯错，问题的诡异程度常常会出乎意料。在文章的后半段，常年信奉"编译器不出错"的作者，还真就遇上了一次"编译器错误"。
+    一段代码的正常运行，依赖着无数隐藏在其背后的组件和库。当程序出现 bug 时，程序员不在第一时间怀疑自己的代码，而是去质疑那些久经考验的依赖库，从来不是一个明智的选择。正如文章的标题所言："从来都不是编译器的问题。"
+
+    然而，"编译器"也是由人编写，并非真的永远正确。"编译器"一旦犯错，问题的诡异程度常常会出乎意料。在文章的后半段，常年信奉"编译器不出错"的作者，还真就遇上了一次"编译器错误"。
 
 45. 《关于在除夕前一天换了一个洗衣机的故事》
 
-原文链接：[关于在除夕前一天换了一个洗衣机的故事](https://wklken.me/posts/2023/01/23/about-buy-a-new-washing-machine-before-chinese-new-year.html)
-作者：wklken
-一名程序员家中服役 6 年的洗衣机坏了，不能脱水。因为之前花大价钱换过一次排水泵，他以为这次是旧病复发，便决定置换一台新机器。可没想到的是，新洗衣机装好后同样不能脱水。
+    原文链接：[关于在除夕前一天换了一个洗衣机的故事](https://wklken.me/posts/2023/01/23/about-buy-a-new-washing-machine-before-chinese-new-year.html)
+    作者：wklken
 
-本来只是一件普普通通的糟心事，但作者显然不这么想，他在文章后半居然从洗衣机转向了软件开发。从故障码到说明书，从 debug 到选品牌，真是很有意思。相当好的观察与思考。
+    一名程序员家中服役 6 年的洗衣机坏了，不能脱水。因为之前花大价钱换过一次排水泵，他以为这次是旧病复发，便决定置换一台新机器。可没想到的是，新洗衣机装好后同样不能脱水。
+
+    本来只是一件普普通通的糟心事，但作者显然不这么想，他在文章后半居然从洗衣机转向了软件开发。从故障码到说明书，从 debug 到选品牌，真是很有意思。相当好的观察与思考。
 
 46. 《你的函数是什么颜色？》
 
-原文链接：[What Color is Your Function?](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)
-作者：Bob Nystrom
-有人发明了一门编程语言，它非常特别，因为它的函数以颜色来区分类型。函数一共有两种颜色："红色"和"蓝色"。函数的颜色不止影响外观，更会影响你使用它们的方式，比方说：红函数只能调用红函数，不能调用蓝函数。
+    原文链接：[What Color is Your Function?](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)
+    作者：Bob Nystrom
 
-虽然以上面这略为不知所云的内容开场，但这篇文章讨论的主题实际上相当严肃。在文章中，作者 Bob 分享了自己对异步编程风格一些思考（猜猜函数的"颜色"代表什么？），从回调、Promise，到线程和 await/async，均有涉及。
+    有人发明了一门编程语言，它非常特别，因为它的函数以颜色来区分类型。函数一共有两种颜色："红色"和"蓝色"。函数的颜色不止影响外观，更会影响你使用它们的方式，比方说：红函数只能调用红函数，不能调用蓝函数。
 
-除了观点鞭辟入里，文章的写作质量也相当高。严肃内容间不时穿插一点作者的小幽默。对于爱好异步编程的人来说，这是一篇不可错过的佳作。
+    虽然以上面这略为不知所云的内容开场，但这篇文章讨论的主题实际上相当严肃。在文章中，作者 Bob 分享了自己对异步编程风格一些思考（猜猜函数的"颜色"代表什么？），从回调、Promise，到线程和 await/async，均有涉及。
+
+    除了观点鞭辟入里，文章的写作质量也相当高。严肃内容间不时穿插一点作者的小幽默。对于爱好异步编程的人来说，这是一篇不可错过的佳作。
 
 47. 《健康的文档》
 
-原文链接：[Healthy Documentation](https://vadimkravcenko.com/shorts/proper-documentation/)
-作者：Vadim Kravcenko
-程序员们是一个奇怪的群体，他们对许多事物持有矛盾态度，"文档"就是其中之一。
+    原文链接：[Healthy Documentation](https://vadimkravcenko.com/shorts/proper-documentation/)
+    作者：Vadim Kravcenko
 
-作为消费者时，每位程序员都希望自己所使用的每个 API、函数，接手的每个系统都能找到详尽而准确的文档。而当他摇身一变，变成生产者时，却很少愿意在"写文档"这件事上投入精力——常常是"宁编百行码，不写一行字"。
+    程序员们是一个奇怪的群体，他们对许多事物持有矛盾态度，"文档"就是其中之一。
 
-然而，文档对于软件开发的重要性毋庸置疑。正如作者提到："每个未被记录下的东西，都等同于一种资源的浪费，会在未来带来麻烦。"通过写文档，我们将自己脑中的知识具象化，从而在未来帮助到其他人。对于个人而言，文档不仅是一种学习、交流和分享知识的工具，也是一种建立个人影响力的捷径。而对于团队来说，如果每位成员都重视文档的价值，乐于编写清晰、可靠的文档来替代无休止的会议，那么这种"文档优先"的氛围，对于团队的长期发展大有裨益。
+    作为消费者时，每位程序员都希望自己所使用的每个 API、函数，接手的每个系统都能找到详尽而准确的文档。而当他摇身一变，变成生产者时，却很少愿意在"写文档"这件事上投入精力——常常是"宁编百行码，不写一行字"。
+
+    然而，文档对于软件开发的重要性毋庸置疑。正如作者提到："每个未被记录下的东西，都等同于一种资源的浪费，会在未来带来麻烦。"通过写文档，我们将自己脑中的知识具象化，从而在未来帮助到其他人。对于个人而言，文档不仅是一种学习、交流和分享知识的工具，也是一种建立个人影响力的捷径。而对于团队来说，如果每位成员都重视文档的价值，乐于编写清晰、可靠的文档来替代无休止的会议，那么这种"文档优先"的氛围，对于团队的长期发展大有裨益。
 
 48. 《如何像人类一样做代码评审》
 
-原文链接：[How to Do Code Reviews Like a Human (Part One)](https://mtlynch.io/human-code-reviews-1/)
-作者：Micheal Lynch
-一篇关于代码评审的文章，里面涵盖了许多入门和进阶经验，包括：别把评审时间花在风格与样式问题上，让工具来代劳；评论应该以"请求"的口吻，而不是"命令"；评审不是只找缺点，对于好代码应该不吝赞美，等等。
+    原文链接：[How to Do Code Reviews Like a Human (Part One)](https://mtlynch.io/human-code-reviews-1/)
+    作者：Micheal Lynch
 
-强烈推荐给每一位需要参与代码评审的程序员。
+    一篇关于代码评审的文章，里面涵盖了许多入门和进阶经验，包括：别把评审时间花在风格与样式问题上，让工具来代劳；评论应该以"请求"的口吻，而不是"命令"；评审不是只找缺点，对于好代码应该不吝赞美，等等。
+
+    强烈推荐给每一位需要参与代码评审的程序员。
 
 49. 《关于 Python 3.13 你需要了解的一切 - JIT 和 GIL》
 
-原文链接：[Everything you need to know about Python 3.13 – JIT and GIL went up the hill](https://drew.silcock.dev/blog/everything-you-need-to-know-about-python-3-13/)
-作者：Drew Silcock
-Python 3.13 版本引入了许多激动人心的改动，比如基于 "copy-and-patch"技术的即时编译（JIT），以及终于去掉了全局解释器锁（GIL）的"自由线程"模式，等等。
+    原文链接：[Everything you need to know about Python 3.13 – JIT and GIL went up the hill](https://drew.silcock.dev/blog/everything-you-need-to-know-about-python-3-13/)
+    作者：Drew Silcock
 
-Drew 的这篇文章介绍了以上改动。文章的写作风格非常友好，内容也很全面。既有零基础的概念科普，也有实际的代码实验与 benchmark 环节。知识多，篇幅却控制得恰到好处，推荐阅读。
+    Python 3.13 版本引入了许多激动人心的改动，比如基于 "copy-and-patch"技术的即时编译（JIT），以及终于去掉了全局解释器锁（GIL）的"自由线程"模式，等等。
+
+    Drew 的这篇文章介绍了以上改动。文章的写作风格非常友好，内容也很全面。既有零基础的概念科普，也有实际的代码实验与 benchmark 环节。知识多，篇幅却控制得恰到好处，推荐阅读。
 
 50. 《入行 14 年，我还是觉得编程很难》
 
-原文链接：[入行 14 年，我还是觉得编程很难](https://www.piglei.com/articles/programming-is-still-hard-after-14-years/)
-作者：piglei
-这是清单的第 50 篇，也标记着整个"程序员阅读清单"系列完成了一半。考虑再三，决定奉上拙作一篇，我把这作为对自己的一个小小鼓励。
+    原文链接：[入行 14 年，我还是觉得编程很难](https://www.piglei.com/articles/programming-is-still-hard-after-14-years/)
+    作者：piglei
 
-编程难吗？不同的人会有不同的答案。十几岁时，还在上学的我觉得编程很难，各类算法、API 让人头晕目眩。我期望多年以后，大量的开发经验会让编程变得像吃饭一样简单。
+    这是清单的第 50 篇，也标记着整个"程序员阅读清单"系列完成了一半。考虑再三，决定奉上拙作一篇，我把这作为对自己的一个小小鼓励。
 
-如今十几年过去，编程好像只是变简单了那么一丁点，距离"像吃饭一样简单"还差得很远。
+    编程难吗？不同的人会有不同的答案。十几岁时，还在上学的我觉得编程很难，各类算法、API 让人头晕目眩。我期望多年以后，大量的开发经验会让编程变得像吃饭一样简单。
 
-在这篇文章里，我分享了自己对编程这件事的一些思考与总结。比如：打造高效试错的环境至关重要，编程的精髓是"创造"，等等，希望能对你有所启发。
+    如今十几年过去，编程好像只是变简单了那么一丁点，距离"像吃饭一样简单"还差得很远。
+
+    在这篇文章里，我分享了自己对编程这件事的一些思考与总结。比如：打造高效试错的环境至关重要，编程的精髓是"创造"，等等，希望能对你有所启发。
