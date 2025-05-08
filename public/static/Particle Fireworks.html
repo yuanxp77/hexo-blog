@@ -1,198 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rose Curve</title>
+    <title>Particle Fireworks</title>
     <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            margin: 0;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #f5f5f5;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            touch-action: manipulation;
-        }
-        .container {
-            width: 100%;
-            max-width: 500px;
-        }
-        canvas {
-            width: 100%;
-            height: auto;
-            max-height: 80vh;
-            aspect-ratio: 1;
-            border: 1px solid #e0e0e0;
-            background: white;
-            border-radius: 8px;
-            touch-action: none;
-        }
-        .controls {
-            margin-top: 15px;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-        .control-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        label {
-            font-size: 14px;
-            color: #555;
-        }
-        input {
-            width: 70px;
-            padding: 8px 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            -webkit-appearance: none;
-        }
-        input[type="range"] {
-            width: 100px;
-            padding: 0;
-        }
-        button {
-            padding: 10px 20px;
-            background: #4285f4;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            flex-grow: 1;
-            max-width: 120px;
-        }
-        .value-display {
-            min-width: 30px;
-            text-align: center;
-            font-size: 14px;
-        }
-        @media (max-width: 400px) {
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            button {
-                max-width: none;
-                width: 100%;
-            }
-        }
+        body { margin: 0; overflow: hidden; background: #000; }
+        canvas { display: block; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <canvas id="canvas"></canvas>
-        <div class="controls">
-            <div class="control-group">
-                <label for="k">Petals:</label>
-                <input type="range" id="k" min="1" max="9999" value="5" step="0.1">
-                <span id="k-value" class="value-display">5</span>
-            </div>
-            <div class="control-group">
-                <label for="a">Size:</label>
-                <input type="range" id="a" min="10" max="1000" value="100" step="5">
-                <span id="a-value" class="value-display">100</span>
-            </div>
-            <button id="draw-btn">Draw</button>
-        </div>
-    </div>
-
+    <canvas id="canvas"></canvas>
     <script>
-        // 响应式画布设置
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
-        function resizeCanvas() {
-            const size = Math.min(window.innerWidth - 20, 500);
-            canvas.width = size;
-            canvas.height = size;
-            drawRose();
+        const particles = [];
+        const colors = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'];
+        
+        function createFirework(x, y) {
+            const particleCount = 150;
+            const angleIncrement = (Math.PI * 2) / particleCount;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const speed = 2 + Math.random() * 5;
+                const angle = i * angleIncrement;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particles.push({
+                    x, y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    color,
+                    alpha: 1,
+                    decay: 0.015 + Math.random() * 0.01
+                });
+            }
         }
         
-        // 玫瑰曲线绘制函数
-        function drawRose() {
-            const k = parseFloat(document.getElementById('k').value);
-            const a = parseFloat(document.getElementById('a').value);
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            
-            // 优化绘制性能，减少点数量
-            const step = 0.02;
-            const cycles = 5; // 绘制5个周期确保曲线完整
-            
-            for (let theta = 0; theta <= 2 * Math.PI * cycles; theta += step) {
-                const r = a * Math.sin(k * theta);
-                const x = centerX + r * Math.cos(theta);
-                const y = centerY + r * Math.sin(theta);
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.05; // gravity
+                p.alpha -= p.decay;
                 
-                if (theta === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
                 }
             }
+        }
+        
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            ctx.strokeStyle = '#e91e63';
-            ctx.lineWidth = 2;
-            ctx.stroke();
+            for (const p of particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = p.color.replace(')', `, ${p.alpha})`).replace('rgb', 'rgba');
+                ctx.fill();
+            }
         }
         
-        // 初始化
-        window.addEventListener('load', () => {
-            resizeCanvas();
-            updateValueDisplays();
-        });
-        window.addEventListener('resize', resizeCanvas);
+        function animate() {
+            updateParticles();
+            renderParticles();
+            requestAnimationFrame(animate);
+        }
         
-        // 控件事件
-        document.getElementById('draw-btn').addEventListener('click', drawRose);
-        
-        // 滑动条实时更新
-        document.getElementById('k').addEventListener('input', function() {
-            document.getElementById('k-value').textContent = this.value;
+        canvas.addEventListener('click', (e) => {
+            createFirework(e.clientX, e.clientY);
         });
         
-        document.getElementById('a').addEventListener('input', function() {
-            document.getElementById('a-value').textContent = this.value;
-        });
-        
-        // 触摸设备支持：滑动条变化时实时绘制
-        let isTouchDevice = 'ontouchstart' in window;
-        if (isTouchDevice) {
-            document.getElementById('k').addEventListener('input', debounce(drawRose, 300));
-            document.getElementById('a').addEventListener('input', debounce(drawRose, 300));
-        }
-        
-        // 工具函数
-        function updateValueDisplays() {
-            document.getElementById('k-value').textContent = document.getElementById('k').value;
-            document.getElementById('a-value').textContent = document.getElementById('a').value;
-        }
-        
-        function debounce(func, wait) {
-            let timeout;
-            return function() {
-                const context = this, args = arguments;
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(context, args), wait);
-            };
-        }
+        animate();
     </script>
 </body>
 </html>
