@@ -1773,3 +1773,45 @@ INFO  Generated: index.html
 INFO  Generated: tags/轻松一下/index.html
 INFO  Generated: archives/2024/index.html
 INFO  15 files generated in 86 ms
+INFO  Validating config
+INFO  Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  Start processing
+INFO  Start processing
+INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.
+INFO  Files loaded in 1.55 s
+INFO  Generated: about/index.html
+INFO  Generated: 404.html
+INFO  Generated: release-plan/index.html
+INFO  Generated: news/index.html
+INFO  Generated: archives/index.html
+INFO  Generated: resources/index.html
+INFO  Generated: tags/index.html
+INFO  Generated: archives/2024/12/index.html
+INFO  Generated: archives/2024/11/index.html
+INFO  Generated: archives/2024/index.html
+INFO  Generated: archives/2025/index.html
+INFO  Generated: tags/学习/index.html
+INFO  Generated: archives/2025/04/index.html
+INFO  Generated: index.html
+INFO  Generated: tags/轻松一下/index.html
+INFO  15 files generated in 88 ms
