@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Physics Balls</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const balls = [];
+        const colors = ['#FF5252', '#FF4081', '#E040FB', '#7C4DFF', '#536DFE', '#448AFF', '#40C4FF', '#18FFFF', '#64FFDA', '#69F0AE'];
+        
+        class Ball {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 15 + Math.random() * 15;
+                this.vx = (Math.random() - 0.5) * 10;
+                this.vy = (Math.random() - 0.5) * 10;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.friction = 0.99;
+                this.elasticity = 0.8;
+            }
+            
+            update() {
+                this.vy += 0.2; // gravity
+                
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                
+                // Boundary collision
+                if (this.x + this.radius > canvas.width) {
+                    this.x = canvas.width - this.radius;
+                    this.vx = -this.vx * this.elasticity;
+                }
+                if (this.x - this.radius < 0) {
+                    this.x = this.radius;
+                    this.vx = -this.vx * this.elasticity;
+                }
+                if (this.y + this.radius > canvas.height) {
+                    this.y = canvas.height - this.radius;
+                    this.vy = -this.vy * this.elasticity;
+                }
+                if (this.y - this.radius < 0) {
+                    this.y = this.radius;
+                    this.vy = -this.vy * this.elasticity;
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.strokeStyle = '#333';
+                ctx.stroke();
+            }
+        }
+        
+        function addBall(x, y) {
+            balls.push(new Ball(x, y));
+            if (balls.length > 20) balls.shift();
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (const ball of balls) {
+                ball.update();
+                ball.draw();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        canvas.addEventListener('click', (e) => {
+            addBall(e.clientX, e.clientY);
+        });
+        
+        // Initial balls
+        for (let i = 0; i < 5; i++) {
+            addBall(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height
+            );
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
