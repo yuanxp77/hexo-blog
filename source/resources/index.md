@@ -42,6 +42,7 @@ date: 2025-04-10 10:09:41
     - Microsoft https://clarity.microsoft.com/projects
 
 - other
+    - lks https://lkssite.vip
     - C语言 https://akaedu.github.io/book/index.html
     - 扣哒世界 游戏学编程 https://codecombat.com/
     - 计算机教育中缺失的一课 https://missing-semester-cn.github.io
