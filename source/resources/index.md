@@ -42,6 +42,7 @@ date: 2025-04-10 10:09:41
     - Microsoft https://clarity.microsoft.com/projects
 
 - other
+    - zlib https://zhuanlan.zhihu.com/p/28891796322
     - lks https://lkssite.vip
     - C语言 https://akaedu.github.io/book/index.html
     - 扣哒世界 游戏学编程 https://codecombat.com/

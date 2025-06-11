@@ -1941,3 +1941,52 @@ INFO  Generated: index.html
 INFO  Generated: tags/学习/index.html
 INFO  Generated: tags/轻松一下/index.html
 INFO  15 files generated in 97 ms
+INFO  Validating config
+INFO  Validating config
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  
+  ===================================================================
+      #####  #    # ##### ##### ###### #####  ###### #      #   #
+      #    # #    #   #     #   #      #    # #      #       # #
+      #####  #    #   #     #   #####  #    # #####  #        #
+      #    # #    #   #     #   #      #####  #      #        #
+      #    # #    #   #     #   #      #   #  #      #        #
+      #####   ####    #     #   ###### #    # #      ######   #
+                            5.2.1
+  ===================================================================
+INFO  Start processing
+INFO  Start processing
+INFO  Files loaded in 1.45 s
+INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.
+INFO  Generated: release-plan/index.html
+INFO  Generated: news/index.html
+INFO  Generated: tags/index.html
+INFO  Generated: resources/index.html
+INFO  Generated: 404.html
+INFO  Generated: about/index.html
+INFO  Generated: 2024/12/03/PlantUML绘制时序图/index.html
+INFO  Generated: archives/index.html
+INFO  Generated: 2025/04/15/technology-article/index.html
+INFO  Generated: archives/2025/index.html
+INFO  Generated: 2024/11/20/Linux常用命令/index.html
+INFO  Generated: 2024/11/05/hello-world/index.html
+INFO  Generated: archives/2024/11/index.html
+INFO  Generated: archives/2025/04/index.html
+INFO  Generated: archives/2024/index.html
+INFO  Generated: archives/2024/12/index.html
+INFO  Generated: tags/轻松一下/index.html
+INFO  Generated: index.html
+INFO  Generated: 2024/11/11/一种写Hexo博客的姿势/index.html
+INFO  Generated: archives/2025/06/index.html
+INFO  Generated: tags/学习/index.html
+INFO  Generated: 2025/06/11/zlib/index.html
+INFO  22 files generated in 94 ms
