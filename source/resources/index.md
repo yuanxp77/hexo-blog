@@ -8,6 +8,7 @@ date: 2025-04-10 10:09:41
 - Golang
     - https://go101.org/article/unofficial-faq.html
     - https://go101.org/quizzes/101.html
+    - https://gobyexample.com/
     - Go语言圣经 https://gopl-zh.github.io/index.html
 
 - DB
