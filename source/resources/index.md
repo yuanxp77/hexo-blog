@@ -5,6 +5,9 @@ date: 2025-04-10 10:09:41
 
 > 此处用于记录一些资源
 
+- AI
+    - 斯坦福cs336 https://www.youtube.com/watch?v=SQ3fZ1sAqXI&list=PLoROMvodv4rOY23Y0BoGoBGgQ1zmU_MT_&index=4
+
 - Golang
     - https://go101.org/article/unofficial-faq.html
     - https://go101.org/quizzes/101.html
