@@ -103,4 +103,4 @@ echo "---"
 echo "100当地货币 = x人民币 | size=10 color=green"
 echo "数据来源: 中国银行 $(date '+%H:%M:%S') | size=10 color=gray"
 echo "刷新数据 | refresh=true"
-```
+```·
