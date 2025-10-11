@@ -12,12 +12,15 @@ tags:
 
 ![demo.png](demo.png)
 
+![2.png](2.gif)
+
 ``` shell
 #!/usr/bin/env bash
 # <xbar.title>多币种汇率</xbar.title>
 # <xbar.version>v1.0</xbar.version>
 # <xbar.author>yuanxp77</xbar.author>
 # <xbar.author.github>yuanxp77</xbar.author.github>
+
 # <xbar.desc>显示多种主流货币的人民币购汇价格，支持界面化配置</xbar.desc>
 # <xbar.dependencies>shell,curl,bc</xbar.dependencies>
 
