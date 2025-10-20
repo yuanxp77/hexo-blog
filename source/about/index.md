@@ -5,7 +5,7 @@ date: 2024-12-09 18:31:23
 
 # yuanxp77
 
-[GitHub](https://github.com/yuanxp77) | yuanxp77@outlook.com
+[GitHub](https://github.com/yuanxp77) | yuanxp77@qq.com
 
 ---
 
