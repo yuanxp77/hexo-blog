@@ -10,8 +10,6 @@ tags:
 
 然后按教程使用我下面的脚本，就可以了，效果如图：
 
-![demo.png](demo.png)
-
 ![2.png](2.gif)
 
 ``` shell
