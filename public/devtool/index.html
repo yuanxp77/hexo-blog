@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>工具集</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="enums.js"></script>
     <link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNSIgZmlsbD0iIzAwN2FjYyIgc3Ryb2tlPSIjMDA1YTllIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNiwgMTYpIj4KICAgIDxwYXRoIGQ9Ik0tOCwtMiBMLTYsLTIgTC02LC00IEwtNCwtNCBMLTQsLTYgTC0yLC02IEwtMiwtOCBMMiwtOCBMMiwtNiBMNCwtNiBMNCwtNCBMNiwtNCBMNiwtMiBMOCwtMiBMOCwyIEw2LDIgTDYsNCBMNCw0IEw0LDYgTDIsNiBMMiw4IEwtMiw4IEwtMiw2IEwtNCw2IEwtNCw0IEwtNiw0IEwtNiwyIEwtOCwyIFoiIGZpbGw9IiNmZmZmZmYiLz4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIzIiBmaWxsPSIjMDA3YWNjIi8+CiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMSIgZmlsbD0iI2ZmZmZmZiIvPgogIDwvZz4KICA8Y2lyY2xlIGN4PSI4IiBjeT0iOCIgcj0iMSIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC43Ii8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSI4IiByPSIxIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjciLz4KICA8Y2lyY2xlIGN4PSI4IiBjeT0iMjQiIHI9IjEiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNyIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjEiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNyIvPgo8L3N2Zz4K">
     <style>
         * {
@@ -647,6 +648,12 @@
             right: 4px;  /* 清空按钮放到最右边 */
         }
         
+        /* 枚举工具的清空按钮位置调整 */
+        .enum-input-buttons .input-button,
+        .enum-query-buttons .input-button {
+            right: 4px;  /* 清空按钮放到最右边 */
+        }
+        
         .input-button:hover {
             background: #005a9e;
         }
@@ -783,6 +790,7 @@
             <button class="quick-btn" onclick="openTab('utils')">Utils</button>
             <button class="quick-btn" onclick="openTab('format')">Format</button>
             <button class="quick-btn" onclick="openTab('convert')">Convert</button>
+            <button class="quick-btn" onclick="openTab('enum')">Enum</button>
             <button class="quick-btn" onclick="openTab('tools')">Tools</button>
             <button class="quick-btn close-all" onclick="closeAllTabs()">关闭所有</button>
         </div>
@@ -1326,6 +1334,21 @@
                                     }
                                 }
                             }
+                        } else if (tab === 'enum') {
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const enumDefinitionInput = editorPane.querySelector('[id^="enum-definition-"]');
+                                    const enumQueryInput = editorPane.querySelector('[id^="enum-query-"]');
+                                    if (enumDefinitionInput) {
+                                        setupMiddleClickPaste(enumDefinitionInput);
+                                    }
+                                    if (enumQueryInput) {
+                                        setupMiddleClickPaste(enumQueryInput);
+                                    }
+                                }
+                            }
                         }
                     });
                 }, 200);
@@ -1340,6 +1363,7 @@
                 'utils': 'Utils',
                 'format': 'Format',
                 'convert': 'Convert',
+                'enum': 'Enum',
                 'tools': 'Tools'
             };
             return titles[tabName] || tabName;
@@ -1405,6 +1429,20 @@
                             </div>
                             <div class="result" id="format-result-${tabId}">格式化结果将显示在这里</div>
                             <button class="btn" onclick="formatContent('${tabId}')">格式化</button>
+                        </div>
+                    `;
+                case 'enum':
+                    return `
+                        <div class="tool-container">
+                            <div class="tool-title">枚举查询工具</div>
+                            <div class="input-group">
+                                <label>查询值</label>
+                                <div class="input-with-button enum-query-buttons">
+                                    <input type="text" id="enum-query-${tabId}" placeholder="输入要查询的值，如: 5" oninput="debounceQueryEnum('${tabId}')">
+                                    <button class="input-button" onclick="clearEnumQuery('${tabId}')">清空</button>
+                                </div>
+                            </div>
+                            <div class="result" id="enum-result-${tabId}"></div>
                         </div>
                     `;
                 case 'convert':
@@ -1743,6 +1781,83 @@
                     result.innerHTML = '';
                 }
             }
+        }
+        
+        // 枚举工具功能
+        let enumData = {}; // 存储解析的枚举数据
+        
+        
+        // 查询枚举值
+        function queryEnumValue(tabId) {
+            const query = document.getElementById(`enum-query-${tabId}`);
+            const result = document.getElementById(`enum-result-${tabId}`);
+            
+            if (!query || !result) return;
+            
+            const value = query.value.trim();
+            if (!value) {
+                result.innerHTML = '';
+                return;
+            }
+            
+            // 检查是否已加载预定义枚举数据
+            if (typeof window.PREDEFINED_ENUMS === 'undefined') {
+                result.innerHTML = '<div style="color: #ff6b6b;">❌ 预定义枚举数据未加载，请检查enums.js文件</div>';
+                return;
+            }
+            
+            // 在所有预定义枚举中搜索
+            let foundResults = [];
+            let allAvailableValues = [];
+            
+            Object.keys(window.PREDEFINED_ENUMS).forEach(enumName => {
+                const enumData = window.PREDEFINED_ENUMS[enumName];
+                if (enumData[value]) {
+                    foundResults.push({
+                        enumName: enumName,
+                        value: value,
+                        meaning: enumData[value]
+                    });
+                }
+                // 收集所有可用值
+                Object.keys(enumData).forEach(key => {
+                    allAvailableValues.push(`${key}(${enumName})`);
+                });
+            });
+            
+            if (foundResults.length > 0) {
+                let html = '<div style="color: #4CAF50; font-size: 16px; font-weight: bold; margin-bottom: 10px;">✅ 查询结果:</div>';
+                foundResults.forEach(result => {
+                    html += `<div style="background: #2d2d30; padding: 10px; border-radius: 4px; margin-bottom: 8px; font-family: monospace;">
+                        <div style="color: #4CAF50; font-weight: bold;">${result.enumName}</div>
+                        <div style="color: #cccccc;">${result.value} = ${result.meaning}</div>
+                    </div>`;
+                });
+                result.innerHTML = html;
+            } else {
+                result.innerHTML = `<div style="color: #ff6b6b;">
+                    <div>❌ 未找到值 ${value}</div>
+                    <div style="margin-top: 10px; color: #888; font-size: 12px;">可用值示例: ${allAvailableValues.slice(0, 10).join(', ')}${allAvailableValues.length > 10 ? '...' : ''}</div>
+                </div>`;
+            }
+        }
+        
+        
+        // 清空枚举查询
+        function clearEnumQuery(tabId) {
+            const input = document.getElementById(`enum-query-${tabId}`);
+            if (input) {
+                input.value = '';
+            }
+        }
+        
+        
+        
+        function debounceQueryEnum(tabId) {
+            clearTimeout(window.queryEnumTimeout);
+            window.queryEnumTimeout = setTimeout(() => {
+                queryEnumValue(tabId);
+            }, 300);
         }
 
         
