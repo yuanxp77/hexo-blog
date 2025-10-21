@@ -52,30 +52,37 @@
             top: 20px;
             right: 20px;
             z-index: 1000;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             transition: all 0.3s ease;
         }
 
         .quick-open-trigger {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: #007acc;
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 20px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            user-select: none;
         }
 
         .quick-open-trigger:hover {
             background: #005a9e;
             transform: scale(1.1);
+        }
+
+        .quick-open-trigger.dragging {
+            cursor: grabbing;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         .quick-open {
@@ -95,6 +102,41 @@
             visibility: hidden;
             transform: translateX(20px) scale(0.9);
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .quick-open-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3c3c3c;
+        }
+
+        .quick-open-title {
+            font-size: 12px;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .layout-toggle-inline {
+            width: 24px;
+            height: 24px;
+            background: #3c3c3c;
+            border: 1px solid #555;
+            border-radius: 4px;
+            color: #cccccc;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .layout-toggle-inline:hover {
+            background: #555;
+            transform: scale(1.1);
         }
 
         .quick-open.show {
@@ -170,6 +212,8 @@
             display: flex;
             height: 100vh;
             background: #1e1e1e;
+            flex-wrap: wrap;
+            align-content: flex-start;
         }
 
         .tab-editor-group {
@@ -178,6 +222,44 @@
             flex: 1;
             min-width: 200px;
             position: relative;
+        }
+
+        /* 垂直布局模式 */
+        .tab-editor-container.vertical {
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+
+        .tab-editor-container.vertical .tab-editor-group {
+            flex-direction: row;
+            min-height: 150px;
+            min-width: auto;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tab-editor-container.vertical .tab-editor-group .tab {
+            flex: 0 0 auto;
+            width: 40px;
+            writing-mode: horizontal-tb;
+            text-orientation: initial;
+            padding: 8px 4px;
+            font-size: 11px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-editor-container.vertical .tab-editor-group .tab .tab-close {
+            margin-left: 0;
+            margin-top: 4px;
+            font-size: 8px;
+        }
+
+        .tab-editor-container.vertical .tab-editor-group .editor-pane {
+            flex: 1;
         }
 
         .tab-editor-group:not(:last-child)::after {
@@ -189,6 +271,15 @@
             width: 1px;
             background: #3c3c3c;
             z-index: 1;
+        }
+
+        /* 垂直布局的分割线 */
+        .tab-editor-container.vertical .tab-editor-group:not(:last-child)::after {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            height: 100%;
         }
 
         .tab-editor-group .tab {
@@ -231,6 +322,18 @@
 
         .tab:active {
             transform: scale(0.98);
+        }
+
+        .tab.flash {
+            animation: tabFlash 0.6s ease-in-out;
+        }
+
+        @keyframes tabFlash {
+            0% { background: #2d2d30; }
+            25% { background: #007acc; }
+            50% { background: #005a9e; }
+            75% { background: #007acc; }
+            100% { background: #2d2d30; }
         }
 
         .tab-close {
@@ -518,9 +621,13 @@
     </div>
 
     <!-- 侧边浮动快速打开面板 -->
-    <div class="quick-open-container">
-        <button class="quick-open-trigger" onclick="toggleQuickOpen()" id="quick-open-trigger">+</button>
+    <div class="quick-open-container" id="quick-open-container">
+        <button class="quick-open-trigger" onclick="toggleQuickOpen()" id="quick-open-trigger" draggable="true">+</button>
         <div class="quick-open" id="quick-open">
+            <div class="quick-open-header">
+                <div class="quick-open-title">工具面板</div>
+                <button class="layout-toggle-inline" onclick="toggleLayout()" id="layout-toggle-inline" title="切换布局">⤢</button>
+            </div>
             <button class="quick-btn" onclick="openTab('spex')">Spex</button>
             <button class="quick-btn" onclick="openTab('test')">Test</button>
             <button class="quick-btn" onclick="openTab('utils')">Utils</button>
@@ -537,11 +644,15 @@
         let openTabs = [];
         let draggedTab = null;
         let quickOpenVisible = false;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        let isVerticalLayout = false;
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 默认打开Spex工具
+            // 默认打开Spex和Tools工具
             openTab('spex');
+            openTab('tools');
             
             // 3秒后显示提示
             setTimeout(() => {
@@ -550,6 +661,18 @@
                     hint.classList.add('show');
                 }
             }, 3000);
+            
+            // 初始化拖拽功能
+            initQuickOpenDrag();
+            
+            // 点击外部自动收缩
+            document.addEventListener('click', function(e) {
+                const container = document.getElementById('quick-open-container');
+                const quickOpen = document.getElementById('quick-open');
+                if (quickOpenVisible && !container.contains(e.target)) {
+                    toggleQuickOpen();
+                }
+            });
         });
 
         // 切换快速打开面板
@@ -574,10 +697,57 @@
             }
         }
 
+        // 初始化拖拽功能
+        function initQuickOpenDrag() {
+            const trigger = document.getElementById('quick-open-trigger');
+            const container = document.getElementById('quick-open-container');
+            
+            if (!trigger || !container) return;
+            
+            // 鼠标按下开始拖拽
+            trigger.addEventListener('mousedown', function(e) {
+                if (e.button !== 0) return; // 只响应左键
+                
+                isDragging = true;
+                trigger.classList.add('dragging');
+                
+                const rect = container.getBoundingClientRect();
+                dragOffset.x = e.clientX - rect.left;
+                dragOffset.y = e.clientY - rect.top;
+                
+                e.preventDefault();
+            });
+            
+            // 鼠标移动拖拽
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                
+                const x = e.clientX - dragOffset.x;
+                const y = e.clientY - dragOffset.y;
+                
+                // 限制在视窗内
+                const maxX = window.innerWidth - container.offsetWidth;
+                const maxY = window.innerHeight - container.offsetHeight;
+                
+                container.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+                container.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+                container.style.right = 'auto';
+            });
+            
+            // 鼠标释放结束拖拽
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    trigger.classList.remove('dragging');
+                }
+            });
+        }
+
         // 打开Tab
         function openTab(tabName) {
             if (openTabs.includes(tabName)) {
-                // 如果tab已存在，切换到该tab
+                // 如果tab已存在，闪烁提示并切换到该tab
+                flashTab(tabName);
                 switchTab(tabName);
                 return;
             }
@@ -651,6 +821,89 @@
             });
         }
 
+        // 闪烁tab提示
+        function flashTab(tabName) {
+            const tab = document.querySelector(`.tab[data-tab="${tabName}"]`);
+            if (tab) {
+                // 添加闪烁动画
+                tab.classList.add('flash');
+                
+                // 0.6秒后移除闪烁类
+                setTimeout(() => {
+                    tab.classList.remove('flash');
+                }, 600);
+            }
+        }
+
+        // 切换布局模式
+        function toggleLayout() {
+            const container = document.getElementById('tab-editor-container');
+            const toggle = document.getElementById('layout-toggle-inline');
+            
+            isVerticalLayout = !isVerticalLayout;
+            
+            if (isVerticalLayout) {
+                container.classList.add('vertical');
+                toggle.textContent = '⤡';
+                toggle.title = '切换到水平布局';
+            } else {
+                container.classList.remove('vertical');
+                toggle.textContent = '⤢';
+                toggle.title = '切换到垂直布局';
+            }
+            
+            // 重新计算布局
+            optimizeLayout();
+        }
+
+        // 智能布局算法
+        function optimizeLayout() {
+            const container = document.getElementById('tab-editor-container');
+            const groups = container.querySelectorAll('.tab-editor-group');
+            
+            if (groups.length === 0) return;
+            
+            // 重置所有内联样式，让CSS类重新生效
+            groups.forEach(group => {
+                group.style.flex = '';
+                group.style.maxWidth = '';
+                group.style.margin = '';
+            });
+            
+            if (isVerticalLayout) {
+                // 垂直布局：限制最大宽度，居中显示
+                groups.forEach(group => {
+                    group.style.flex = `0 0 ${100 / groups.length}%`;
+                    group.style.maxWidth = '800px';
+                    group.style.margin = '0 auto';
+                });
+            } else {
+                // 水平布局：根据工具数量智能分配
+                const count = groups.length;
+                let layout;
+                
+                if (count <= 2) {
+                    // 1-2个工具：各占50%
+                    layout = Array(count).fill(50);
+                } else if (count <= 4) {
+                    // 3-4个工具：平均分配
+                    layout = Array(count).fill(100 / count);
+                } else if (count <= 6) {
+                    // 5-6个工具：两行布局
+                    const perRow = Math.ceil(count / 2);
+                    layout = Array(count).fill(100 / perRow);
+                } else {
+                    // 7+个工具：三行布局
+                    const perRow = Math.ceil(count / 3);
+                    layout = Array(count).fill(100 / perRow);
+                }
+                
+                groups.forEach((group, index) => {
+                    group.style.flex = `0 0 ${layout[index]}%`;
+                });
+            }
+        }
+
         // 更新显示
         function updateDisplay() {
             const container = document.getElementById('tab-editor-container');
@@ -670,7 +923,7 @@
                 const tabEditorGroup = document.createElement('div');
                 tabEditorGroup.className = 'tab-editor-group';
                 tabEditorGroup.dataset.tab = tab;
-                tabEditorGroup.style.flex = `0 0 ${100 / openTabs.length}%`;
+                // 不在这里设置flex，让optimizeLayout函数处理
                 
                 // 创建tab按钮
                 const tabButton = document.createElement('div');
@@ -732,6 +985,9 @@
                         startTimeUpdate();
                     }
                 });
+                
+                // 优化布局
+                optimizeLayout();
             }, 100);
         }
 
@@ -756,9 +1012,9 @@
                 case 'spex':
                     return `
                         <div class="tool-container">
-                            <div class="tool-title">Spex 转换工具</div>
+                            <div class="tool-title">cmd转handler代码</div>
                             <div class="input-group">
-                                <input type="text" id="spex-input-${tabId}" placeholder="输入字符串，如: a.b.c.get_product_info" oninput="convertText('${tabId}')">
+                                <input type="text" id="spex-input-${tabId}" placeholder="输入字符串，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
                             </div>
                             <div class="result" id="spex-result-${tabId}">) </div>
                             <div style="margin-top: 8px;">
@@ -865,14 +1121,22 @@
             }
         }
 
+        // 防抖转换函数，避免初始化时的弹窗
+        function debounceConvert(tabId) {
+            clearTimeout(window.convertTimeout);
+            window.convertTimeout = setTimeout(() => {
+                convertText(tabId);
+            }, 100);
+        }
+
         function toCamelCase(str) {
             const lastDotIndex = str.lastIndexOf('.');
             if (lastDotIndex === -1) {
-                return ') ' + str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+                return ') ' + str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase()) + '(ctx ';
             }
             
             const afterLastDot = str.substring(lastDotIndex + 1);
-            const camelCase = afterLastDot.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+            const camelCase = afterLastDot.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())+ '(ctx';
             return ') ' + camelCase;
         }
 
@@ -1218,7 +1482,7 @@
         }
 
         // Toast通知
-        function showToast(message, type = 'info', duration = 4000) {
+        function showToast(message, type = 'info', duration = 2000) {
             const existingToast = document.querySelector('.toast');
             if (existingToast) {
                 existingToast.remove();
