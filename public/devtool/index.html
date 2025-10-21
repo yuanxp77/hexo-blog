@@ -1828,7 +1828,10 @@
             if (foundResults.length > 0) {
                 let html = '<div style="color: #4CAF50; font-size: 16px; font-weight: bold; margin-bottom: 10px;">✅ 查询结果:</div>';
                 foundResults.forEach(result => {
-                    html += `<div style="background: #2d2d30; padding: 10px; border-radius: 4px; margin-bottom: 8px; font-family: monospace;">
+                    html += `<div style="background: #2d2d30; padding: 10px; border-radius: 4px; margin-bottom: 8px; font-family: monospace; cursor: pointer; border: 1px solid #555; transition: all 0.2s ease;" 
+                             onmouseover="this.style.borderColor='#007acc'; this.style.background='#3d3d3d'" 
+                             onmouseout="this.style.borderColor='#555'; this.style.background='#2d2d30'"
+                             onclick="showEnumDetails('${result.enumName}', '${tabId}')">
                         <div style="color: #4CAF50; font-weight: bold;">${result.enumName}</div>
                         <div style="color: #cccccc;">${result.value} = ${result.meaning}</div>
                     </div>`;
@@ -1846,9 +1849,125 @@
         // 清空枚举查询
         function clearEnumQuery(tabId) {
             const input = document.getElementById(`enum-query-${tabId}`);
+            const result = document.getElementById(`enum-result-${tabId}`);
             if (input) {
                 input.value = '';
             }
+            if (result) {
+                result.innerHTML = '';
+            }
+        }
+        
+        // 显示枚举详情浮窗
+        function showEnumDetails(enumName, tabId) {
+            // 检查是否已加载预定义枚举数据
+            if (typeof window.PREDEFINED_ENUMS === 'undefined') {
+                alert('预定义枚举数据未加载');
+                return;
+            }
+            
+            const enumData = window.PREDEFINED_ENUMS[enumName];
+            if (!enumData) {
+                alert('未找到枚举: ' + enumName);
+                return;
+            }
+            
+            // 创建浮窗
+            const modal = document.createElement('div');
+            modal.id = 'enum-modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: #2d2d30;
+                border: 1px solid #555;
+                border-radius: 8px;
+                padding: 20px;
+                max-width: 500px;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            `;
+            
+            let html = `
+                <div style="margin-bottom: 15px;">
+                    <h3 style="color: #4CAF50; margin: 0; font-size: 18px;">${enumName}</h3>
+                </div>
+                <div style="background: #1e1e1e; padding: 15px; border-radius: 4px; font-family: monospace; max-height: 400px; overflow-y: auto;">
+            `;
+            
+            // 按数值排序显示所有枚举值
+            Object.keys(enumData).sort((a, b) => parseInt(a) - parseInt(b)).forEach(key => {
+                html += `<div style="padding: 5px 0; border-bottom: 1px solid #333; display: flex; justify-content: space-between;">
+                    <span style="color: #4CAF50; font-weight: bold;">${key}</span>
+                    <span style="color: #cccccc;">${enumData[key]}</span>
+                </div>`;
+            });
+            
+            html += `
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button onclick="copyEnumToClipboard('${enumName}')" style="background: #007acc; color: white; border: none; border-radius: 4px; padding: 8px 16px; cursor: pointer; margin-right: 10px;">复制枚举</button>
+                    <button onclick="closeEnumModal()" style="background: #666; color: white; border: none; border-radius: 4px; padding: 8px 16px; cursor: pointer;">关闭</button>
+                </div>
+            `;
+            
+            modalContent.innerHTML = html;
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // 点击背景关闭浮窗
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeEnumModal();
+                }
+            });
+        }
+        
+        // 关闭枚举浮窗
+        function closeEnumModal() {
+            const modal = document.getElementById('enum-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        // 复制枚举到剪贴板
+        function copyEnumToClipboard(enumName) {
+            if (typeof window.PREDEFINED_ENUMS === 'undefined') {
+                alert('预定义枚举数据未加载');
+                return;
+            }
+            
+            const enumData = window.PREDEFINED_ENUMS[enumName];
+            if (!enumData) {
+                alert('未找到枚举: ' + enumName);
+                return;
+            }
+            
+            // 生成枚举代码
+            let code = `const ${enumName} = {\n`;
+            Object.keys(enumData).sort((a, b) => parseInt(a) - parseInt(b)).forEach(key => {
+                code += `    ${key}: '${enumData[key]}',\n`;
+            });
+            code += '};';
+            
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('枚举代码已复制到剪贴板', 'success');
+            }).catch(() => {
+                alert('复制失败，请手动复制');
+            });
         }
         
         
