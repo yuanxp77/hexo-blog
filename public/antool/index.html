@@ -165,6 +165,38 @@
             position: relative;
         }
 
+        /* 统一的tab-编辑器容器 */
+        .tab-editor-container {
+            display: flex;
+            height: 100vh;
+            background: #1e1e1e;
+        }
+
+        .tab-editor-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 200px;
+            border-right: 1px solid #3c3c3c;
+        }
+
+        .tab-editor-group:last-child {
+            border-right: none;
+        }
+
+        .tab-editor-group .tab {
+            flex: 0 0 auto;
+            background: #2d2d30;
+            border-bottom: 1px solid #3c3c3c;
+        }
+
+        .tab-editor-group .editor-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #1e1e1e;
+        }
+
         .tab {
             display: flex;
             align-items: center;
@@ -473,11 +505,8 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Tab栏 -->
-        <div class="tab-bar" id="tab-bar"></div>
-
-        <!-- 编辑器容器 -->
-        <div class="editor-container" id="editor-container"></div>
+        <!-- 统一的tab-编辑器容器 -->
+        <div class="tab-editor-container" id="tab-editor-container"></div>
     </div>
 
     <!-- 侧边浮动快速打开面板 -->
@@ -616,21 +645,25 @@
 
         // 更新显示
         function updateDisplay() {
-            const tabBar = document.getElementById('tab-bar');
-            const editorContainer = document.getElementById('editor-container');
+            const container = document.getElementById('tab-editor-container');
             
             // 清空现有内容
-            tabBar.innerHTML = '';
-            editorContainer.innerHTML = '';
+            container.innerHTML = '';
 
             if (openTabs.length === 0) {
                 // 显示空状态
-                editorContainer.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #888; font-size: 14px;">点击上方按钮打开工具</div>';
+                container.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #888; font-size: 14px; flex: 1;">点击右上角按钮打开工具</div>';
                 return;
             }
 
-            // 创建tab和对应的编辑器面板，确保垂直对齐
+            // 为每个tab创建统一的tab-编辑器组
             openTabs.forEach((tab, index) => {
+                // 创建tab-编辑器组容器
+                const tabEditorGroup = document.createElement('div');
+                tabEditorGroup.className = 'tab-editor-group';
+                tabEditorGroup.dataset.tab = tab;
+                tabEditorGroup.style.flex = `0 0 ${100 / openTabs.length}%`;
+                
                 // 创建tab按钮
                 const tabButton = document.createElement('div');
                 tabButton.className = 'tab';
@@ -638,7 +671,6 @@
                 tabButton.textContent = getTabTitle(tab);
                 tabButton.draggable = true;
                 tabButton.dataset.tab = tab;
-                tabButton.style.flex = `0 0 ${100 / openTabs.length}%`;
                 
                 // 添加关闭按钮
                 const closeBtn = document.createElement('span');
@@ -664,29 +696,23 @@
                 tabButton.addEventListener('dragover', handleTabDragOver);
                 tabButton.addEventListener('drop', handleTabDrop);
                 
-                tabBar.appendChild(tabButton);
-                
-                // 创建对应的编辑器面板
+                // 创建编辑器面板
                 const editorPane = document.createElement('div');
                 editorPane.className = 'editor-pane';
                 editorPane.dataset.tab = tab;
-                editorPane.style.flex = `0 0 ${100 / openTabs.length}%`;
-                editorPane.style.display = 'flex';
                 
                 const editorContent = document.createElement('div');
                 editorContent.className = 'editor-content';
                 editorContent.innerHTML = getTabContent(tab);
                 
                 editorPane.appendChild(editorContent);
-                editorContainer.appendChild(editorPane);
                 
-                // 添加分割线（除了最后一个）
-                if (index < openTabs.length - 1) {
-                    const splitter = document.createElement('div');
-                    splitter.className = 'splitter';
-                    splitter.addEventListener('mousedown', (e) => handleSplitterDrag(e, index));
-                    editorContainer.appendChild(splitter);
-                }
+                // 将tab和编辑器面板添加到组中
+                tabEditorGroup.appendChild(tabButton);
+                tabEditorGroup.appendChild(editorPane);
+                
+                // 将组添加到容器中
+                container.appendChild(tabEditorGroup);
             });
             
             // 初始化工具
@@ -1088,22 +1114,22 @@
             draggedTab = e.target.dataset.tab;
             e.target.classList.add('tab-dragging');
             
-            // 同时拖拽对应的编辑器面板
-            const editorPane = document.querySelector(`[data-tab="${draggedTab}"]`);
-            if (editorPane) {
-                editorPane.style.opacity = '0.5';
-                editorPane.style.transform = 'rotate(2deg)';
+            // 同时拖拽对应的tab-编辑器组
+            const tabEditorGroup = document.querySelector(`.tab-editor-group[data-tab="${draggedTab}"]`);
+            if (tabEditorGroup) {
+                tabEditorGroup.style.opacity = '0.5';
+                tabEditorGroup.style.transform = 'rotate(2deg)';
             }
         }
 
         function handleTabDragEnd(e) {
             e.target.classList.remove('tab-dragging');
             
-            // 恢复编辑器面板样式
-            const editorPane = document.querySelector(`[data-tab="${draggedTab}"]`);
-            if (editorPane) {
-                editorPane.style.opacity = '1';
-                editorPane.style.transform = 'none';
+            // 恢复tab-编辑器组样式
+            const tabEditorGroup = document.querySelector(`.tab-editor-group[data-tab="${draggedTab}"]`);
+            if (tabEditorGroup) {
+                tabEditorGroup.style.opacity = '1';
+                tabEditorGroup.style.transform = 'none';
             }
             
             draggedTab = null;
@@ -1115,10 +1141,10 @@
             if (targetTab && targetTab.dataset.tab !== draggedTab) {
                 targetTab.classList.add('tab-drag-over');
                 
-                // 同时高亮对应的编辑器面板
-                const targetEditorPane = document.querySelector(`[data-tab="${targetTab.dataset.tab}"]`);
-                if (targetEditorPane) {
-                    targetEditorPane.style.border = '2px dashed #007acc';
+                // 同时高亮对应的tab-编辑器组
+                const targetTabEditorGroup = document.querySelector(`.tab-editor-group[data-tab="${targetTab.dataset.tab}"]`);
+                if (targetTabEditorGroup) {
+                    targetTabEditorGroup.style.border = '2px dashed #007acc';
                 }
             }
         }
@@ -1143,8 +1169,8 @@
                 tab.classList.remove('tab-drag-over');
             });
             
-            document.querySelectorAll('.editor-pane').forEach(pane => {
-                pane.style.border = 'none';
+            document.querySelectorAll('.tab-editor-group').forEach(group => {
+                group.style.border = 'none';
             });
         }
 
