@@ -55,6 +55,55 @@
             border-bottom: 1px solid #3c3c3c;
             flex-wrap: wrap;
             min-height: 40px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .quick-open.collapsed {
+            min-height: 0;
+            padding: 4px 12px;
+            max-height: 0;
+        }
+
+        .quick-open-toggle {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quick-open-toggle:hover {
+            background: #005a9e;
+        }
+
+        .quick-open-container {
+            position: relative;
+        }
+
+        .quick-open-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 122, 204, 0.1);
+            color: #007acc;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 1px dashed #007acc;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         .quick-btn {
@@ -394,14 +443,18 @@
 <body>
     <div class="main-container">
         <!-- 快速打开按钮 -->
-        <div class="quick-open" id="quick-open">
-            <button class="quick-btn" onclick="openTab('spex')">Spex</button>
-            <button class="quick-btn" onclick="openTab('test')">Test</button>
-            <button class="quick-btn" onclick="openTab('utils')">Utils</button>
-            <button class="quick-btn" onclick="openTab('format')">Format</button>
-            <button class="quick-btn" onclick="openTab('convert')">Convert</button>
-            <button class="quick-btn" onclick="openTab('tools')">Tools</button>
-            <button class="quick-btn close-all" onclick="closeAllTabs()">关闭所有</button>
+        <div class="quick-open-container">
+            <div class="quick-open" id="quick-open">
+                <button class="quick-btn" onclick="openTab('spex')">Spex</button>
+                <button class="quick-btn" onclick="openTab('test')">Test</button>
+                <button class="quick-btn" onclick="openTab('utils')">Utils</button>
+                <button class="quick-btn" onclick="openTab('format')">Format</button>
+                <button class="quick-btn" onclick="openTab('convert')">Convert</button>
+                <button class="quick-btn" onclick="openTab('tools')">Tools</button>
+                <button class="quick-btn close-all" onclick="closeAllTabs()">关闭所有</button>
+                <button class="quick-open-toggle" onclick="toggleQuickOpen()" id="quick-open-toggle">收起</button>
+            </div>
+            <div class="quick-open-hint" id="quick-open-hint">点击上方按钮打开工具</div>
         </div>
 
         <!-- Tab栏 -->
@@ -415,12 +468,39 @@
         // 全局变量
         let openTabs = [];
         let draggedTab = null;
+        let quickOpenCollapsed = false;
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
             // 默认打开Spex工具
             openTab('spex');
+            
+            // 3秒后自动折叠快速打开区域
+            setTimeout(() => {
+                if (openTabs.length > 0) {
+                    toggleQuickOpen();
+                }
+            }, 3000);
         });
+
+        // 切换快速打开区域
+        function toggleQuickOpen() {
+            const quickOpen = document.getElementById('quick-open');
+            const toggle = document.getElementById('quick-open-toggle');
+            const hint = document.getElementById('quick-open-hint');
+            
+            quickOpenCollapsed = !quickOpenCollapsed;
+            
+            if (quickOpenCollapsed) {
+                quickOpen.classList.add('collapsed');
+                toggle.textContent = '展开';
+                hint.style.display = 'block';
+            } else {
+                quickOpen.classList.remove('collapsed');
+                toggle.textContent = '收起';
+                hint.style.display = 'none';
+            }
+        }
 
         // 打开Tab
         function openTab(tabName) {
@@ -433,6 +513,12 @@
             // 添加新tab
             openTabs.push(tabName);
             updateDisplay();
+            
+            // 隐藏提示
+            const hint = document.getElementById('quick-open-hint');
+            if (hint) {
+                hint.style.display = 'none';
+            }
             
             // 初始化工具
             setTimeout(() => {
@@ -950,10 +1036,25 @@
         function handleTabDragStart(e) {
             draggedTab = e.target.dataset.tab;
             e.target.classList.add('tab-dragging');
+            
+            // 同时拖拽对应的编辑器面板
+            const editorPane = document.querySelector(`[data-tab="${draggedTab}"]`);
+            if (editorPane) {
+                editorPane.style.opacity = '0.5';
+                editorPane.style.transform = 'rotate(2deg)';
+            }
         }
 
         function handleTabDragEnd(e) {
             e.target.classList.remove('tab-dragging');
+            
+            // 恢复编辑器面板样式
+            const editorPane = document.querySelector(`[data-tab="${draggedTab}"]`);
+            if (editorPane) {
+                editorPane.style.opacity = '1';
+                editorPane.style.transform = 'none';
+            }
+            
             draggedTab = null;
         }
 
@@ -962,6 +1063,12 @@
             const targetTab = e.target.closest('.tab');
             if (targetTab && targetTab.dataset.tab !== draggedTab) {
                 targetTab.classList.add('tab-drag-over');
+                
+                // 同时高亮对应的编辑器面板
+                const targetEditorPane = document.querySelector(`[data-tab="${targetTab.dataset.tab}"]`);
+                if (targetEditorPane) {
+                    targetEditorPane.style.border = '2px dashed #007acc';
+                }
             }
         }
 
@@ -983,6 +1090,10 @@
             // 清理样式
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('tab-drag-over');
+            });
+            
+            document.querySelectorAll('.editor-pane').forEach(pane => {
+                pane.style.border = 'none';
             });
         }
 
