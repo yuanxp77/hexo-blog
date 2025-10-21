@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命名转换工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .tab-container {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .tab-header {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tab-button {
+            background: #f8f9fa;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            font-size: 12px;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            background: #e9ecef;
+        }
+
+        .tab-button.active {
+            background: white;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .tab-button.open {
+            background: #e3f2fd;
+        }
+
+        .tab-button .close-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 8px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .tab-button.open .close-btn {
+            display: block;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 10px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .multi-tab-container {
+            display: flex;
+            height: calc(100vh - 100px);
+            position: relative;
+        }
+
+        .multi-tab-panel {
+            flex: 1;
+            border-right: 1px solid #ddd;
+            display: none;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .multi-tab-panel.active {
+            display: block;
+        }
+
+        .multi-tab-panel:last-child {
+            border-right: none;
+        }
+
+        .tab-panel-header {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            font-size: 12px;
+            cursor: move;
+            user-select: none;
+        }
+
+        .tab-panel-title {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .tab-panel-close {
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .tab-panel-content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        /* VSCode风格的tab样式 */
+        .vscode-tab {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: #2d2d30;
+            color: #cccccc;
+            border: none;
+            border-right: 1px solid #3c3c3c;
+            cursor: pointer;
+            font-size: 13px;
+            position: relative;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .vscode-tab:hover {
+            background: #2a2d2e;
+        }
+
+        .vscode-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vscode-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #007acc;
+        }
+
+        .vscode-tab-close {
+            margin-left: 8px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            background: transparent;
+            color: #cccccc;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+
+        .vscode-tab:hover .vscode-tab-close {
+            opacity: 1;
+        }
+
+        .vscode-tab-close:hover {
+            background: #e81123;
+            color: white;
+        }
+
+        .vscode-tab-bar {
+            display: flex;
+            background: #2d2d30;
+            border-bottom: 1px solid #3c3c3c;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .vscode-editor-pane {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-right: 1px solid #3c3c3c;
+        }
+
+        .vscode-editor-pane:last-child {
+            border-right: none;
+        }
+
+        .vscode-editor-content {
+            flex: 1;
+            background: #1e1e1e;
+            color: #cccccc;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .vscode-splitter {
+            width: 4px;
+            background: #3c3c3c;
+            cursor: col-resize;
+            position: relative;
+        }
+
+        .vscode-splitter:hover {
+            background: #007acc;
+        }
+
+        .vscode-splitter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -2px;
+            right: -2px;
+            bottom: 0;
+            background: transparent;
+        }
+
+        /* 拖拽相关样式 */
+        .tab-dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .tab-drop-zone {
+            border: 2px dashed #007acc;
+            background: rgba(0, 122, 204, 0.1);
+        }
+
+        .tab-ghost {
+            position: absolute;
+            background: #007acc;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* 暗黑模式支持 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1e1e1e;
+                color: #cccccc;
+            }
+
+            .container {
+                background: #2d2d30;
+                color: #cccccc;
+                border: 1px solid #3c3c3c;
+            }
+
+            .tab-header {
+                background: #2d2d30;
+                border-bottom: 1px solid #3c3c3c;
+            }
+
+            .tab-button {
+                background: #2d2d30;
+                color: #cccccc;
+                border: 1px solid #3c3c3c;
+            }
+
+            .tab-button:hover {
+                background: #2a2d2e;
+            }
+
+            .tab-button.active {
+                background: #1e1e1e;
+                color: #ffffff;
+                border-bottom: 2px solid #007acc;
+            }
+
+            .tab-content {
+                background: #1e1e1e;
+                color: #cccccc;
+            }
+
+            .multi-tab-controls {
+                background: #2d2d30;
+                border-bottom: 1px solid #3c3c3c;
+            }
+
+            .multi-tab-btn {
+                background: #007acc;
+                color: white;
+            }
+
+            .multi-tab-btn:hover {
+                background: #005a9e;
+            }
+
+            input[type="text"] {
+                background: #1e1e1e;
+                color: #cccccc;
+                border: 2px solid #3c3c3c;
+            }
+
+            input[type="text"]:focus {
+                border-color: #007acc;
+            }
+
+            .result {
+                background: #2d2d30;
+                color: #cccccc;
+                border: 1px solid #3c3c3c;
+            }
+
+            .result-text {
+                color: #cccccc;
+            }
+
+            .button-group button {
+                background: #007acc;
+                color: white;
+                border: 1px solid #3c3c3c;
+            }
+
+            .button-group button:hover {
+                background: #005a9e;
+            }
+
+            .timestamp-card {
+                background: #2d2d30;
+                color: #cccccc;
+                border: 1px solid #3c3c3c;
+            }
+
+            .timezone-card {
+                background: #2d2d30;
+                color: #cccccc;
+                border: 1px solid #3c3c3c;
+            }
+
+            .multi-tab-panel {
+                background: #1e1e1e;
+                color: #cccccc;
+            }
+
+            .tab-panel-header {
+                background: #2d2d30;
+                color: #cccccc;
+                border-bottom: 1px solid #3c3c3c;
+            }
+
+            .tab-panel-content {
+                background: #1e1e1e;
+                color: #cccccc;
+            }
+
+            /* VSCode暗黑模式已经是暗色，这里确保一致性 */
+            .vscode-tab-bar {
+                background: #2d2d30;
+                border-bottom: 1px solid #3c3c3c;
+            }
+
+            .vscode-editor-pane {
+                background: #1e1e1e;
+                color: #cccccc;
+                border-right: 1px solid #3c3c3c;
+            }
+
+            .vscode-editor-content {
+                background: #1e1e1e;
+                color: #cccccc;
+            }
+
+            .vscode-splitter {
+                background: #3c3c3c;
+            }
+
+            .vscode-splitter:hover {
+                background: #007acc;
+            }
+        }
+
+        /* 手动暗黑模式切换 */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background: #005a9e;
+        }
+
+        .dark-mode-toggle.dark {
+            background: #ff6b35;
+        }
+
+        .dark-mode-toggle.dark:hover {
+            background: #e55a2b;
+        }
+
+        /* 手动暗黑模式类 */
+        body.dark-mode {
+            background: #1e1e1e !important;
+            color: #cccccc !important;
+        }
+
+        body.dark-mode .container {
+            background: #2d2d30 !important;
+            color: #cccccc !important;
+            border: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .tab-header {
+            background: #2d2d30 !important;
+            border-bottom: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .tab-button {
+            background: #2d2d30 !important;
+            color: #cccccc !important;
+            border: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .tab-button:hover {
+            background: #2a2d2e !important;
+        }
+
+        body.dark-mode .tab-button.active {
+            background: #1e1e1e !important;
+            color: #ffffff !important;
+            border-bottom: 2px solid #007acc !important;
+        }
+
+        body.dark-mode .tab-content {
+            background: #1e1e1e !important;
+            color: #cccccc !important;
+        }
+
+        body.dark-mode .multi-tab-controls {
+            background: #2d2d30 !important;
+            border-bottom: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .multi-tab-btn {
+            background: #007acc !important;
+            color: white !important;
+        }
+
+        body.dark-mode .multi-tab-btn:hover {
+            background: #005a9e !important;
+        }
+
+        body.dark-mode input[type="text"] {
+            background: #1e1e1e !important;
+            color: #cccccc !important;
+            border: 2px solid #3c3c3c !important;
+        }
+
+        body.dark-mode input[type="text"]:focus {
+            border-color: #007acc !important;
+        }
+
+        body.dark-mode .result {
+            background: #2d2d30 !important;
+            color: #cccccc !important;
+            border: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .result-text {
+            color: #cccccc !important;
+        }
+
+        body.dark-mode .button-group button {
+            background: #007acc !important;
+            color: white !important;
+            border: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .button-group button:hover {
+            background: #005a9e !important;
+        }
+
+        body.dark-mode .timestamp-card {
+            background: #2d2d30 !important;
+            color: #cccccc !important;
+            border: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .timezone-card {
+            background: #2d2d30 !important;
+            color: #cccccc !important;
+            border: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .multi-tab-panel {
+            background: #1e1e1e !important;
+            color: #cccccc !important;
+        }
+
+        body.dark-mode .tab-panel-header {
+            background: #2d2d30 !important;
+            color: #cccccc !important;
+            border-bottom: 1px solid #3c3c3c !important;
+        }
+
+        body.dark-mode .tab-panel-content {
+            background: #1e1e1e !important;
+            color: #cccccc !important;
+        }
+
+        .container {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            max-width: 100%;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            color: #555;
+            font-size: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .button-group {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 3px;
+            border-left: 3px solid #007bff;
+        }
+
+        .result-text {
+            background: white;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 11px;
+            white-space: pre-wrap;
+        }
+
+        .copy-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px;
+            border-radius: 3px;
+            margin-top: 5px;
+            display: none;
+            font-size: 11px;
+        }
+
+        .examples {
+            margin-top: 10px;
+            font-size: 11px;
+        }
+
+        .example-item {
+            margin: 2px 0;
+            font-family: monospace;
+            font-size: 10px;
+        }
+
+        /* 压缩时间戳工具样式 */
+        .timestamp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .timestamp-card {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+
+        .timezone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .timezone-card {
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e1e5e9;
+            font-size: 11px;
+        }
+
+        .multi-tab-controls {
+            padding: 5px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 5px;
+        }
+
+        .multi-tab-btn {
+            padding: 4px 8px;
+            font-size: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 暗黑模式切换按钮 -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" id="darkModeToggle">
+        🌙 暗黑模式
+    </button>
+    
+    <div class="tab-container">
+        <!-- VSCode风格的tab界面 -->
+        <div id="vscode-interface" style="display: none;">
+            <div class="vscode-tab-bar" id="vscode-tab-bar"></div>
+            <div class="multi-tab-container" id="vscode-editor-container"></div>
+        </div>
+        
+        <!-- 传统tab界面 -->
+        <div id="traditional-interface">
+            <div class="tab-header">
+                <button class="tab-button active" onclick="switchTab('spex')" data-tab="spex">Spex</button>
+                <button class="tab-button" onclick="switchTab('test')" data-tab="test">Test</button>
+                <button class="tab-button" onclick="switchTab('utils')" data-tab="utils">Utils</button>
+                <button class="tab-button" onclick="switchTab('format')" data-tab="format">Format</button>
+                <button class="tab-button" onclick="switchTab('convert')" data-tab="convert">Convert</button>
+                <button class="tab-button" onclick="switchTab('tools')" data-tab="tools">Tools</button>
+            </div>
+            
+            <div class="multi-tab-controls">
+                <button class="multi-tab-btn" onclick="openTab('spex')">Spex</button>
+                <button class="multi-tab-btn" onclick="openTab('test')">Test</button>
+                <button class="multi-tab-btn" onclick="openTab('utils')">Utils</button>
+                <button class="multi-tab-btn" onclick="openTab('format')">Format</button>
+                <button class="multi-tab-btn" onclick="openTab('convert')">Convert</button>
+                <button class="multi-tab-btn" onclick="openTab('tools')">Tools</button>
+                <button class="multi-tab-btn" onclick="closeAllTabs()" style="background: #dc3545;">关闭所有</button>
+                <button class="multi-tab-btn" onclick="toggleVSCodeMode()" style="background: #28a745;">VSCode模式</button>
+            </div>
+
+        <div id="spex" class="tab-content active">
+            <div class="input-group">
+                <input type="text" id="input" placeholder="spex cmd, etc: 'a.b.c.get_product_info' -> ') getProductInfo(ctx context.Context'" style="width: 100%; padding: 12px 16px; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 16px; transition: border-color 0.3s ease; outline: none;" onfocus="this.style.borderColor='#007bff'" onblur="this.style.borderColor='#e1e5e9'" oninput="convertText()">
+            </div>
+
+            <div class="button-group">
+                <button class="btn-secondary" onclick="getClipboard()">从剪贴板获取</button>
+                <button class="btn-secondary" onclick="copyToClipboard()">复制到剪贴板</button>
+            </div>
+
+            <div class="result" id="result" style="display: none;">
+                <div class="result-text" id="resultText"></div>
+                <div class="copy-success" id="copySuccess">已复制到剪贴板！</div>
+            </div>
+        </div>
+
+        <div id="test" class="tab-content">
+            <div class="container">
+                <h2>测试页面</h2>
+                <p>这是一个空的测试页面，你可以在这里添加任何内容。</p>
+            </div>
+        </div>
+
+        <div id="utils" class="tab-content">
+            <div class="container">
+                <h2>实用工具</h2>
+                <p>这里可以放置各种实用的小工具。</p>
+                <div style="margin-top: 20px;">
+                    <button class="btn-primary" style="margin-right: 10px;">工具1</button>
+                    <button class="btn-secondary" style="margin-right: 10px;">工具2</button>
+                    <button class="btn-secondary">工具3</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="format" class="tab-content">
+            <div class="container">
+                <h2>格式化工具</h2>
+                <p>用于各种文本格式化的工具。</p>
+                <div style="margin-top: 20px;">
+                    <textarea placeholder="输入要格式化的文本..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="convert" class="tab-content">
+            <div class="container">
+                <h2>转换工具</h2>
+                <p>各种数据格式转换工具。</p>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <button class="btn-primary">JSON → XML</button>
+                        <button class="btn-secondary">Base64 编码</button>
+                        <button class="btn-secondary">URL 编码</button>
+                    </div>
+                    <input type="text" placeholder="输入要转换的内容..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+            </div>
+        </div>
+
+        <div id="tools" class="tab-content">
+            <div class="container">
+                <h2>时间戳工具</h2>
+                
+                <div class="timestamp-grid">
+                    <!-- 时间戳转日期 -->
+                    <div class="timestamp-card">
+                        <h3>时间戳 → 日期</h3>
+                        <input type="text" id="timestampInput" placeholder="输入时间戳" 
+                               style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                        <div style="display: flex; gap: 5px; margin-bottom: 8px;">
+                            <button onclick="convertTimestampToDate()" class="btn-primary" style="flex: 1; font-size: 10px;">转换</button>
+                            <button onclick="getCurrentTimestamp()" class="btn-secondary" style="font-size: 10px;">当前</button>
+                        </div>
+                        <div id="timestampResult" style="background: #f8f9fa; padding: 6px; border-radius: 3px; font-family: monospace; font-size: 10px; min-height: 40px; white-space: pre-wrap;"></div>
+                    </div>
+
+                    <!-- 日期转时间戳 -->
+                    <div class="timestamp-card">
+                        <h3>日期 → 时间戳</h3>
+                        <input type="datetime-local" id="dateInput" 
+                               style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                        <div style="display: flex; gap: 5px; margin-bottom: 8px;">
+                            <button onclick="convertDateToTimestamp()" class="btn-primary" style="flex: 1; font-size: 10px;">转换</button>
+                            <button onclick="getCurrentDate()" class="btn-secondary" style="font-size: 10px;">当前</button>
+                        </div>
+                        <div id="dateResult" style="background: #f8f9fa; padding: 6px; border-radius: 3px; font-family: monospace; font-size: 10px; min-height: 40px; white-space: pre-wrap;"></div>
+                    </div>
+                </div>
+
+                <!-- 全球时区时间 -->
+                <div style="margin-bottom: 10px;">
+                    <h3>全球时区</h3>
+                    <div id="timezoneContainer" class="timezone-grid">
+                        <!-- 动态生成时区卡片 -->
+                    </div>
+                    <div style="margin-top: 8px; text-align: center;">
+                        <button onclick="updateAllTimes()" class="btn-primary" style="font-size: 10px;">🔄 刷新</button>
+                        <button onclick="copyAllTimes()" class="btn-secondary" style="font-size: 10px; margin-left: 5px;">📋 复制</button>
+                    </div>
+                </div>
+
+                <!-- 快速操作 -->
+                <div>
+                    <h3>快速操作</h3>
+                    <div style="display: flex; gap: 3px; flex-wrap: wrap;">
+                        <button onclick="copyCurrentTimestamp()" class="btn-secondary" style="font-size: 9px;">复制时间戳</button>
+                        <button onclick="copyCurrentDate()" class="btn-secondary" style="font-size: 9px;">复制日期</button>
+                        <button onclick="formatTimestamp(1)" class="btn-secondary" style="font-size: 9px;">1小时前</button>
+                        <button onclick="formatTimestamp(24)" class="btn-secondary" style="font-size: 9px;">1天前</button>
+                        <button onclick="formatTimestamp(24*7)" class="btn-secondary" style="font-size: 9px;">1周前</button>
+                        <button onclick="formatTimestamp(24*30)" class="btn-secondary" style="font-size: 9px;">1月前</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 转换下划线命名为驼峰命名，只返回最后一个点号后转换的部分
+        function toCamelCase(str) {
+            // 找到最后一个点号的位置
+            const lastDotIndex = str.lastIndexOf('.');
+            
+            if (lastDotIndex === -1) {
+                // 没有点号，直接转换整个字符串
+                return ') ' + str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())+'(ctx context.Context';
+            } else {
+                // 只返回最后一个点号后转换的部分
+                const afterDot = str.substring(lastDotIndex + 1);
+                return ') ' + afterDot.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())+ '(ctx context.Context';
+            }
+        }
+
+        // 转换文本
+        function convertText(tabId = '') {
+            const inputId = tabId ? `input-${tabId}` : 'input';
+            const resultId = tabId ? `result-${tabId}` : 'result';
+            const resultTextId = tabId ? `resultText-${tabId}` : 'resultText';
+            
+            const input = document.getElementById(inputId).value.trim();
+            const resultDiv = document.getElementById(resultId);
+            const resultText = document.getElementById(resultTextId);
+            
+            if (!input) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+
+            const result = toCamelCase(input);
+            resultText.textContent = result;
+            resultDiv.style.display = 'block';
+        }
+
+        // 从剪贴板获取文本
+        async function getClipboard(tabId = '') {
+            try {
+                const text = await navigator.clipboard.readText();
+                const inputId = tabId ? `input-${tabId}` : 'input';
+                document.getElementById(inputId).value = text;
+                convertText(tabId);
+            } catch (err) {
+                alert('无法访问剪贴板，请手动粘贴文本。');
+            }
+        }
+
+        // 复制到剪贴板
+        async function copyToClipboard(tabId = '') {
+            const resultTextId = tabId ? `resultText-${tabId}` : 'resultText';
+            const resultText = document.getElementById(resultTextId).textContent;
+            if (!resultText) {
+                alert('没有可复制的内容！');
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(resultText);
+                const successId = tabId ? `copySuccess-${tabId}` : 'copySuccess';
+                const successDiv = document.getElementById(successId);
+                successDiv.style.display = 'block';
+                setTimeout(() => {
+                    successDiv.style.display = 'none';
+                }, 2000);
+            } catch (err) {
+                alert('复制失败：' + err.message);
+            }
+        }
+
+        // 多tab管理
+        let openTabs = [];
+        let maxTabs = 3;
+        let vscodeMode = false;
+        let draggedTab = null;
+        let ghostElement = null;
+        let darkMode = false;
+
+        // 暗黑模式切换
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            const body = document.body;
+            const toggle = document.getElementById('darkModeToggle');
+            
+            if (darkMode) {
+                body.classList.add('dark-mode');
+                toggle.textContent = '☀️ 亮色模式';
+                toggle.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                body.classList.remove('dark-mode');
+                toggle.textContent = '🌙 暗黑模式';
+                toggle.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
+            }
+        }
+
+        // 初始化暗黑模式
+        function initDarkMode() {
+            const savedMode = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // 优先使用保存的设置，否则跟随系统
+            if (savedMode !== null) {
+                darkMode = savedMode === 'true';
+            } else {
+                darkMode = prefersDark;
+            }
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').textContent = '☀️ 亮色模式';
+                document.getElementById('darkModeToggle').classList.add('dark');
+            }
+        }
+
+        // VSCode模式切换
+        function toggleVSCodeMode() {
+            vscodeMode = !vscodeMode;
+            const traditionalInterface = document.getElementById('traditional-interface');
+            const vscodeInterface = document.getElementById('vscode-interface');
+            
+            if (vscodeMode) {
+                traditionalInterface.style.display = 'none';
+                vscodeInterface.style.display = 'block';
+                initVSCodeInterface();
+            } else {
+                traditionalInterface.style.display = 'block';
+                vscodeInterface.style.display = 'none';
+            }
+        }
+
+        // 初始化VSCode界面
+        function initVSCodeInterface() {
+            const tabBar = document.getElementById('vscode-tab-bar');
+            const editorContainer = document.getElementById('vscode-editor-container');
+            
+            // 清空现有内容
+            tabBar.innerHTML = '';
+            editorContainer.innerHTML = '';
+            
+            // 创建默认的Spex tab
+            if (openTabs.length === 0) {
+                openTabs = ['spex'];
+            }
+            
+            updateVSCodeDisplay();
+        }
+
+        // 更新VSCode显示
+        function updateVSCodeDisplay() {
+            const tabBar = document.getElementById('vscode-tab-bar');
+            const editorContainer = document.getElementById('vscode-editor-container');
+            
+            // 清空现有内容
+            tabBar.innerHTML = '';
+            editorContainer.innerHTML = '';
+            
+            // 创建tab按钮
+            openTabs.forEach((tab, index) => {
+                const tabButton = document.createElement('div');
+                tabButton.className = 'vscode-tab';
+                tabButton.textContent = getTabTitle(tab);
+                tabButton.draggable = true;
+                tabButton.dataset.tab = tab;
+                
+                // 添加关闭按钮
+                const closeBtn = document.createElement('span');
+                closeBtn.className = 'vscode-tab-close';
+                closeBtn.innerHTML = '×';
+                closeBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    closeTab(tab);
+                };
+                tabButton.appendChild(closeBtn);
+                
+                // 拖拽事件
+                tabButton.addEventListener('dragstart', handleTabDragStart);
+                tabButton.addEventListener('dragend', handleTabDragEnd);
+                tabButton.addEventListener('dragover', handleTabDragOver);
+                tabButton.addEventListener('drop', handleTabDrop);
+                
+                // 点击切换tab
+                tabButton.addEventListener('click', () => switchVSCodeTab(tab));
+                
+                tabBar.appendChild(tabButton);
+                
+                // 创建编辑器面板
+                const editorPane = document.createElement('div');
+                editorPane.className = 'vscode-editor-pane';
+                editorPane.dataset.tab = tab;
+                
+                const editorContent = document.createElement('div');
+                editorContent.className = 'vscode-editor-content';
+                editorContent.innerHTML = getTabContent(tab);
+                
+                editorPane.appendChild(editorContent);
+                editorContainer.appendChild(editorPane);
+                
+                // 添加分割线（除了最后一个）
+                if (index < openTabs.length - 1) {
+                    const splitter = document.createElement('div');
+                    splitter.className = 'vscode-splitter';
+                    splitter.addEventListener('mousedown', (e) => handleSplitterDrag(e, index));
+                    editorContainer.appendChild(splitter);
+                }
+            });
+            
+            // 初始化工具
+            setTimeout(() => {
+                openTabs.forEach(tab => {
+                    if (tab === 'tools') {
+                        generateTimezoneCards(tab);
+                        updateAllTimes(tab);
+                    }
+                });
+            }, 100);
+        }
+
+        // 获取tab标题
+        function getTabTitle(tab) {
+            const titles = {
+                'spex': 'Spex',
+                'test': 'Test',
+                'utils': 'Utils',
+                'format': 'Format',
+                'convert': 'Convert',
+                'tools': 'Tools'
+            };
+            return titles[tab] || tab;
+        }
+
+        // 切换VSCode tab
+        function switchVSCodeTab(tabName) {
+            // 更新tab按钮状态
+            document.querySelectorAll('.vscode-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            
+            // 更新编辑器面板状态
+            document.querySelectorAll('.vscode-editor-pane').forEach(pane => {
+                pane.style.display = 'none';
+            });
+            document.querySelector(`.vscode-editor-pane[data-tab="${tabName}"]`).style.display = 'flex';
+        }
+
+        // 拖拽开始
+        function handleTabDragStart(e) {
+            draggedTab = e.target.dataset.tab;
+            e.target.classList.add('tab-dragging');
+            
+            // 创建拖拽幽灵元素
+            ghostElement = document.createElement('div');
+            ghostElement.className = 'tab-ghost';
+            ghostElement.textContent = getTabTitle(draggedTab);
+            document.body.appendChild(ghostElement);
+            
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        // 拖拽结束
+        function handleTabDragEnd(e) {
+            e.target.classList.remove('tab-dragging');
+            if (ghostElement) {
+                document.body.removeChild(ghostElement);
+                ghostElement = null;
+            }
+            draggedTab = null;
+        }
+
+        // 拖拽悬停
+        function handleTabDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        // 拖拽放置
+        function handleTabDrop(e) {
+            e.preventDefault();
+            const targetTab = e.target.dataset.tab;
+            if (draggedTab && targetTab && draggedTab !== targetTab) {
+                // 重新排序tabs
+                const draggedIndex = openTabs.indexOf(draggedTab);
+                const targetIndex = openTabs.indexOf(targetTab);
+                
+                openTabs.splice(draggedIndex, 1);
+                openTabs.splice(targetIndex, 0, draggedTab);
+                
+                updateVSCodeDisplay();
+            }
+        }
+
+        // 分割线拖拽
+        function handleSplitterDrag(e, index) {
+            e.preventDefault();
+            const container = document.getElementById('vscode-editor-container');
+            const panes = container.querySelectorAll('.vscode-editor-pane');
+            
+            if (panes.length < 2) return;
+            
+            const leftPane = panes[index];
+            const rightPane = panes[index + 1];
+            
+            function onMouseMove(e) {
+                const containerRect = container.getBoundingClientRect();
+                const newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+                const newRightWidth = 100 - newLeftWidth;
+                
+                if (newLeftWidth > 10 && newRightWidth > 10) {
+                    leftPane.style.flex = `0 0 ${newLeftWidth}%`;
+                    rightPane.style.flex = `0 0 ${newRightWidth}%`;
+                }
+            }
+            
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+            
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+
+        // Tab切换功能
+        function switchTab(tabName) {
+            // 隐藏所有tab内容
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 移除所有tab按钮的active状态
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // 显示选中的tab内容
+            document.getElementById(tabName).classList.add('active');
+            
+            // 激活对应的tab按钮
+            event.target.classList.add('active');
+        }
+
+        // 打开tab
+        function openTab(tabName) {
+            if (openTabs.includes(tabName)) {
+                return; // 已经打开
+            }
+
+            if (openTabs.length >= maxTabs) {
+                alert(`最多只能同时打开${maxTabs}个tab`);
+                return;
+            }
+
+            openTabs.push(tabName);
+            
+            if (vscodeMode) {
+                updateVSCodeDisplay();
+            } else {
+                updateMultiTabDisplay();
+            }
+        }
+
+        // 关闭单个tab
+        function closeTab(tabName) {
+            openTabs = openTabs.filter(t => t !== tabName);
+            
+            if (vscodeMode) {
+                updateVSCodeDisplay();
+            } else {
+                updateMultiTabDisplay();
+            }
+        }
+
+        // 关闭所有tab
+        function closeAllTabs() {
+            openTabs = [];
+            
+            if (vscodeMode) {
+                updateVSCodeDisplay();
+            } else {
+                updateMultiTabDisplay();
+            }
+        }
+
+        // 更新多tab显示
+        function updateMultiTabDisplay() {
+            const container = document.querySelector('.tab-container');
+            
+            if (openTabs.length === 0) {
+                // 单tab模式 - 显示默认内容
+                container.innerHTML = `
+                    <div class="tab-header">
+                        <button class="tab-button active" onclick="switchTab('spex')" data-tab="spex">Spex</button>
+                        <button class="tab-button" onclick="switchTab('test')" data-tab="test">Test</button>
+                        <button class="tab-button" onclick="switchTab('utils')" data-tab="utils">Utils</button>
+                        <button class="tab-button" onclick="switchTab('format')" data-tab="format">Format</button>
+                        <button class="tab-button" onclick="switchTab('convert')" data-tab="convert">Convert</button>
+                        <button class="tab-button" onclick="switchTab('tools')" data-tab="tools">Tools</button>
+                    </div>
+                    <div class="multi-tab-controls">
+                        <button class="multi-tab-btn" onclick="openTab('spex')">Spex</button>
+                        <button class="multi-tab-btn" onclick="openTab('test')">Test</button>
+                        <button class="multi-tab-btn" onclick="openTab('utils')">Utils</button>
+                        <button class="multi-tab-btn" onclick="openTab('format')">Format</button>
+                        <button class="multi-tab-btn" onclick="openTab('convert')">Convert</button>
+                        <button class="multi-tab-btn" onclick="openTab('tools')">Tools</button>
+                        <button class="multi-tab-btn" onclick="closeAllTabs()" style="background: #dc3545;">关闭所有</button>
+                    </div>
+                    <div id="spex" class="tab-content active">
+                        <div class="input-group">
+                            <input type="text" id="input" placeholder="spex cmd, etc: 'a.b.c.get_product_info' -> ') getProductInfo(ctx context.Context'" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;" oninput="convertText()">
+                        </div>
+                        <div class="button-group">
+                            <button class="btn-secondary" onclick="getClipboard()" style="font-size: 10px;">从剪贴板获取</button>
+                            <button class="btn-secondary" onclick="copyToClipboard()" style="font-size: 10px;">复制到剪贴板</button>
+                        </div>
+                        <div class="result" id="result" style="display: none;">
+                            <div class="result-text" id="resultText"></div>
+                            <div class="copy-success" id="copySuccess">已复制到剪贴板！</div>
+                        </div>
+                    </div>
+                    <div id="test" class="tab-content">
+                        <div class="container">
+                            <h2>测试页面</h2>
+                            <p>这是一个空的测试页面，你可以在这里添加任何内容。</p>
+                        </div>
+                    </div>
+                    <div id="utils" class="tab-content">
+                        <div class="container">
+                            <h2>实用工具</h2>
+                            <p>这里可以放置各种实用的小工具。</p>
+                        </div>
+                    </div>
+                    <div id="format" class="tab-content">
+                        <div class="container">
+                            <h2>格式化工具</h2>
+                            <p>用于各种文本格式化的工具。</p>
+                        </div>
+                    </div>
+                    <div id="convert" class="tab-content">
+                        <div class="container">
+                            <h2>转换工具</h2>
+                            <p>各种数据格式转换工具。</p>
+                        </div>
+                    </div>
+                    <div id="tools" class="tab-content">
+                        <div class="container">
+                            <h2>时间戳工具</h2>
+                            <div class="timestamp-grid">
+                                <div class="timestamp-card">
+                                    <h3>时间戳 → 日期</h3>
+                                    <input type="text" id="timestampInput" placeholder="输入时间戳" style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                                    <div style="display: flex; gap: 5px; margin-bottom: 8px;">
+                                        <button onclick="convertTimestampToDate()" class="btn-primary" style="flex: 1; font-size: 10px;">转换</button>
+                                        <button onclick="getCurrentTimestamp()" class="btn-secondary" style="font-size: 10px;">当前</button>
+                                    </div>
+                                    <div id="timestampResult" style="background: #f8f9fa; padding: 6px; border-radius: 3px; font-family: monospace; font-size: 10px; min-height: 40px; white-space: pre-wrap;"></div>
+                                </div>
+                                <div class="timestamp-card">
+                                    <h3>日期 → 时间戳</h3>
+                                    <input type="datetime-local" id="dateInput" style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                                    <div style="display: flex; gap: 5px; margin-bottom: 8px;">
+                                        <button onclick="convertDateToTimestamp()" class="btn-primary" style="flex: 1; font-size: 10px;">转换</button>
+                                        <button onclick="getCurrentDate()" class="btn-secondary" style="font-size: 10px;">当前</button>
+                                    </div>
+                                    <div id="dateResult" style="background: #f8f9fa; padding: 6px; border-radius: 3px; font-family: monospace; font-size: 10px; min-height: 40px; white-space: pre-wrap;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <h3>全球时区</h3>
+                                <div id="timezoneContainer" class="timezone-grid"></div>
+                                <div style="margin-top: 8px; text-align: center;">
+                                    <button onclick="updateAllTimes()" class="btn-primary" style="font-size: 10px;">🔄 刷新</button>
+                                    <button onclick="copyAllTimes()" class="btn-secondary" style="font-size: 10px; margin-left: 5px;">📋 复制</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                // 初始化单tab模式
+                setTimeout(() => {
+                    if (document.getElementById('input')) {
+                        document.getElementById('input').focus();
+                        getCurrentDate();
+                        generateTimezoneCards();
+                        startTimeUpdate();
+                    }
+                }, 100);
+            } else {
+                // 多tab模式
+                const multiTabHTML = openTabs.map(tab => `
+                    <div class="multi-tab-panel active">
+                        <div class="tab-panel-header">
+                            <div class="tab-panel-title">${getTabName(tab)}</div>
+                            <button class="tab-panel-close" onclick="closeTab('${tab}')">×</button>
+                        </div>
+                        <div class="tab-panel-content">
+                            ${getTabContent(tab)}
+                        </div>
+                    </div>
+                `).join('');
+
+                container.innerHTML = `
+                    <div class="multi-tab-controls">
+                        <button class="multi-tab-btn" onclick="openTab('spex')">Spex</button>
+                        <button class="multi-tab-btn" onclick="openTab('test')">Test</button>
+                        <button class="multi-tab-btn" onclick="openTab('utils')">Utils</button>
+                        <button class="multi-tab-btn" onclick="openTab('format')">Format</button>
+                        <button class="multi-tab-btn" onclick="openTab('convert')">Convert</button>
+                        <button class="multi-tab-btn" onclick="openTab('tools')">Tools</button>
+                        <button class="multi-tab-btn" onclick="closeAllTabs()" style="background: #dc3545;">关闭所有</button>
+                    </div>
+                    <div class="multi-tab-container">
+                        ${multiTabHTML}
+                    </div>
+                `;
+                
+                // 初始化多tab模式
+                setTimeout(() => {
+                    openTabs.forEach(tab => {
+                        if (tab === 'tools') {
+                            generateTimezoneCards(tab);
+                            updateAllTimes(tab);
+                        }
+                    });
+                }, 100);
+            }
+        }
+
+        // 获取tab名称
+        function getTabName(tab) {
+            const names = {
+                'spex': 'Spex',
+                'test': 'Test', 
+                'utils': 'Utils',
+                'format': 'Format',
+                'convert': 'Convert',
+                'tools': 'Tools'
+            };
+            return names[tab] || tab;
+        }
+
+        // 获取tab内容
+        function getTabContent(tab) {
+            const contents = {
+                'spex': `
+                    <div class="container">
+                        <div class="input-group">
+                            <input type="text" id="input-${tab}" placeholder="spex cmd, etc: 'a.b.c.get_product_info' -> ') getProductInfo(ctx context.Context'" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;" oninput="convertText('${tab}')">
+                        </div>
+                        <div class="button-group">
+                            <button class="btn-secondary" onclick="getClipboard('${tab}')" style="font-size: 10px;">从剪贴板获取</button>
+                            <button class="btn-secondary" onclick="copyToClipboard('${tab}')" style="font-size: 10px;">复制到剪贴板</button>
+                        </div>
+                        <div class="result" id="result-${tab}" style="display: none;">
+                            <div class="result-text" id="resultText-${tab}"></div>
+                            <div class="copy-success" id="copySuccess-${tab}">已复制到剪贴板！</div>
+                        </div>
+                    </div>
+                `,
+                'test': `
+                    <div class="container">
+                        <h2>测试页面</h2>
+                        <p>这是一个空的测试页面，你可以在这里添加任何内容。</p>
+                    </div>
+                `,
+                'tools': `
+                    <div class="container">
+                        <h2>时间戳工具</h2>
+                        <div class="timestamp-grid">
+                            <div class="timestamp-card">
+                                <h3>时间戳 → 日期</h3>
+                                <input type="text" id="timestampInput-${tab}" placeholder="输入时间戳" style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                                <div style="display: flex; gap: 5px; margin-bottom: 8px;">
+                                    <button onclick="convertTimestampToDate('${tab}')" class="btn-primary" style="flex: 1; font-size: 10px;">转换</button>
+                                    <button onclick="getCurrentTimestamp('${tab}')" class="btn-secondary" style="font-size: 10px;">当前</button>
+                                </div>
+                                <div id="timestampResult-${tab}" style="background: #f8f9fa; padding: 6px; border-radius: 3px; font-family: monospace; font-size: 10px; min-height: 40px; white-space: pre-wrap;"></div>
+                            </div>
+                            <div class="timestamp-card">
+                                <h3>日期 → 时间戳</h3>
+                                <input type="datetime-local" id="dateInput-${tab}" style="width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                                <div style="display: flex; gap: 5px; margin-bottom: 8px;">
+                                    <button onclick="convertDateToTimestamp('${tab}')" class="btn-primary" style="flex: 1; font-size: 10px;">转换</button>
+                                    <button onclick="getCurrentDate('${tab}')" class="btn-secondary" style="font-size: 10px;">当前</button>
+                                </div>
+                                <div id="dateResult-${tab}" style="background: #f8f9fa; padding: 6px; border-radius: 3px; font-family: monospace; font-size: 10px; min-height: 40px; white-space: pre-wrap;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <h3>全球时区</h3>
+                            <div id="timezoneContainer-${tab}" class="timezone-grid"></div>
+                            <div style="margin-top: 8px; text-align: center;">
+                                <button onclick="updateAllTimes('${tab}')" class="btn-primary" style="font-size: 10px;">🔄 刷新</button>
+                                <button onclick="copyAllTimes('${tab}')" class="btn-secondary" style="font-size: 10px; margin-left: 5px;">📋 复制</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            };
+            return contents[tab] || `<div class="container"><h2>${getTabName(tab)}</h2><p>内容开发中...</p></div>`;
+        }
+
+        // 时间戳转换功能
+        function convertTimestampToDate(tabId = '') {
+            const inputId = tabId ? `timestampInput-${tabId}` : 'timestampInput';
+            const resultId = tabId ? `timestampResult-${tabId}` : 'timestampResult';
+            
+            const timestamp = document.getElementById(inputId).value.trim();
+            if (!timestamp) {
+                document.getElementById(resultId).textContent = '请输入时间戳';
+                return;
+            }
+
+            try {
+                // 处理毫秒时间戳
+                let ts = parseInt(timestamp);
+                if (timestamp.length > 10) {
+                    ts = Math.floor(ts / 1000);
+                }
+
+                const date = new Date(ts * 1000);
+                const result = `Unix时间戳: ${ts}
+标准格式: ${date.toISOString()}
+本地时间: ${date.toLocaleString('zh-CN')}
+UTC时间: ${date.toUTCString()}
+年份: ${date.getFullYear()}
+月份: ${date.getMonth() + 1}
+日期: ${date.getDate()}
+小时: ${date.getHours()}
+分钟: ${date.getMinutes()}
+秒数: ${date.getSeconds()}`;
+
+                document.getElementById(resultId).textContent = result;
+            } catch (error) {
+                document.getElementById(resultId).textContent = '时间戳格式错误';
+            }
+        }
+
+        function convertDateToTimestamp(tabId = '') {
+            const inputId = tabId ? `dateInput-${tabId}` : 'dateInput';
+            const resultId = tabId ? `dateResult-${tabId}` : 'dateResult';
+            
+            const dateValue = document.getElementById(inputId).value;
+            if (!dateValue) {
+                document.getElementById(resultId).textContent = '请选择日期';
+                return;
+            }
+
+            try {
+                const date = new Date(dateValue);
+                const timestamp = Math.floor(date.getTime() / 1000);
+                const result = `Unix时间戳: ${timestamp}
+毫秒时间戳: ${timestamp * 1000}
+标准格式: ${date.toISOString()}
+本地时间: ${date.toLocaleString('zh-CN')}
+UTC时间: ${date.toUTCString()}`;
+
+                document.getElementById(resultId).textContent = result;
+            } catch (error) {
+                document.getElementById(resultId).textContent = '日期格式错误';
+            }
+        }
+
+        function getCurrentTimestamp(tabId = '') {
+            const now = Math.floor(Date.now() / 1000);
+            const inputId = tabId ? `timestampInput-${tabId}` : 'timestampInput';
+            document.getElementById(inputId).value = now;
+            convertTimestampToDate(tabId);
+        }
+
+        function getCurrentDate(tabId = '') {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const inputId = tabId ? `dateInput-${tabId}` : 'dateInput';
+            document.getElementById(inputId).value = `${year}-${month}-${day}T${hours}:${minutes}`;
+            convertDateToTimestamp(tabId);
+        }
+
+        function copyCurrentTimestamp() {
+            const timestamp = Math.floor(Date.now() / 1000);
+            navigator.clipboard.writeText(timestamp.toString()).then(() => {
+                alert('当前时间戳已复制到剪贴板: ' + timestamp);
+            });
+        }
+
+        function copyCurrentDate() {
+            const now = new Date();
+            const dateStr = now.toLocaleString('zh-CN');
+            navigator.clipboard.writeText(dateStr).then(() => {
+                alert('当前日期已复制到剪贴板: ' + dateStr);
+            });
+        }
+
+        function formatTimestamp(hoursAgo) {
+            const timestamp = Math.floor(Date.now() / 1000) - (hoursAgo * 3600);
+            document.getElementById('timestampInput').value = timestamp;
+            convertTimestampToDate();
+        }
+
+        // 时区配置 - 按UTC偏移分组
+        const timezoneGroups = {
+            'Asia/Jakarta': ['ID', 'TH', 'VN'],     // UTC+7
+            'Asia/Singapore': ['SG', 'MY', 'TW', 'PH'], // UTC+8
+            'America/Sao_Paulo': ['BR', 'CL', 'AR'], // UTC-3
+            'America/Bogota': ['CO'],              // UTC-5
+            'America/Mexico_City': ['MX']          // UTC-6
+        };
+
+        // 生成时区卡片
+        function generateTimezoneCards(tabId = '') {
+            const containerId = tabId ? `timezoneContainer-${tabId}` : 'timezoneContainer';
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            Object.keys(timezoneGroups).forEach(timezone => {
+                const countries = timezoneGroups[timezone];
+                const cardId = timezone.replace(/[\/\s]/g, '-').toLowerCase();
+                
+                const card = document.createElement('div');
+                card.style.cssText = 'padding: 8px; background: white; border-radius: 4px; border: 1px solid #e1e5e9; font-size: 11px;';
+                card.innerHTML = `
+                    <strong style="color: #333; font-size: 12px;">${countries.join(' ')}</strong><br>
+                    <span id="time-${cardId}" style="font-family: monospace; font-size: 10px; margin-top: 4px; display: block;"></span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 更新单个时区时间
+        function updateTimezoneTime(timezone, tabId = '') {
+            const now = new Date();
+            const cardId = timezone.replace(/[\/\s]/g, '-').toLowerCase();
+            const timeElement = document.getElementById(`time-${cardId}`);
+            
+            if (!timeElement) return;
+            
+            try {
+                const timeString = now.toLocaleString('zh-CN', {
+                    timeZone: timezone,
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+                
+                // 计算UTC偏移
+                const utcTime = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+                const localTime = new Date(now.toLocaleString('en-US', { timeZone: timezone }));
+                const offset = (localTime.getTime() - utcTime.getTime()) / (1000 * 60 * 60);
+                const offsetStr = offset >= 0 ? `+${offset}` : `${offset}`;
+                
+                timeElement.innerHTML = 
+                    `${timeString}<br><small style="color: #666;">UTC${offsetStr}</small>`;
+            } catch (error) {
+                timeElement.textContent = '时区错误';
+            }
+        }
+
+        // 更新所有时区时间
+        function updateAllTimes(tabId = '') {
+            const containerId = tabId ? `timezoneContainer-${tabId}` : 'timezoneContainer';
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            Object.keys(timezoneGroups).forEach(timezone => {
+                updateTimezoneTime(timezone, tabId);
+            });
+        }
+
+        // 复制所有时间
+        function copyAllTimes(tabId = '') {
+            let allTimes = '全球时区时间:\n';
+            Object.keys(timezoneGroups).forEach(timezone => {
+                const countries = timezoneGroups[timezone];
+                const cardId = timezone.replace(/[\/\s]/g, '-').toLowerCase();
+                const timeElement = document.getElementById(`time-${cardId}`);
+                
+                if (timeElement) {
+                    const timeText = timeElement.textContent.replace(/\n/g, ' ');
+                    allTimes += `${countries.join(' ')}: ${timeText}\n`;
+                }
+            });
+            
+            navigator.clipboard.writeText(allTimes).then(() => {
+                alert('所有时区时间已复制到剪贴板！');
+            });
+        }
+
+        // 自动更新时间
+        function startTimeUpdate() {
+            updateAllTimes();
+            // 每秒更新一次
+            setInterval(updateAllTimes, 1000);
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化暗黑模式
+            initDarkMode();
+            
+            // 初始化单tab模式
+            if (document.getElementById('input')) {
+                document.getElementById('input').focus();
+                getCurrentDate();
+                generateTimezoneCards();
+                startTimeUpdate();
+            }
+        });
+    </script>
+</body>
+</html>
