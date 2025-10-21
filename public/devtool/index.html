@@ -638,9 +638,12 @@
             right: 50px;  /* 清空按钮放到中间 */
         }
         
-        /* 翻译工具的清空按钮位置调整 */
-        .translate-input-buttons .input-button {
-            right: 4px;  /* 清空按钮放到最右边 */
+        /* 翻译工具按钮位置调整 */
+        .translate-input-buttons .input-button:nth-of-type(1) {
+            right: 50px;  /* 清空按钮放到左边 */
+        }
+        .translate-input-buttons .input-button:nth-of-type(2) {
+            right: 4px;  /* 复制按钮放到最右边 */
         }
         
         /* Spex工具的清空按钮位置调整 */
@@ -785,12 +788,7 @@
             <div class="quick-open-header">
                 <div class="quick-open-title">工具面板</div>
             </div>
-            <button class="quick-btn" onclick="openTab('spex')">Spex</button>
-            <button class="quick-btn" onclick="openTab('test')">Test</button>
-            <button class="quick-btn" onclick="openTab('utils')">Utils</button>
-            <button class="quick-btn" onclick="openTab('format')">Format</button>
-            <button class="quick-btn" onclick="openTab('convert')">Convert</button>
-            <button class="quick-btn" onclick="openTab('enum')">Enum</button>
+            <button class="quick-btn" onclick="openTab('spex')">Business</button>
             <button class="quick-btn" onclick="openTab('tools')">Tools</button>
             <button class="quick-btn close-all" onclick="closeAllTabs()">关闭所有</button>
         </div>
@@ -1282,70 +1280,37 @@
                                 const editorPane = tabGroup.querySelector('.editor-pane');
                                 if (editorPane) {
                                     const spexInput = editorPane.querySelector('[id^="spex-input-"]');
+                                    const enumQueryInput = editorPane.querySelector('[id^="enum-query-"]');
                                     if (spexInput) {
                                         const tabId = spexInput.id.split('-').pop();
                                         setupSpexMiddleClickPaste(tabId);
                                     }
-                                }
-                            }
-                        } else if (tab === 'utils') {
-                            // 找到对应的tabId
-                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
-                            if (tabGroup) {
-                                const editorPane = tabGroup.querySelector('.editor-pane');
-                                if (editorPane) {
-                                    const englishInput = editorPane.querySelector('[id^="utils-english-"]');
-                                    if (englishInput) {
-                                        const tabId = englishInput.id.split('-').pop();
-                                        setupTranslateMiddleClickPaste(tabId);
-                                    }
-                                }
-                            }
-                        } else if (tab === 'test') {
-                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
-                            if (tabGroup) {
-                                const editorPane = tabGroup.querySelector('.editor-pane');
-                                if (editorPane) {
-                                    const testInput = editorPane.querySelector('[id^="test-input-"]');
-                                    if (testInput) {
-                                        setupMiddleClickPaste(testInput);
-                                    }
-                                }
-                            }
-                        } else if (tab === 'convert') {
-                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
-                            if (tabGroup) {
-                                const editorPane = tabGroup.querySelector('.editor-pane');
-                                if (editorPane) {
-                                    const convertInput = editorPane.querySelector('[id^="convert-input-"]');
-                                    if (convertInput) {
-                                        setupMiddleClickPaste(convertInput);
-                                    }
-                                }
-                            }
-                        } else if (tab === 'format') {
-                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
-                            if (tabGroup) {
-                                const editorPane = tabGroup.querySelector('.editor-pane');
-                                if (editorPane) {
-                                    const formatInput = editorPane.querySelector('[id^="format-input-"]');
-                                    if (formatInput) {
-                                        setupMiddleClickPaste(formatInput);
-                                    }
-                                }
-                            }
-                        } else if (tab === 'enum') {
-                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
-                            if (tabGroup) {
-                                const editorPane = tabGroup.querySelector('.editor-pane');
-                                if (editorPane) {
-                                    const enumDefinitionInput = editorPane.querySelector('[id^="enum-definition-"]');
-                                    const enumQueryInput = editorPane.querySelector('[id^="enum-query-"]');
-                                    if (enumDefinitionInput) {
-                                        setupMiddleClickPaste(enumDefinitionInput);
-                                    }
                                     if (enumQueryInput) {
                                         setupMiddleClickPaste(enumQueryInput);
+                                    }
+                                }
+                            }
+                        } else if (tab === 'tools') {
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const timezoneContainer = editorPane.querySelector('.timezone-container');
+                                    if (timezoneContainer) {
+                                        const tabId = timezoneContainer.id.split('-').pop();
+                                        initTimezoneTool(tabId);
+                                        const timezoneInput = editorPane.querySelector('[id^="timezone-timestamp-"]');
+                                        if (timezoneInput) {
+                                            setupMiddleClickPaste(timezoneInput);
+                                        }
+                                    }
+                                    const englishInput = editorPane.querySelector('[id^="utils-english-"]');
+                                    const chineseInput = editorPane.querySelector('[id^="utils-chinese-"]');
+                                    if (englishInput) {
+                                        setupMiddleClickPaste(englishInput);
+                                    }
+                                    if (chineseInput) {
+                                        setupMiddleClickPaste(chineseInput);
                                     }
                                 }
                             }
@@ -1358,12 +1323,7 @@
         // 获取Tab标题
         function getTabTitle(tabName) {
             const titles = {
-                'spex': 'Spex',
-                'test': 'Test',
-                'utils': 'Utils',
-                'format': 'Format',
-                'convert': 'Convert',
-                'enum': 'Enum',
+                'spex': 'Business',
                 'tools': 'Tools'
             };
             return titles[tabName] || tabName;
@@ -1377,7 +1337,7 @@
                 case 'spex':
                     return `
                         <div class="tool-container">
-                            <div class="tool-title">cmd转handler代码</div>
+                            <div class="section-title">cmd转handler代码</div>
                             <div class="input-group">
                                 <div class="input-with-button spex-input-buttons">
                                     <input type="text" id="spex-input-${tabId}" placeholder="输入cmd，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
@@ -1385,76 +1345,19 @@
                                 </div>
                             </div>
                             <div class="result" id="spex-result-${tabId}"></div>
-                        </div>
-                    `;
-                case 'test':
-                    return `
-                        <div class="tool-container">
-                            <div class="tool-title">测试工具</div>
-                            <div class="input-group">
-                                <label>测试输入</label>
-                                <input type="text" id="test-input-${tabId}" placeholder="输入测试内容">
-                            </div>
-                            <div class="result" id="test-result-${tabId}">测试结果将显示在这里</div>
-                            <button class="btn" onclick="runTest('${tabId}')">运行测试</button>
-                        </div>
-                    `;
-                case 'utils':
-                    return `
-                        <div class="tool-container">
-                            <div class="tool-title">中英翻译</div>
-                            <div class="input-group">
-                                <label>英文</label>
-                                <div class="input-with-button translate-input-buttons">
-                                    <textarea id="utils-english-${tabId}" rows="3" placeholder="输入英文..." oninput="debounceTranslate('${tabId}', 'en')"></textarea>
-                                    <button class="input-button" onclick="clearTranslate('${tabId}')">清空</button>
+                            
+                            <!-- 枚举查询工具 -->
+                            <div class="tool-section" style="margin-top: 30px; border-top: 1px solid #555; padding-top: 20px;">
+                                <div class="section-title">枚举查询工具</div>
+                                <div class="input-group">
+                                    <label>查询值</label>
+                                    <div class="input-with-button enum-query-buttons">
+                                        <input type="text" id="enum-query-${tabId}" placeholder="输入要查询的值，如: 5" oninput="debounceQueryEnum('${tabId}')">
+                                        <button class="input-button" onclick="clearEnumQuery('${tabId}')">清空</button>
+                                    </div>
                                 </div>
+                                <div class="result" id="enum-result-${tabId}"></div>
                             </div>
-                            <div class="input-group">
-                                <label>中文</label>
-                                <div class="input-with-button translate-input-buttons">
-                                    <textarea id="utils-chinese-${tabId}" rows="3" placeholder="输入中文..." oninput="debounceTranslate('${tabId}', 'zh')"></textarea>
-                                    <button class="input-button" onclick="clearTranslate('${tabId}')">清空</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                case 'format':
-                    return `
-                        <div class="tool-container">
-                            <div class="tool-title">格式化工具</div>
-                            <div class="input-group">
-                                <label>格式化输入</label>
-                                <textarea id="format-input-${tabId}" rows="5" placeholder="输入需要格式化的内容"></textarea>
-                            </div>
-                            <div class="result" id="format-result-${tabId}">格式化结果将显示在这里</div>
-                            <button class="btn" onclick="formatContent('${tabId}')">格式化</button>
-                        </div>
-                    `;
-                case 'enum':
-                    return `
-                        <div class="tool-container">
-                            <div class="tool-title">枚举查询工具</div>
-                            <div class="input-group">
-                                <label>查询值</label>
-                                <div class="input-with-button enum-query-buttons">
-                                    <input type="text" id="enum-query-${tabId}" placeholder="输入要查询的值，如: 5" oninput="debounceQueryEnum('${tabId}')">
-                                    <button class="input-button" onclick="clearEnumQuery('${tabId}')">清空</button>
-                                </div>
-                            </div>
-                            <div class="result" id="enum-result-${tabId}"></div>
-                        </div>
-                    `;
-                case 'convert':
-                    return `
-                        <div class="tool-container">
-                            <div class="tool-title">转换工具</div>
-                            <div class="input-group">
-                                <label>转换输入</label>
-                                <input type="text" id="convert-input-${tabId}" placeholder="输入需要转换的内容">
-                            </div>
-                            <div class="result" id="convert-result-${tabId}">转换结果将显示在这里</div>
-                            <button class="btn" onclick="convertContent('${tabId}')">转换</button>
                         </div>
                     `;
                 case 'tools':
@@ -1476,6 +1379,26 @@
                                 </div>
                             </div>
                             
+                            <!-- 中英翻译工具 -->
+                            <div class="tool-section" style="margin-top: 30px; border-top: 1px solid #555; padding-top: 20px;">
+                                <div class="section-title">中英翻译</div>
+                                <div class="input-group">
+                                    <label>中文</label>
+                                    <div class="input-with-button translate-input-buttons">
+                                        <textarea id="utils-chinese-${tabId}" rows="3" placeholder="输入中文..." oninput="debounceTranslate('${tabId}', 'zh')"></textarea>
+                                        <button class="input-button" onclick="clearTranslate('${tabId}')">清空</button>
+                                        <button class="input-button" onclick="copyTranslateText('${tabId}', 'chinese')">复制</button>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>英文</label>
+                                    <div class="input-with-button translate-input-buttons">
+                                        <textarea id="utils-english-${tabId}" rows="3" placeholder="输入英文..." oninput="debounceTranslate('${tabId}', 'en')"></textarea>
+                                        <button class="input-button" onclick="clearTranslate('${tabId}')">清空</button>
+                                        <button class="input-button" onclick="copyTranslateText('${tabId}', 'english')">复制</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     `;
                 default:
@@ -1538,17 +1461,6 @@
             }
         }
 
-        // 测试工具功能
-        function runTest(tabId) {
-            const input = document.getElementById(`test-input-${tabId}`);
-            const result = document.getElementById(`test-result-${tabId}`);
-            
-            if (input && result) {
-                const text = input.value;
-                result.textContent = `测试结果: ${text} (${new Date().toLocaleTimeString()})`;
-                showToast('测试完成', 'success');
-            }
-        }
 
         // 翻译功能
         function translateText(tabId, sourceLang) {
@@ -1626,44 +1538,31 @@
             if (chineseInput) chineseInput.value = '';
         }
         
-        // 为翻译工具设置中键粘贴功能
-        function setupTranslateMiddleClickPaste(tabId) {
-            const englishInput = document.getElementById(`utils-english-${tabId}`);
-            const chineseInput = document.getElementById(`utils-chinese-${tabId}`);
+        // 复制翻译文本
+        async function copyTranslateText(tabId, type) {
+            let text = '';
+            if (type === 'chinese') {
+                const input = document.getElementById(`utils-chinese-${tabId}`);
+                if (input) text = input.value;
+            } else if (type === 'english') {
+                const input = document.getElementById(`utils-english-${tabId}`);
+                if (input) text = input.value;
+            }
             
-            if (englishInput) setupMiddleClickPaste(englishInput);
-            if (chineseInput) setupMiddleClickPaste(chineseInput);
-        }
-
-        // 格式化工具功能
-        function formatContent(tabId) {
-            const input = document.getElementById(`format-input-${tabId}`);
-            const result = document.getElementById(`format-result-${tabId}`);
-            
-            if (input && result) {
-                const text = input.value;
+            if (text.trim()) {
                 try {
-                    const formatted = JSON.stringify(JSON.parse(text), null, 2);
-                    result.textContent = formatted;
-                    showToast('格式化完成', 'success');
+                    await navigator.clipboard.writeText(text);
+                    showToast('复制成功', 'success');
                 } catch (err) {
-                    result.textContent = '格式化失败: 不是有效的JSON格式';
-                    showToast('格式化失败', 'error');
+                    showToast('复制失败', 'error');
                 }
+            } else {
+                showToast('没有内容可复制', 'warning');
             }
         }
+        
 
-        // 转换工具功能
-        function convertContent(tabId) {
-            const input = document.getElementById(`convert-input-${tabId}`);
-            const result = document.getElementById(`convert-result-${tabId}`);
-            
-            if (input && result) {
-                const text = input.value;
-                result.textContent = `转换结果: ${text.split('').reverse().join('')}`;
-                showToast('转换完成', 'success');
-            }
-        }
+
 
 
         
@@ -2069,40 +1968,6 @@
             });
         }
 
-        // 分割线拖拽
-        function handleSplitterDrag(e, index) {
-            e.preventDefault();
-            
-            const container = document.getElementById('editor-container');
-            const panes = container.querySelectorAll('.editor-pane');
-            const leftPane = panes[index];
-            const rightPane = panes[index + 1];
-            
-            if (!leftPane || !rightPane) return;
-            
-            const startX = e.clientX;
-            const leftWidth = leftPane.offsetWidth;
-            const rightWidth = rightPane.offsetWidth;
-            
-            function handleMouseMove(e) {
-                const deltaX = e.clientX - startX;
-                const newLeftWidth = leftWidth + deltaX;
-                const newRightWidth = rightWidth - deltaX;
-                
-                if (newLeftWidth > 100 && newRightWidth > 100) {
-                    leftPane.style.flex = `0 0 ${newLeftWidth}px`;
-                    rightPane.style.flex = `0 0 ${newRightWidth}px`;
-                }
-            }
-            
-            function handleMouseUp() {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
-            }
-            
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-        }
 
         // Toast通知
         function showToast(message, type = 'info', duration = 2000) {
