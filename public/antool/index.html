@@ -87,6 +87,12 @@
             position: relative;
         }
 
+        .quick-open-container:hover .quick-open {
+            min-height: 40px;
+            padding: 6px 12px;
+            max-height: none;
+        }
+
         .quick-open-hint {
             position: absolute;
             top: 50%;
@@ -99,6 +105,11 @@
             font-size: 12px;
             border: 1px dashed #007acc;
             animation: pulse 2s infinite;
+            display: none;
+        }
+
+        .quick-open-hint.show {
+            display: block;
         }
 
         @keyframes pulse {
@@ -138,6 +149,7 @@
             border-bottom: 1px solid #3c3c3c;
             overflow-x: auto;
             min-height: 32px;
+            position: relative;
         }
 
         .tab {
@@ -192,6 +204,7 @@
             display: flex;
             background: #1e1e1e;
             overflow: hidden;
+            position: relative;
         }
 
         .editor-pane {
@@ -201,6 +214,11 @@
             background: #1e1e1e;
             min-width: 200px;
             position: relative;
+            border-right: 1px solid #3c3c3c;
+        }
+
+        .editor-pane:last-child {
+            border-right: none;
         }
 
         .editor-content {
@@ -578,14 +596,16 @@
                 return;
             }
 
-            // 创建tab按钮
+            // 创建tab和对应的编辑器面板，确保垂直对齐
             openTabs.forEach((tab, index) => {
+                // 创建tab按钮
                 const tabButton = document.createElement('div');
                 tabButton.className = 'tab';
                 if (index === 0) tabButton.classList.add('active');
                 tabButton.textContent = getTabTitle(tab);
                 tabButton.draggable = true;
                 tabButton.dataset.tab = tab;
+                tabButton.style.flex = `0 0 ${100 / openTabs.length}%`;
                 
                 // 添加关闭按钮
                 const closeBtn = document.createElement('span');
@@ -612,10 +632,8 @@
                 tabButton.addEventListener('drop', handleTabDrop);
                 
                 tabBar.appendChild(tabButton);
-            });
-            
-            // 创建编辑器面板 - 支持并排显示
-            openTabs.forEach((tab, index) => {
+                
+                // 创建对应的编辑器面板
                 const editorPane = document.createElement('div');
                 editorPane.className = 'editor-pane';
                 editorPane.dataset.tab = tab;
