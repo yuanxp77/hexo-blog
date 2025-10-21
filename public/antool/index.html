@@ -224,6 +224,7 @@
             background: #3c3c3c;
             z-index: 1;
         }
+        
 
 
         .tab-editor-group .tab {
@@ -1207,6 +1208,7 @@
                 tabEditorGroup.appendChild(tabButton);
                 tabEditorGroup.appendChild(editorPane);
                 
+                
                 // 将组添加到容器中
                 container.appendChild(tabEditorGroup);
             });
@@ -1263,7 +1265,7 @@
                         <div class="tool-container">
                             <div class="tool-title">cmd转handler代码</div>
                             <div class="input-group">
-                                <input type="text" id="spex-input-${tabId}" placeholder="输入字符串，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
+                                <input type="text" id="spex-input-${tabId}" placeholder="输入cmd，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
                             </div>
                             <div class="result" id="spex-result-${tabId}"></div>
                             <div style="margin-top: 8px;">
@@ -1485,6 +1487,86 @@
                 showToast('已获取当前时间', 'success');
             }
         }
+
+        // 检查剪贴板内容是否为时间戳或日期
+        function isTimestampOrDate(text) {
+            if (!text || typeof text !== 'string') return false;
+            
+            const trimmed = text.trim();
+            
+            // 检查是否为纯数字时间戳（10位或13位）
+            if (/^\d{10}$/.test(trimmed)) {
+                return { type: 'timestamp', value: trimmed };
+            }
+            if (/^\d{13}$/.test(trimmed)) {
+                return { type: 'timestamp', value: Math.floor(parseInt(trimmed) / 1000).toString() };
+            }
+            
+            // 检查是否为日期格式
+            const datePatterns = [
+                /^\d{4}-\d{2}-\d{2}$/, // YYYY-MM-DD
+                /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/, // YYYY-MM-DD HH:mm:ss
+                /^\d{4}\/\d{2}\/\d{2}$/, // YYYY/MM/DD
+                /^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/, // YYYY/MM/DD HH:mm:ss
+                /^\d{2}\/\d{2}\/\d{4}$/, // MM/DD/YYYY
+                /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/, // MM/DD/YYYY HH:mm:ss
+            ];
+            
+            for (const pattern of datePatterns) {
+                if (pattern.test(trimmed)) {
+                    return { type: 'date', value: trimmed };
+                }
+            }
+            
+            return false;
+        }
+
+        // 监听剪贴板变化并自动粘贴
+        function setupClipboardAutoPaste(tabId) {
+            const input = document.getElementById(`timezone-timestamp-${tabId}`);
+            if (!input) return;
+
+            // 监听粘贴事件
+            input.addEventListener('paste', async (e) => {
+                e.preventDefault();
+                try {
+                    const clipboardText = await navigator.clipboard.readText();
+                    const result = isTimestampOrDate(clipboardText);
+                    
+                    if (result) {
+                        input.value = result.value;
+                        updateAllTimezones(tabId);
+                        showToast(`已自动识别并粘贴${result.type === 'timestamp' ? '时间戳' : '日期'}`, 'success');
+                    } else {
+                        // 如果不是时间戳或日期，正常粘贴
+                        input.value = clipboardText;
+                        updateAllTimezones(tabId);
+                    }
+                } catch (err) {
+                    // 如果无法读取剪贴板，使用默认粘贴行为
+                    const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                    input.value = pastedText;
+                    updateAllTimezones(tabId);
+                }
+            });
+
+            // 监听焦点事件，检查剪贴板内容
+            input.addEventListener('focus', async () => {
+                try {
+                    const clipboardText = await navigator.clipboard.readText();
+                    const result = isTimestampOrDate(clipboardText);
+                    
+                    if (result && input.value === '') {
+                        // 如果输入框为空且剪贴板是时间戳或日期，自动填充
+                        input.value = result.value;
+                        updateAllTimezones(tabId);
+                        showToast(`已自动识别并填充${result.type === 'timestamp' ? '时间戳' : '日期'}`, 'success');
+                    }
+                } catch (err) {
+                    // 忽略剪贴板读取错误
+                }
+            });
+        }
         
         // 复制时区时间戳
         function copyTimezoneTimestamp(tabId) {
@@ -1653,6 +1735,9 @@
         function initTimezoneTool(tabId) {
             const container = document.getElementById(`timezone-container-${tabId}`);
             if (!container) return;
+            
+            // 设置剪贴板自动粘贴功能
+            setupClipboardAutoPaste(tabId);
             
             // 启动动态更新
             startTimezoneUpdate(tabId);
