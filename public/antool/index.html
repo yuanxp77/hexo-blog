@@ -177,11 +177,18 @@
             flex-direction: column;
             flex: 1;
             min-width: 200px;
-            border-right: 1px solid #3c3c3c;
+            position: relative;
         }
 
-        .tab-editor-group:last-child {
-            border-right: none;
+        .tab-editor-group:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 32px;
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            background: #3c3c3c;
+            z-index: 1;
         }
 
         .tab-editor-group .tab {
