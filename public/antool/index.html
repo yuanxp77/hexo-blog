@@ -116,6 +116,10 @@
             color: #ffffff;
         }
 
+        .tab:active {
+            transform: scale(0.98);
+        }
+
         .tab-close {
             margin-left: 6px;
             padding: 2px;
@@ -457,8 +461,20 @@
 
         // 切换Tab
         function switchTab(tabName) {
-            // 在VSCode模式中，所有tab都显示，不需要切换逻辑
-            updateDisplay();
+            // 在VSCode模式中，所有tab都显示，但可以更新active状态
+            updateTabActiveState(tabName);
+        }
+
+        // 更新tab的active状态
+        function updateTabActiveState(activeTab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                if (tab.dataset.tab === activeTab) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
         }
 
         // 更新显示
@@ -495,7 +511,13 @@
                 };
                 
                 tabButton.appendChild(closeBtn);
-                tabButton.addEventListener('click', () => switchTab(tab));
+                tabButton.addEventListener('click', (e) => {
+                    // 如果点击的是关闭按钮，不处理tab点击
+                    if (e.target.classList.contains('tab-close')) {
+                        return;
+                    }
+                    switchTab(tab);
+                });
                 
                 // 拖拽事件
                 tabButton.addEventListener('dragstart', handleTabDragStart);
@@ -743,12 +765,14 @@
             
             if (input && result) {
                 const text = input.value;
-                const formatted = JSON.stringify(JSON.parse(text), null, 2);
-                result.textContent = formatted;
-                showToast('格式化完成', 'success');
-            } catch (err) {
-                result.textContent = '格式化失败: 不是有效的JSON格式';
-                showToast('格式化失败', 'error');
+                try {
+                    const formatted = JSON.stringify(JSON.parse(text), null, 2);
+                    result.textContent = formatted;
+                    showToast('格式化完成', 'success');
+                } catch (err) {
+                    result.textContent = '格式化失败: 不是有效的JSON格式';
+                    showToast('格式化失败', 'error');
+                }
             }
         }
 
