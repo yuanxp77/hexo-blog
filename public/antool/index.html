@@ -198,17 +198,18 @@
             flex-wrap: wrap;
             align-content: flex-start;
             overflow: hidden;
+            gap: 0;
+            width: 100%;
         }
 
         .tab-editor-group {
             display: flex;
             flex-direction: column;
-            flex: 1;
+            flex: 0 0 auto;
             min-width: 200px;
             position: relative;
             overflow: hidden;
             height: 100vh;
-            flex-shrink: 0;
             transition: all 0.3s ease;
         }
 
@@ -427,14 +428,199 @@
             background: #2d2d30;
             border: 1px solid #3c3c3c;
             border-radius: 4px;
-            padding: 8px 12px;
+            padding: 8px 50px 8px 12px;
             margin-top: 8px;
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
             font-size: 12px;
             color: #cccccc;
             word-break: break-all;
             min-height: 40px;
+            position: relative;
             flex-shrink: 0;
+        }
+        
+        /* 时区工具样式 */
+        .tool-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #d4d4d4;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #3c3c3c;
+        }
+        
+        .timezone-container {
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .timezone-group {
+            margin-bottom: 12px;
+            border: 1px solid #3c3c3c;
+            border-radius: 6px;
+            background: #2d2d30;
+        }
+        
+        .timezone-group-header {
+            background: #3c3c3c;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #d4d4d4;
+            font-weight: 600;
+            border-radius: 6px 6px 0 0;
+        }
+        
+        .timezone-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 6px;
+            border-bottom: 1px solid #3c3c3c;
+            transition: background-color 0.2s ease;
+            gap: 4px;
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .timezone-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 6px 6px;
+        }
+        
+        .timezone-item:hover {
+            background: #3c3c3c;
+        }
+        
+        .timezone-info {
+            flex: 0 0 90px;
+            font-size: 10px;
+            color: #d4d4d4;
+            font-weight: 500;
+            text-align: left;
+            min-width: 0;
+            line-height: 1.1;
+        }
+        
+        .timezone-time-container {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            min-width: 0;
+            position: relative;
+        }
+        
+        .timezone-time {
+            flex: 1;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 10px;
+            color: #d4d4d4;
+            background: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            border-radius: 3px;
+            padding: 3px 60px 3px 4px;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .timezone-copy {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            font-size: 9px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .timezone-copy:hover {
+            background: #005a9e;
+        }
+        
+        .result-copy {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            font-size: 9px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .result-copy:hover {
+            background: #005a9e;
+        }
+        
+        .input-with-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-with-button input {
+            padding-right: 100px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .input-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            font-size: 9px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .input-button:first-of-type {
+            right: 50px;
+        }
+        
+        .input-button:last-of-type {
+            right: 4px;
+        }
+        
+        .input-button:hover {
+            background: #005a9e;
         }
 
         .btn {
@@ -582,17 +768,95 @@
         let quickOpenVisible = false;
         let isDragging = false;
         let dragOffset = { x: 0, y: 0 };
+        
+        // 布局持久化
+        const LAYOUT_STORAGE_KEY = 'antool_layout_state';
+        
+        // 时区数据
+        const timezoneData = [
+            { code: 'ID', name: 'Indonesia', timezone: 'Asia/Jakarta', offset: '+07:00', city: '雅加达' },
+            { code: 'SG', name: 'Singapore', timezone: 'Asia/Singapore', offset: '+08:00', city: '新加坡' },
+            { code: 'TW', name: 'Taiwan', timezone: 'Asia/Taipei', offset: '+08:00', city: '台北' },
+            { code: 'TH', name: 'Thailand', timezone: 'Asia/Bangkok', offset: '+07:00', city: '曼谷' },
+            { code: 'VN', name: 'Vietnam', timezone: 'Asia/Ho_Chi_Minh', offset: '+07:00', city: '胡志明市' },
+            { code: 'MY', name: 'Malaysia', timezone: 'Asia/Kuala_Lumpur', offset: '+08:00', city: '吉隆坡' },
+            { code: 'PH', name: 'Philippines', timezone: 'Asia/Manila', offset: '+08:00', city: '马尼拉' },
+            { code: 'BR', name: 'Brazil', timezone: 'America/Sao_Paulo', offset: '-03:00', city: '圣保罗' },
+            { code: 'CO', name: 'Colombia', timezone: 'America/Bogota', offset: '-05:00', city: '波哥大' },
+            { code: 'CL', name: 'Chile', timezone: 'America/Santiago', offset: '-03:00', city: '圣地亚哥' },
+            { code: 'MX', name: 'Mexico', timezone: 'America/Mexico_City', offset: '-06:00', city: '墨西哥城' },
+            { code: 'AR', name: 'Argentina', timezone: 'America/Argentina/Buenos_Aires', offset: '-03:00', city: '布宜诺斯艾利斯' }
+        ];
+        
+        // 保存布局状态到localStorage
+        function saveLayoutState() {
+            const layoutState = {
+                openTabs: [...openTabs],
+                timestamp: Date.now()
+            };
+            try {
+                localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(layoutState));
+            } catch (error) {
+                console.warn('无法保存布局状态:', error);
+            }
+        }
+        
+        // 从localStorage加载布局状态
+        function loadLayoutState() {
+            try {
+                const saved = localStorage.getItem(LAYOUT_STORAGE_KEY);
+                if (saved) {
+                    const layoutState = JSON.parse(saved);
+                    // 检查数据是否过期（7天）
+                    const isExpired = Date.now() - layoutState.timestamp > 7 * 24 * 60 * 60 * 1000;
+                    if (!isExpired && layoutState.openTabs && layoutState.openTabs.length > 0) {
+                        return layoutState.openTabs;
+                    }
+                }
+            } catch (error) {
+                console.warn('无法加载布局状态:', error);
+            }
+            return null;
+        }
+        
+        // 清除过期的布局状态
+        function clearExpiredLayout() {
+            try {
+                const saved = localStorage.getItem(LAYOUT_STORAGE_KEY);
+                if (saved) {
+                    const layoutState = JSON.parse(saved);
+                    const isExpired = Date.now() - layoutState.timestamp > 7 * 24 * 60 * 60 * 1000;
+                    if (isExpired) {
+                        localStorage.removeItem(LAYOUT_STORAGE_KEY);
+                    }
+                }
+            } catch (error) {
+                console.warn('清除过期布局状态失败:', error);
+            }
+        }
+        
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 默认打开Spex和Tools工具
-            openTab('spex');
-            openTab('tools');
+            // 清除过期的布局状态
+            clearExpiredLayout();
             
-            // 3秒后显示提示
+            // 尝试加载保存的布局状态
+            const savedTabs = loadLayoutState();
+            if (savedTabs && savedTabs.length > 0) {
+                // 恢复保存的tab状态
+                openTabs = [...savedTabs];
+                updateDisplay();
+            } else {
+                // 默认打开Spex和Tools工具
+                openTab('spex');
+                openTab('tools');
+            }
+            
+            // 3秒后显示提示（仅在没有tab时显示）
             setTimeout(() => {
                 const hint = document.getElementById('quick-open-hint');
-                if (hint) {
+                if (hint && openTabs.length === 0) {
                     hint.classList.add('show');
                 }
             }, 3000);
@@ -691,6 +955,9 @@
             openTabs.push(tabName);
             updateDisplay();
             
+            // 保存布局状态
+            saveLayoutState();
+            
             // 隐藏提示和关闭浮动面板
             const hint = document.getElementById('quick-open-hint');
             if (hint) {
@@ -718,16 +985,38 @@
                 
                 // 延迟更新布局，让动画完成
                 setTimeout(() => {
+                    // 停止该tab的动态更新
+                    stopTimezoneUpdate(tabName);
+                    
                     openTabs.splice(index, 1);
                     updateDisplay();
+                    
+                    // 保存布局状态
+                    saveLayoutState();
+                    
+                    // 如果没有tab了，显示提示
+                    if (openTabs.length === 0) {
+                        const hint = document.getElementById('quick-open-hint');
+                        if (hint) {
+                            hint.classList.add('show');
+                        }
+                    }
                 }, 200);
             }
         }
 
         // 关闭所有Tab
         function closeAllTabs() {
+            // 停止所有动态更新
+            Object.keys(timezoneUpdateIntervals).forEach(tabId => {
+                stopTimezoneUpdate(tabId);
+            });
+            
             openTabs = [];
             updateDisplay();
+            
+            // 保存布局状态
+            saveLayoutState();
             
             // 显示提示
             const hint = document.getElementById('quick-open-hint');
@@ -783,53 +1072,53 @@
             
             // 使用requestAnimationFrame确保平滑过渡
             requestAnimationFrame(() => {
-                const containerWidth = container.offsetWidth;
                 const count = groups.length;
+                const containerWidth = container.offsetWidth;
+                
+                // 重置所有样式
+                groups.forEach(group => {
+                    group.style.transition = 'all 0.3s ease';
+                    group.style.flex = '';
+                    group.style.minWidth = '';
+                    group.style.maxWidth = '';
+                    group.style.width = '';
+                });
                 
                 if (count === 1) {
                     // 单个tab占满全宽
                     groups.forEach(group => {
-                        group.style.transition = 'all 0.3s ease';
                         group.style.flex = '1 1 100%';
                         group.style.minWidth = '100%';
-                        group.style.maxWidth = '100%';
                     });
                 } else if (count === 2) {
                     // 两个tab各占50%
                     groups.forEach(group => {
-                        group.style.transition = 'all 0.3s ease';
                         group.style.flex = '1 1 50%';
                         group.style.minWidth = '50%';
-                        group.style.maxWidth = '50%';
                     });
-                } else if (count <= 4) {
-                    // 3-4个tab：平均分配
-                    const widthPercent = 100 / count;
+                } else if (count === 3) {
+                    // 三个tab各占33.33%
                     groups.forEach(group => {
-                        group.style.transition = 'all 0.3s ease';
-                        group.style.flex = `1 1 ${widthPercent}%`;
-                        group.style.minWidth = `${widthPercent}%`;
-                        group.style.maxWidth = 'none';
+                        group.style.flex = '1 1 33.33%';
+                        group.style.minWidth = '33.33%';
                     });
-                } else if (count <= 6) {
-                    // 5-6个tab：两行布局
-                    const perRow = Math.ceil(count / 2);
-                    const widthPercent = 100 / perRow;
+                } else if (count === 4) {
+                    // 四个tab各占25%
                     groups.forEach(group => {
-                        group.style.transition = 'all 0.3s ease';
-                        group.style.flex = `1 1 ${widthPercent}%`;
-                        group.style.minWidth = `${widthPercent}%`;
-                        group.style.maxWidth = 'none';
+                        group.style.flex = '1 1 25%';
+                        group.style.minWidth = '25%';
                     });
                 } else {
-                    // 7+个tab：三行布局
-                    const perRow = Math.ceil(count / 3);
-                    const widthPercent = 100 / perRow;
-                    groups.forEach(group => {
-                        group.style.transition = 'all 0.3s ease';
+                    // 5+个tab：计算每行能放几个
+                    const minWidth = 250; // 最小宽度
+                    const maxPerRow = Math.floor(containerWidth / minWidth);
+                    const actualPerRow = Math.min(maxPerRow, count);
+                    const widthPercent = 100 / actualPerRow;
+                    
+                    groups.forEach((group, index) => {
                         group.style.flex = `1 1 ${widthPercent}%`;
                         group.style.minWidth = `${widthPercent}%`;
-                        group.style.maxWidth = 'none';
+                        group.style.maxWidth = `${widthPercent}%`;
                     });
                 }
                 
@@ -928,6 +1217,26 @@
                 setTimeout(() => {
                     optimizeLayout();
                 }, 50);
+                
+                // 初始化时区工具
+                setTimeout(() => {
+                    openTabs.forEach(tab => {
+                        if (tab === 'tools') {
+                            // 找到对应的tabId
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const timezoneContainer = editorPane.querySelector('.timezone-container');
+                                    if (timezoneContainer) {
+                                        const tabId = timezoneContainer.id.split('-').pop();
+                                        initTimezoneTool(tabId);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }, 200);
             }, 100);
         }
 
@@ -1014,24 +1323,19 @@
                 case 'tools':
                     return `
                         <div class="tool-container">
-                            <div class="tool-title">时间戳工具</div>
-                            <div class="input-group">
-                                <label>时间戳转日期</label>
-                                <input type="text" id="timestamp-input-${tabId}" placeholder="输入时间戳" oninput="debounceTimestampConvert('${tabId}')">
-                            </div>
-                            <div class="result" id="timestamp-result-${tabId}">日期结果将显示在这里</div>
-                            
-                            <div class="input-group" style="margin-top: 12px;">
-                                <label>日期转时间戳</label>
-                                <input type="text" id="date-input-${tabId}" placeholder="输入日期 (YYYY-MM-DD HH:mm:ss)" oninput="debounceDateConvert('${tabId}')">
-                            </div>
-                            <div class="result" id="date-result-${tabId}">时间戳结果将显示在这里</div>
-                            
-                            <div style="margin-top: 12px;">
-                                <button class="btn" onclick="getCurrentTimestamp('${tabId}')">当前时间戳</button>
-                                <button class="btn" onclick="getCurrentDate('${tabId}')">当前日期</button>
-                                <button class="btn" onclick="copyCurrentTimestamp('${tabId}')">复制时间戳</button>
-                                <button class="btn" onclick="copyCurrentDate('${tabId}')">复制日期</button>
+                            <!-- 时区工具 -->
+                            <div class="tool-section" style="margin-top: 20px;">
+                                <div class="section-title">全球时区时间</div>
+                                <div class="input-group">
+                                    <div class="input-with-button">
+                                        <input type="text" id="timezone-timestamp-${tabId}" placeholder="输入时间戳或日期 (YYYY-MM-DD HH:mm:ss)" oninput="updateAllTimezones('${tabId}')">
+                                        <button class="input-button" onclick="getCurrentTimezoneTime('${tabId}')">当前</button>
+                                        <button class="input-button" onclick="copyTimezoneTimestamp('${tabId}')">复制</button>
+                                    </div>
+                                </div>
+                                <div class="timezone-container" id="timezone-container-${tabId}">
+                                    <!-- 时区列表将在这里动态生成 -->
+                                </div>
                             </div>
                             
                         </div>
@@ -1159,88 +1463,62 @@
             }
         }
 
-        // 时间戳工具功能
-        function convertTimestampToDate(tabId) {
-            const input = document.getElementById(`timestamp-input-${tabId}`);
-            const result = document.getElementById(`timestamp-result-${tabId}`);
-            
-            if (input && result) {
-                const timestamp = input.value;
-                if (timestamp) {
-                    const date = new Date(parseInt(timestamp) * 1000);
-                    result.textContent = date.toLocaleString('zh-CN');
-                } else {
-                    result.textContent = '日期结果将显示在这里';
-                }
-            }
-        }
 
-        // 防抖时间戳转换
-        function debounceTimestampConvert(tabId) {
-            clearTimeout(window.timestampTimeout);
-            window.timestampTimeout = setTimeout(() => {
-                convertTimestampToDate(tabId);
-            }, 100);
+        
+        // 格式化日期为 YYYY-MM-DD HH:mm:ss
+        function formatDate(date) {
+            return date.getFullYear() + '-' + 
+                   String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                   String(date.getDate()).padStart(2, '0') + ' ' + 
+                   String(date.getHours()).padStart(2, '0') + ':' + 
+                   String(date.getMinutes()).padStart(2, '0') + ':' + 
+                   String(date.getSeconds()).padStart(2, '0');
         }
-
-        function convertDateToTimestamp(tabId) {
-            const input = document.getElementById(`date-input-${tabId}`);
-            const result = document.getElementById(`date-result-${tabId}`);
-            
-            if (input && result) {
-                const dateStr = input.value;
-                if (dateStr) {
-                    const date = new Date(dateStr);
-                    const timestamp = Math.floor(date.getTime() / 1000);
-                    result.textContent = timestamp.toString();
-                } else {
-                    result.textContent = '时间戳结果将显示在这里';
-                }
-            }
-        }
-
-        // 防抖日期转换
-        function debounceDateConvert(tabId) {
-            clearTimeout(window.dateTimeout);
-            window.dateTimeout = setTimeout(() => {
-                convertDateToTimestamp(tabId);
-            }, 100);
-        }
-
-        function getCurrentTimestamp(tabId) {
-            const input = document.getElementById(`timestamp-input-${tabId}`);
+        
+        // 获取当前时区时间
+        function getCurrentTimezoneTime(tabId) {
+            const input = document.getElementById(`timezone-timestamp-${tabId}`);
             if (input) {
                 const timestamp = Math.floor(Date.now() / 1000);
-                input.value = timestamp;
-                convertTimestampToDate(tabId);
-                showToast('已获取当前时间戳', 'success');
+                input.value = timestamp.toString();
+                updateAllTimezones(tabId);
+                showToast('已获取当前时间', 'success');
+            }
+        }
+        
+        // 复制时区时间戳
+        function copyTimezoneTimestamp(tabId) {
+            const input = document.getElementById(`timezone-timestamp-${tabId}`);
+            if (input && input.value.trim()) {
+                navigator.clipboard.writeText(input.value).then(() => {
+                    showToast('已复制时间戳', 'success');
+                });
+            } else {
+                showToast('输入框为空', 'error');
             }
         }
 
-        function getCurrentDate(tabId) {
-            const input = document.getElementById(`date-input-${tabId}`);
-            if (input) {
-                const now = new Date();
-                const dateStr = now.toISOString().slice(0, 19).replace('T', ' ');
-                input.value = dateStr;
-                convertDateToTimestamp(tabId);
-                showToast('已获取当前日期', 'success');
+        
+        function copyResult(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const text = element.textContent.replace('复制', '').trim();
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('已复制结果', 'success');
+                });
             }
         }
-
-        function copyCurrentTimestamp(tabId) {
-            const timestamp = Math.floor(Date.now() / 1000);
-            navigator.clipboard.writeText(timestamp.toString()).then(() => {
-                showToast('已复制当前时间戳', 'success');
-            });
-        }
-
-        function copyCurrentDate(tabId) {
-            const now = new Date();
-            const dateStr = now.toISOString().slice(0, 19).replace('T', ' ');
-            navigator.clipboard.writeText(dateStr).then(() => {
-                showToast('已复制当前日期', 'success');
-            });
+        
+        
+        
+        // 更新结果内容的通用函数
+        function updateResultContent(result, content, tabId, resultId) {
+            const textNode = result.childNodes[0];
+            if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+                textNode.textContent = content;
+            } else {
+                result.innerHTML = content + '<button class="result-copy" onclick="copyResult(\'' + resultId + '-' + tabId + '\')">复制</button>';
+            }
         }
 
 
@@ -1369,6 +1647,219 @@
                     }
                 }, 400);
             }, duration);
+        }
+        
+        // 时区工具功能
+        function initTimezoneTool(tabId) {
+            const container = document.getElementById(`timezone-container-${tabId}`);
+            if (!container) return;
+            
+            // 启动动态更新
+            startTimezoneUpdate(tabId);
+            
+            // 按UTC偏移量分组，每个偏移量显示所有地区
+            const groupedTimezones = {};
+            timezoneData.forEach(tz => {
+                if (!groupedTimezones[tz.offset]) {
+                    groupedTimezones[tz.offset] = [];
+                }
+                groupedTimezones[tz.offset].push(tz);
+            });
+            
+            // 生成时区列表
+            let html = '';
+            Object.keys(groupedTimezones).sort((a, b) => {
+                // 按UTC偏移量排序
+                const offsetA = parseInt(a.replace(':', ''));
+                const offsetB = parseInt(b.replace(':', ''));
+                return offsetB - offsetA;
+            }).forEach(offset => {
+                const timezones = groupedTimezones[offset];
+                // 收集所有地区缩写
+                const codes = timezones.map(tz => tz.code).join(', ');
+                const tz = timezones[0]; // 使用第一个时区作为代表
+                const timeId = `time-${tabId}-${tz.code}`;
+                html += `
+                    <div class="timezone-item">
+                        <div class="timezone-info">
+                            <div>${codes}</div>
+                            <div style="font-size: 10px; color: #888; margin-top: 2px;">(UTC${offset})</div>
+                        </div>
+                        <div class="timezone-time-container">
+                            <input type="text" class="timezone-time" id="${timeId}" 
+                                   placeholder="YYYY-MM-DD HH:mm:ss" 
+                                   oninput="updateAllTimes('${tabId}', '${tz.timezone}', '${timeId}')">
+                            <button class="timezone-copy" onclick="copyTimezoneTime('${timeId}')">复制</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // 设置默认时间（当前时间）
+            updateAllTimezones(tabId);
+        }
+        
+        // 从时间戳输入更新所有时区
+        function updateAllTimezones(tabId) {
+            const timestampInput = document.getElementById(`timezone-timestamp-${tabId}`);
+            if (!timestampInput) return;
+            
+            let baseTime;
+            const inputValue = timestampInput.value.trim();
+            
+            if (!inputValue) {
+                // 如果输入为空，使用当前时间
+                baseTime = new Date();
+            } else {
+                // 尝试解析输入
+                if (/^\d+$/.test(inputValue)) {
+                    // 纯数字，当作时间戳处理
+                    baseTime = new Date(parseInt(inputValue) * 1000);
+                } else {
+                    // 当作日期字符串处理
+                    baseTime = new Date(inputValue);
+                }
+                
+                if (isNaN(baseTime.getTime())) {
+                    return; // 无效时间，不更新
+                }
+            }
+            
+            // 更新所有时区的时间
+            timezoneData.forEach(tz => {
+                const timeInput = document.getElementById(`time-${tabId}-${tz.code}`);
+                if (timeInput) {
+                    // 使用Intl.DateTimeFormat正确计算时区时间
+                    const formatter = new Intl.DateTimeFormat('sv-SE', {
+                        timeZone: tz.timezone,
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    });
+                    const formattedTime = formatter.format(baseTime);
+                    timeInput.value = formattedTime;
+                }
+            });
+        }
+        
+        // 更新所有时区时间（从单个时区输入）
+        function updateAllTimes(tabId, sourceTimezone, sourceTimeId) {
+            const sourceInput = document.getElementById(sourceTimeId);
+            if (!sourceInput || !sourceInput.value.trim()) return;
+            
+            try {
+                // 解析输入的时间
+                const inputTime = new Date(sourceInput.value);
+                if (isNaN(inputTime.getTime())) return;
+                
+                // 更新时间戳输入框
+                const timestampInput = document.getElementById(`timezone-timestamp-${tabId}`);
+                if (timestampInput) {
+                    const timestamp = Math.floor(inputTime.getTime() / 1000);
+                    timestampInput.value = timestamp.toString();
+                }
+                
+                // 直接使用timezoneData更新所有时区
+                timezoneData.forEach(tz => {
+                    const timeInput = document.getElementById(`time-${tabId}-${tz.code}`);
+                    if (timeInput && timeInput.id !== sourceTimeId) {
+                        // 使用Intl.DateTimeFormat正确计算时区时间
+                        const formatter = new Intl.DateTimeFormat('sv-SE', {
+                            timeZone: tz.timezone,
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        });
+                        const formattedTime = formatter.format(inputTime);
+                        timeInput.value = formattedTime;
+                    }
+                });
+            } catch (error) {
+                console.warn('时间更新失败:', error);
+            }
+        }
+        
+        // 复制时区时间
+        function copyTimezoneTime(timeId) {
+            const timeInput = document.getElementById(timeId);
+            if (timeInput && timeInput.value) {
+                navigator.clipboard.writeText(timeInput.value).then(() => {
+                    showToast('时间已复制到剪贴板', 'success');
+                }).catch(() => {
+                    showToast('复制失败', 'error');
+                });
+            }
+        }
+        
+        // 动态更新时区时间
+        let timezoneUpdateIntervals = {};
+        
+        function startTimezoneUpdate(tabId) {
+            // 清除之前的定时器
+            if (timezoneUpdateIntervals[tabId]) {
+                clearInterval(timezoneUpdateIntervals[tabId]);
+            }
+            
+            // 每5秒更新一次时间
+            timezoneUpdateIntervals[tabId] = setInterval(() => {
+                updateTimezoneDisplay(tabId);
+            }, 5000);
+        }
+        
+        function stopTimezoneUpdate(tabId) {
+            if (timezoneUpdateIntervals[tabId]) {
+                clearInterval(timezoneUpdateIntervals[tabId]);
+                delete timezoneUpdateIntervals[tabId];
+            }
+        }
+        
+        function updateTimezoneDisplay(tabId) {
+            const container = document.getElementById(`timezone-container-${tabId}`);
+            if (!container) return;
+            
+            // 检查是否有用户正在编辑时间
+            const activeElement = document.activeElement;
+            const isEditing = activeElement && activeElement.classList.contains('timezone-time');
+            
+            // 如果用户正在编辑，不自动更新
+            if (isEditing) return;
+            
+            // 检查时间戳输入框是否有值
+            const timestampInput = document.getElementById(`timezone-timestamp-${tabId}`);
+            if (timestampInput && timestampInput.value.trim()) {
+                // 如果有时间戳输入，使用该时间作为基准
+                updateAllTimezones(tabId);
+            } else {
+                // 否则使用当前时间
+                const now = new Date();
+                timezoneData.forEach(tz => {
+                    const timeInput = document.getElementById(`time-${tabId}-${tz.code}`);
+                    if (timeInput) {
+                        const formatter = new Intl.DateTimeFormat('sv-SE', {
+                            timeZone: tz.timezone,
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        });
+                        const formattedTime = formatter.format(now);
+                        timeInput.value = formattedTime;
+                    }
+                });
+            }
         }
     </script>
 </body>
