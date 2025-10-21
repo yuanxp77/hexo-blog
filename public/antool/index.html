@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>工具集</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNSIgZmlsbD0iIzAwN2FjYyIgc3Ryb2tlPSIjMDA1YTllIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNiwgMTYpIj4KICAgIDxwYXRoIGQ9Ik0tOCwtMiBMLTYsLTIgTC02LC00IEwtNCwtNCBMLTQsLTYgTC0yLC02IEwtMiwtOCBMMiwtOCBMMiwtNiBMNCwtNiBMNCwtNCBMNiwtNCBMNiwtMiBMOCwtMiBMOCwyIEw2LDIgTDYsNCBMNCw0IEw0LDYgTDIsNiBMMiw4IEwtMiw4IEwtMiw2IEwtNCw2IEwtNCw0IEwtNiw0IEwtNiwyIEwtOCwyIFoiIGZpbGw9IiNmZmZmZmYiLz4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIzIiBmaWxsPSIjMDA3YWNjIi8+CiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMSIgZmlsbD0iI2ZmZmZmZiIvPgogIDwvZz4KICA8Y2lyY2xlIGN4PSI4IiBjeT0iOCIgcj0iMSIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC43Ii8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSI4IiByPSIxIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjciLz4KICA8Y2lyY2xlIGN4PSI4IiBjeT0iMjQiIHI9IjEiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNyIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjEiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNyIvPgo8L3N2Zz4K">
     <style>
         * {
             margin: 0;
@@ -119,25 +121,6 @@
             font-weight: 500;
         }
 
-        .layout-toggle-inline {
-            width: 24px;
-            height: 24px;
-            background: #3c3c3c;
-            border: 1px solid #555;
-            border-radius: 4px;
-            color: #cccccc;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .layout-toggle-inline:hover {
-            background: #555;
-            transform: scale(1.1);
-        }
 
         .quick-open.show {
             opacity: 1;
@@ -214,6 +197,7 @@
             background: #1e1e1e;
             flex-wrap: wrap;
             align-content: flex-start;
+            overflow: hidden;
         }
 
         .tab-editor-group {
@@ -222,45 +206,12 @@
             flex: 1;
             min-width: 200px;
             position: relative;
+            overflow: hidden;
+            height: 100vh;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
         }
 
-        /* 垂直布局模式 */
-        .tab-editor-container.vertical {
-            flex-direction: column;
-            flex-wrap: nowrap;
-        }
-
-        .tab-editor-container.vertical .tab-editor-group {
-            flex-direction: row;
-            min-height: 150px;
-            min-width: auto;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .tab-editor-container.vertical .tab-editor-group .tab {
-            flex: 0 0 auto;
-            width: 40px;
-            writing-mode: horizontal-tb;
-            text-orientation: initial;
-            padding: 8px 4px;
-            font-size: 11px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tab-editor-container.vertical .tab-editor-group .tab .tab-close {
-            margin-left: 0;
-            margin-top: 4px;
-            font-size: 8px;
-        }
-
-        .tab-editor-container.vertical .tab-editor-group .editor-pane {
-            flex: 1;
-        }
 
         .tab-editor-group:not(:last-child)::after {
             content: '';
@@ -273,14 +224,6 @@
             z-index: 1;
         }
 
-        /* 垂直布局的分割线 */
-        .tab-editor-container.vertical .tab-editor-group:not(:last-child)::after {
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 1px;
-            height: 100%;
-        }
 
         .tab-editor-group .tab {
             flex: 0 0 auto;
@@ -293,6 +236,8 @@
             display: flex;
             flex-direction: column;
             background: #1e1e1e;
+            min-height: 0; /* 允许flex子元素收缩 */
+            overflow: hidden; /* 防止内容溢出 */
         }
 
         .tab {
@@ -382,6 +327,9 @@
             padding: 12px;
             overflow-y: auto;
             background: #1e1e1e;
+            contain: layout style;
+            height: 0; /* 强制flex子元素使用overflow */
+            min-height: 0; /* 允许flex子元素收缩 */
         }
 
         /* 分割线 */
@@ -421,6 +369,7 @@
 
         .input-group {
             margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .input-group label {
@@ -431,19 +380,47 @@
         }
 
         input[type="text"], textarea {
-            width: 100%;
+            width: 100% !important;
             padding: 8px 12px;
             background: #2d2d30;
             border: 1px solid #3c3c3c;
             border-radius: 4px;
             color: #cccccc;
             font-size: 13px;
-            transition: border-color 0.2s ease;
+            transition: all 0.3s ease;
+            box-sizing: border-box !important;
+            min-width: 200px !important;
+            max-width: 100% !important;
+            flex-shrink: 0 !important;
+            flex-grow: 0 !important;
+            flex-basis: auto !important;
+            height: 36px !important;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px !important;
+            max-height: 300px;
+            overflow-y: auto;
+            height: 80px !important;
         }
 
         input[type="text"]:focus, textarea:focus {
             outline: none;
             border-color: #007acc;
+        }
+
+        /* 防止文本框尺寸变化 */
+        .input-group {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-group input, .input-group textarea {
+            position: relative;
+            z-index: 1;
+            transform: translateZ(0);
+            will-change: auto;
         }
 
         .result {
@@ -457,6 +434,7 @@
             color: #cccccc;
             word-break: break-all;
             min-height: 40px;
+            flex-shrink: 0;
         }
 
         .btn {
@@ -485,38 +463,6 @@
             background: #545b62;
         }
 
-        /* 时间戳工具样式 */
-        .timestamp-card {
-            background: #2d2d30;
-            border: 1px solid #3c3c3c;
-            border-radius: 6px;
-            padding: 8px;
-            margin-bottom: 8px;
-        }
-
-        .timezone-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 4px;
-            margin-top: 8px;
-        }
-
-        .timezone-card {
-            background: #2d2d30;
-            border: 1px solid #3c3c3c;
-            border-radius: 4px;
-            padding: 4px 6px;
-            text-align: center;
-            font-size: 10px;
-            color: #cccccc;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .timezone-card:hover {
-            background: #3c3c3c;
-            border-color: #007acc;
-        }
 
         /* Toast通知 */
         .toast {
@@ -602,15 +548,6 @@
                 padding: 8px;
             }
 
-            .timezone-grid {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-                gap: 3px;
-            }
-
-            .timezone-card {
-                padding: 3px 4px;
-                font-size: 9px;
-            }
         }
     </style>
 </head>
@@ -626,7 +563,6 @@
         <div class="quick-open" id="quick-open">
             <div class="quick-open-header">
                 <div class="quick-open-title">工具面板</div>
-                <button class="layout-toggle-inline" onclick="toggleLayout()" id="layout-toggle-inline" title="切换布局">⤢</button>
             </div>
             <button class="quick-btn" onclick="openTab('spex')">Spex</button>
             <button class="quick-btn" onclick="openTab('test')">Test</button>
@@ -646,7 +582,6 @@
         let quickOpenVisible = false;
         let isDragging = false;
         let dragOffset = { x: 0, y: 0 };
-        let isVerticalLayout = false;
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
@@ -767,22 +702,25 @@
                 toggleQuickOpen();
             }
             
-            // 初始化工具
-            setTimeout(() => {
-                if (tabName === 'tools') {
-                    generateTimezoneCards();
-                    updateAllTimes();
-                    startTimeUpdate();
-                }
-            }, 100);
         }
 
         // 关闭Tab
         function closeTab(tabName) {
             const index = openTabs.indexOf(tabName);
             if (index > -1) {
-                openTabs.splice(index, 1);
-                updateDisplay();
+                // 先播放淡出动画
+                const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tabName}"]`);
+                if (tabGroup) {
+                    tabGroup.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                    tabGroup.style.opacity = '0';
+                    tabGroup.style.transform = 'scale(0.95)';
+                }
+                
+                // 延迟更新布局，让动画完成
+                setTimeout(() => {
+                    openTabs.splice(index, 1);
+                    updateDisplay();
+                }, 200);
             }
         }
 
@@ -835,26 +773,6 @@
             }
         }
 
-        // 切换布局模式
-        function toggleLayout() {
-            const container = document.getElementById('tab-editor-container');
-            const toggle = document.getElementById('layout-toggle-inline');
-            
-            isVerticalLayout = !isVerticalLayout;
-            
-            if (isVerticalLayout) {
-                container.classList.add('vertical');
-                toggle.textContent = '⤡';
-                toggle.title = '切换到水平布局';
-            } else {
-                container.classList.remove('vertical');
-                toggle.textContent = '⤢';
-                toggle.title = '切换到垂直布局';
-            }
-            
-            // 重新计算布局
-            optimizeLayout();
-        }
 
         // 智能布局算法
         function optimizeLayout() {
@@ -863,45 +781,65 @@
             
             if (groups.length === 0) return;
             
-            // 重置所有内联样式，让CSS类重新生效
-            groups.forEach(group => {
-                group.style.flex = '';
-                group.style.maxWidth = '';
-                group.style.margin = '';
-            });
-            
-            if (isVerticalLayout) {
-                // 垂直布局：限制最大宽度，居中显示
-                groups.forEach(group => {
-                    group.style.flex = `0 0 ${100 / groups.length}%`;
-                    group.style.maxWidth = '800px';
-                    group.style.margin = '0 auto';
-                });
-            } else {
-                // 水平布局：根据工具数量智能分配
+            // 使用requestAnimationFrame确保平滑过渡
+            requestAnimationFrame(() => {
+                const containerWidth = container.offsetWidth;
                 const count = groups.length;
-                let layout;
                 
-                if (count <= 2) {
-                    // 1-2个工具：各占50%
-                    layout = Array(count).fill(50);
+                if (count === 1) {
+                    // 单个tab占满全宽
+                    groups.forEach(group => {
+                        group.style.transition = 'all 0.3s ease';
+                        group.style.flex = '1 1 100%';
+                        group.style.minWidth = '100%';
+                        group.style.maxWidth = '100%';
+                    });
+                } else if (count === 2) {
+                    // 两个tab各占50%
+                    groups.forEach(group => {
+                        group.style.transition = 'all 0.3s ease';
+                        group.style.flex = '1 1 50%';
+                        group.style.minWidth = '50%';
+                        group.style.maxWidth = '50%';
+                    });
                 } else if (count <= 4) {
-                    // 3-4个工具：平均分配
-                    layout = Array(count).fill(100 / count);
+                    // 3-4个tab：平均分配
+                    const widthPercent = 100 / count;
+                    groups.forEach(group => {
+                        group.style.transition = 'all 0.3s ease';
+                        group.style.flex = `1 1 ${widthPercent}%`;
+                        group.style.minWidth = `${widthPercent}%`;
+                        group.style.maxWidth = 'none';
+                    });
                 } else if (count <= 6) {
-                    // 5-6个工具：两行布局
+                    // 5-6个tab：两行布局
                     const perRow = Math.ceil(count / 2);
-                    layout = Array(count).fill(100 / perRow);
+                    const widthPercent = 100 / perRow;
+                    groups.forEach(group => {
+                        group.style.transition = 'all 0.3s ease';
+                        group.style.flex = `1 1 ${widthPercent}%`;
+                        group.style.minWidth = `${widthPercent}%`;
+                        group.style.maxWidth = 'none';
+                    });
                 } else {
-                    // 7+个工具：三行布局
+                    // 7+个tab：三行布局
                     const perRow = Math.ceil(count / 3);
-                    layout = Array(count).fill(100 / perRow);
+                    const widthPercent = 100 / perRow;
+                    groups.forEach(group => {
+                        group.style.transition = 'all 0.3s ease';
+                        group.style.flex = `1 1 ${widthPercent}%`;
+                        group.style.minWidth = `${widthPercent}%`;
+                        group.style.maxWidth = 'none';
+                    });
                 }
                 
-                groups.forEach((group, index) => {
-                    group.style.flex = `0 0 ${layout[index]}%`;
-                });
-            }
+                // 过渡完成后移除transition
+                setTimeout(() => {
+                    groups.forEach(group => {
+                        group.style.transition = '';
+                    });
+                }, 300);
+            });
         }
 
         // 更新显示
@@ -951,6 +889,14 @@
                     switchTab(tab);
                 });
                 
+                // 鼠标中键关闭tab
+                tabButton.addEventListener('mousedown', (e) => {
+                    if (e.button === 1) { // 中键
+                        e.preventDefault();
+                        closeTab(tab);
+                    }
+                });
+                
                 // 拖拽事件
                 tabButton.addEventListener('dragstart', handleTabDragStart);
                 tabButton.addEventListener('dragend', handleTabDragEnd);
@@ -978,16 +924,10 @@
             
             // 初始化工具
             setTimeout(() => {
-                openTabs.forEach(tab => {
-                    if (tab === 'tools') {
-                        generateTimezoneCards();
-                        updateAllTimes();
-                        startTimeUpdate();
-                    }
-                });
-                
-                // 优化布局
-                optimizeLayout();
+                // 延迟优化布局，确保所有DOM更新完成
+                setTimeout(() => {
+                    optimizeLayout();
+                }, 50);
             }, 100);
         }
 
@@ -1016,7 +956,7 @@
                             <div class="input-group">
                                 <input type="text" id="spex-input-${tabId}" placeholder="输入字符串，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
                             </div>
-                            <div class="result" id="spex-result-${tabId}">) </div>
+                            <div class="result" id="spex-result-${tabId}"></div>
                             <div style="margin-top: 8px;">
                                 <button class="btn" onclick="getFromClipboard('${tabId}')">从剪贴板获取</button>
                                 <button class="btn" onclick="copyToClipboard('${tabId}')">复制到剪贴板</button>
@@ -1077,13 +1017,13 @@
                             <div class="tool-title">时间戳工具</div>
                             <div class="input-group">
                                 <label>时间戳转日期</label>
-                                <input type="text" id="timestamp-input-${tabId}" placeholder="输入时间戳" oninput="convertTimestampToDate('${tabId}')">
+                                <input type="text" id="timestamp-input-${tabId}" placeholder="输入时间戳" oninput="debounceTimestampConvert('${tabId}')">
                             </div>
                             <div class="result" id="timestamp-result-${tabId}">日期结果将显示在这里</div>
                             
                             <div class="input-group" style="margin-top: 12px;">
                                 <label>日期转时间戳</label>
-                                <input type="text" id="date-input-${tabId}" placeholder="输入日期 (YYYY-MM-DD HH:mm:ss)" oninput="convertDateToTimestamp('${tabId}')">
+                                <input type="text" id="date-input-${tabId}" placeholder="输入日期 (YYYY-MM-DD HH:mm:ss)" oninput="debounceDateConvert('${tabId}')">
                             </div>
                             <div class="result" id="date-result-${tabId}">时间戳结果将显示在这里</div>
                             
@@ -1094,10 +1034,6 @@
                                 <button class="btn" onclick="copyCurrentDate('${tabId}')">复制日期</button>
                             </div>
                             
-                            <div class="timestamp-card">
-                                <div style="font-size: 12px; color: #888; margin-bottom: 8px;">全球时区时间</div>
-                                <div class="timezone-grid" id="timezone-grid-${tabId}"></div>
-                            </div>
                         </div>
                     `;
                 default:
@@ -1116,7 +1052,7 @@
                     const converted = toCamelCase(text);
                     result.textContent = converted;
                 } else {
-                    result.textContent = ') ';
+                    result.textContent = '';
                 }
             }
         }
@@ -1158,7 +1094,7 @@
         async function copyToClipboard(tabId) {
             try {
                 const result = document.getElementById(`spex-result-${tabId}`);
-                if (result && result.textContent.trim() !== ') ') {
+                if (result && result.textContent.trim() !== '') {
                     await navigator.clipboard.writeText(result.textContent);
                     showToast('已复制到剪贴板', 'success');
                 } else {
@@ -1239,6 +1175,14 @@
             }
         }
 
+        // 防抖时间戳转换
+        function debounceTimestampConvert(tabId) {
+            clearTimeout(window.timestampTimeout);
+            window.timestampTimeout = setTimeout(() => {
+                convertTimestampToDate(tabId);
+            }, 100);
+        }
+
         function convertDateToTimestamp(tabId) {
             const input = document.getElementById(`date-input-${tabId}`);
             const result = document.getElementById(`date-result-${tabId}`);
@@ -1253,6 +1197,14 @@
                     result.textContent = '时间戳结果将显示在这里';
                 }
             }
+        }
+
+        // 防抖日期转换
+        function debounceDateConvert(tabId) {
+            clearTimeout(window.dateTimeout);
+            window.dateTimeout = setTimeout(() => {
+                convertDateToTimestamp(tabId);
+            }, 100);
         }
 
         function getCurrentTimestamp(tabId) {
@@ -1291,95 +1243,7 @@
             });
         }
 
-        // 时区配置
-        const timezoneGroups = [
-            { offset: -12, countries: ['Baker Island', 'Howland Island'] },
-            { offset: -11, countries: ['American Samoa', 'Niue'] },
-            { offset: -10, countries: ['Hawaii', 'Cook Islands'] },
-            { offset: -9, countries: ['Alaska', 'Gambier Islands'] },
-            { offset: -8, countries: ['Pacific Time (US & Canada)', 'Pitcairn Islands'] },
-            { offset: -7, countries: ['Mountain Time (US & Canada)', 'Sonora'] },
-            { offset: -6, countries: ['Central Time (US & Canada)', 'Easter Island'] },
-            { offset: -5, countries: ['Eastern Time (US & Canada)', 'Cuba', 'Haiti'] },
-            { offset: -4, countries: ['Atlantic Time (Canada)', 'Caracas', 'La Paz'] },
-            { offset: -3, countries: ['Brasilia', 'Buenos Aires', 'Montevideo'] },
-            { offset: -2, countries: ['Mid-Atlantic', 'South Georgia'] },
-            { offset: -1, countries: ['Azores', 'Cape Verde'] },
-            { offset: 0, countries: ['UTC', 'London', 'Dublin', 'Lisbon'] },
-            { offset: 1, countries: ['Central European Time', 'West Africa Time'] },
-            { offset: 2, countries: ['Eastern European Time', 'Central Africa Time'] },
-            { offset: 3, countries: ['Moscow', 'East Africa Time', 'Arabia Standard Time'] },
-            { offset: 4, countries: ['Gulf Standard Time', 'Mauritius', 'Seychelles'] },
-            { offset: 5, countries: ['Pakistan Standard Time', 'Uzbekistan'] },
-            { offset: 5.5, countries: ['India Standard Time', 'Sri Lanka'] },
-            { offset: 6, countries: ['Bangladesh Standard Time', 'Bhutan'] },
-            { offset: 7, countries: ['Indochina Time', 'Western Indonesia'] },
-            { offset: 8, countries: ['China Standard Time', 'Singapore', 'Malaysia', 'Philippines'] },
-            { offset: 9, countries: ['Japan Standard Time', 'Korea Standard Time'] },
-            { offset: 10, countries: ['Australian Eastern Time', 'Papua New Guinea'] },
-            { offset: 11, countries: ['Solomon Islands', 'New Caledonia'] },
-            { offset: 12, countries: ['New Zealand', 'Fiji', 'Tuvalu'] }
-        ];
 
-        function generateTimezoneCards() {
-            openTabs.forEach(tab => {
-                if (tab === 'tools') {
-                    const grid = document.querySelector(`#timezone-grid-${tab}`);
-                    if (grid) {
-                        grid.innerHTML = '';
-                        timezoneGroups.forEach(group => {
-                            const card = document.createElement('div');
-                            card.className = 'timezone-card';
-                            card.innerHTML = `
-                                <div style="font-weight: bold;">UTC${group.offset >= 0 ? '+' : ''}${group.offset}</div>
-                                <div style="font-size: 9px; color: #888;">${group.countries.slice(0, 2).join(', ')}</div>
-                                <div style="font-size: 8px; color: #666; margin-top: 2px;" id="time-${group.offset}">--:--</div>
-                            `;
-                            card.onclick = () => copyTimezoneTime(group.offset);
-                            grid.appendChild(card);
-                        });
-                    }
-                }
-            });
-        }
-
-        function updateTimezoneTime(offset) {
-            const now = new Date();
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const localTime = new Date(utc + (offset * 3600000));
-            const timeStr = localTime.toLocaleTimeString('zh-CN', { 
-                hour12: false, 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            
-            const timeElement = document.querySelector(`#time-${offset}`);
-            if (timeElement) {
-                timeElement.textContent = timeStr;
-            }
-        }
-
-        function updateAllTimes() {
-            timezoneGroups.forEach(group => {
-                updateTimezoneTime(group.offset);
-            });
-        }
-
-        function startTimeUpdate() {
-            updateAllTimes();
-            setInterval(updateAllTimes, 1000);
-        }
-
-        function copyTimezoneTime(offset) {
-            const now = new Date();
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const localTime = new Date(utc + (offset * 3600000));
-            const timeStr = localTime.toLocaleString('zh-CN');
-            
-            navigator.clipboard.writeText(timeStr).then(() => {
-                showToast(`已复制 UTC${offset >= 0 ? '+' : ''}${offset} 时间`, 'success');
-            });
-        }
 
         // 拖拽功能
         function handleTabDragStart(e) {
