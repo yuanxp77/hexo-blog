@@ -1365,7 +1365,7 @@
                 const text = input.value;
                 if (text.trim()) {
                     const converted = toCamelCase(text);
-                    result.innerHTML = `<span style="padding-right: 50px; display: block;">${converted}</span><button class="result-copy" onclick="copyToClipboard('${tabId}')">复制</button>`;
+                    result.innerHTML = `<div style="padding-right: 50px; min-height: 20px; display: flex; align-items: center;">${converted}</div><button class="result-copy" onclick="copyToClipboard('${tabId}')">复制</button>`;
                 } else {
                     result.innerHTML = '';
                 }
@@ -1536,7 +1536,6 @@
                     if (result) {
                         input.value = result.value;
                         updateAllTimezones(tabId);
-                        showToast(`已自动识别并粘贴${result.type === 'timestamp' ? '时间戳' : '日期'}`, 'success');
                     } else {
                         // 如果不是时间戳或日期，正常粘贴
                         input.value = clipboardText;
@@ -1560,7 +1559,6 @@
                         // 如果输入框为空且剪贴板是时间戳或日期，自动填充
                         input.value = result.value;
                         updateAllTimezones(tabId);
-                        showToast(`已自动识别并填充${result.type === 'timestamp' ? '时间戳' : '日期'}`, 'success');
                     }
                 } catch (err) {
                     // 忽略剪贴板读取错误
@@ -1594,7 +1592,6 @@
                     // 如果长度符合要求，正常粘贴
                     input.value = clipboardText;
                     convertText(tabId);
-                    showToast('已自动粘贴剪贴板内容', 'success');
                 } catch (err) {
                     // 如果无法读取剪贴板，使用默认粘贴行为
                     const pastedText = (e.clipboardData || window.clipboardData).getData('text');
@@ -1634,7 +1631,6 @@
                         // 如果输入框为空且剪贴板内容符合要求，自动填充
                         input.value = clipboardText;
                         convertText(tabId);
-                        showToast('已自动识别并填充剪贴板内容', 'success');
                     }
                 } catch (err) {
                     // 忽略剪贴板读取错误
