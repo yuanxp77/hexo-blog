@@ -470,7 +470,6 @@
                 <button class="quick-btn" onclick="openTab('convert')">Convert</button>
                 <button class="quick-btn" onclick="openTab('tools')">Tools</button>
                 <button class="quick-btn close-all" onclick="closeAllTabs()">关闭所有</button>
-                <button class="quick-open-toggle" onclick="toggleQuickOpen()" id="quick-open-toggle">收起</button>
             </div>
             <div class="quick-open-hint" id="quick-open-hint">点击上方按钮打开工具</div>
         </div>
@@ -486,7 +485,6 @@
         // 全局变量
         let openTabs = [];
         let draggedTab = null;
-        let quickOpenCollapsed = false;
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
@@ -495,30 +493,14 @@
             
             // 3秒后自动折叠快速打开区域
             setTimeout(() => {
-                if (openTabs.length > 0) {
-                    toggleQuickOpen();
+                const quickOpen = document.getElementById('quick-open');
+                const hint = document.getElementById('quick-open-hint');
+                if (quickOpen && hint) {
+                    quickOpen.classList.add('collapsed');
+                    hint.classList.add('show');
                 }
             }, 3000);
         });
-
-        // 切换快速打开区域
-        function toggleQuickOpen() {
-            const quickOpen = document.getElementById('quick-open');
-            const toggle = document.getElementById('quick-open-toggle');
-            const hint = document.getElementById('quick-open-hint');
-            
-            quickOpenCollapsed = !quickOpenCollapsed;
-            
-            if (quickOpenCollapsed) {
-                quickOpen.classList.add('collapsed');
-                toggle.textContent = '展开';
-                hint.style.display = 'block';
-            } else {
-                quickOpen.classList.remove('collapsed');
-                toggle.textContent = '收起';
-                hint.style.display = 'none';
-            }
-        }
 
         // 打开Tab
         function openTab(tabName) {
@@ -535,7 +517,7 @@
             // 隐藏提示
             const hint = document.getElementById('quick-open-hint');
             if (hint) {
-                hint.style.display = 'none';
+                hint.classList.remove('show');
             }
             
             // 初始化工具
@@ -561,6 +543,12 @@
         function closeAllTabs() {
             openTabs = [];
             updateDisplay();
+            
+            // 显示提示
+            const hint = document.getElementById('quick-open-hint');
+            if (hint) {
+                hint.classList.add('show');
+            }
         }
 
         // 切换Tab
