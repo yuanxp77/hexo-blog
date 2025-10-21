@@ -587,7 +587,7 @@
         }
         
         .input-with-button input {
-            padding-right: 100px;
+            padding-right: 150px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -612,12 +612,39 @@
             z-index: 1;
         }
         
-        .input-button:first-of-type {
+        .input-button:nth-of-type(1) {
+            right: 100px;
+        }
+        
+        .input-button:nth-of-type(2) {
             right: 50px;
         }
         
-        .input-button:last-of-type {
+        .input-button:nth-of-type(3) {
             right: 4px;
+        }
+        
+        /* 时区输入框的按钮位置调整 */
+        .timezone-input-buttons .input-button:nth-of-type(1) {
+            right: 100px;
+        }
+        
+        .timezone-input-buttons .input-button:nth-of-type(2) {
+            right: 4px;  /* 复制按钮放到最右边 */
+        }
+        
+        .timezone-input-buttons .input-button:nth-of-type(3) {
+            right: 50px;  /* 清空按钮放到中间 */
+        }
+        
+        /* 翻译工具的清空按钮位置调整 */
+        .translate-input-buttons .input-button {
+            right: 4px;  /* 清空按钮放到最右边 */
+        }
+        
+        /* Spex工具的清空按钮位置调整 */
+        .spex-input-buttons .input-button {
+            right: 4px;  /* 清空按钮放到最右边 */
         }
         
         .input-button:hover {
@@ -1233,6 +1260,10 @@
                                     if (timezoneContainer) {
                                         const tabId = timezoneContainer.id.split('-').pop();
                                         initTimezoneTool(tabId);
+                                        const timezoneInput = editorPane.querySelector('[id^="timezone-timestamp-"]');
+                                        if (timezoneInput) {
+                                            setupMiddleClickPaste(timezoneInput);
+                                        }
                                     }
                                 }
                             }
@@ -1245,7 +1276,53 @@
                                     const spexInput = editorPane.querySelector('[id^="spex-input-"]');
                                     if (spexInput) {
                                         const tabId = spexInput.id.split('-').pop();
-                                        setupSpexClipboardAutoPaste(tabId);
+                                        setupSpexMiddleClickPaste(tabId);
+                                    }
+                                }
+                            }
+                        } else if (tab === 'utils') {
+                            // 找到对应的tabId
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const englishInput = editorPane.querySelector('[id^="utils-english-"]');
+                                    if (englishInput) {
+                                        const tabId = englishInput.id.split('-').pop();
+                                        setupTranslateMiddleClickPaste(tabId);
+                                    }
+                                }
+                            }
+                        } else if (tab === 'test') {
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const testInput = editorPane.querySelector('[id^="test-input-"]');
+                                    if (testInput) {
+                                        setupMiddleClickPaste(testInput);
+                                    }
+                                }
+                            }
+                        } else if (tab === 'convert') {
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const convertInput = editorPane.querySelector('[id^="convert-input-"]');
+                                    if (convertInput) {
+                                        setupMiddleClickPaste(convertInput);
+                                    }
+                                }
+                            }
+                        } else if (tab === 'format') {
+                            const tabGroup = document.querySelector(`.tab-editor-group[data-tab="${tab}"]`);
+                            if (tabGroup) {
+                                const editorPane = tabGroup.querySelector('.editor-pane');
+                                if (editorPane) {
+                                    const formatInput = editorPane.querySelector('[id^="format-input-"]');
+                                    if (formatInput) {
+                                        setupMiddleClickPaste(formatInput);
                                     }
                                 }
                             }
@@ -1278,7 +1355,10 @@
                         <div class="tool-container">
                             <div class="tool-title">cmd转handler代码</div>
                             <div class="input-group">
-                                <input type="text" id="spex-input-${tabId}" placeholder="输入cmd，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
+                                <div class="input-with-button spex-input-buttons">
+                                    <input type="text" id="spex-input-${tabId}" placeholder="输入cmd，如: a.b.c.get_product_info" oninput="debounceConvert('${tabId}')">
+                                    <button class="input-button" onclick="clearSpexInput('${tabId}')">清空</button>
+                                </div>
                             </div>
                             <div class="result" id="spex-result-${tabId}"></div>
                         </div>
@@ -1298,13 +1378,21 @@
                 case 'utils':
                     return `
                         <div class="tool-container">
-                            <div class="tool-title">实用工具</div>
+                            <div class="tool-title">中英翻译</div>
                             <div class="input-group">
-                                <label>工具输入</label>
-                                <input type="text" id="utils-input-${tabId}" placeholder="输入内容">
+                                <label>英文</label>
+                                <div class="input-with-button translate-input-buttons">
+                                    <textarea id="utils-english-${tabId}" rows="3" placeholder="输入英文..." oninput="debounceTranslate('${tabId}', 'en')"></textarea>
+                                    <button class="input-button" onclick="clearTranslate('${tabId}')">清空</button>
+                                </div>
                             </div>
-                            <div class="result" id="utils-result-${tabId}">处理结果将显示在这里</div>
-                            <button class="btn" onclick="processUtils('${tabId}')">处理</button>
+                            <div class="input-group">
+                                <label>中文</label>
+                                <div class="input-with-button translate-input-buttons">
+                                    <textarea id="utils-chinese-${tabId}" rows="3" placeholder="输入中文..." oninput="debounceTranslate('${tabId}', 'zh')"></textarea>
+                                    <button class="input-button" onclick="clearTranslate('${tabId}')">清空</button>
+                                </div>
+                            </div>
                         </div>
                     `;
                 case 'format':
@@ -1338,10 +1426,11 @@
                             <div class="tool-section" style="margin-top: 20px;">
                                 <div class="section-title">全球时区时间</div>
                                 <div class="input-group">
-                                    <div class="input-with-button">
+                                    <div class="input-with-button timezone-input-buttons">
                                         <input type="text" id="timezone-timestamp-${tabId}" placeholder="输入时间戳或日期 (YYYY-MM-DD HH:mm:ss)" oninput="updateAllTimezones('${tabId}')">
                                         <button class="input-button" onclick="getCurrentTimezoneTime('${tabId}')">当前</button>
                                         <button class="input-button" onclick="copyTimezoneTimestamp('${tabId}')">复制</button>
+                                        <button class="input-button" onclick="clearTimezoneInput('${tabId}')">清空</button>
                                     </div>
                                 </div>
                                 <div class="timezone-container" id="timezone-container-${tabId}">
@@ -1423,16 +1512,89 @@
             }
         }
 
-        // 实用工具功能
-        function processUtils(tabId) {
-            const input = document.getElementById(`utils-input-${tabId}`);
-            const result = document.getElementById(`utils-result-${tabId}`);
+        // 翻译功能
+        function translateText(tabId, sourceLang) {
+            const englishInput = document.getElementById(`utils-english-${tabId}`);
+            const chineseInput = document.getElementById(`utils-chinese-${tabId}`);
             
-            if (input && result) {
-                const text = input.value;
-                result.textContent = `处理结果: ${text.toUpperCase()} (${text.length} 字符)`;
-                showToast('处理完成', 'success');
+            if (!englishInput || !chineseInput) return;
+            
+            const englishText = englishInput.value.trim();
+            const chineseText = chineseInput.value.trim();
+            
+            // 如果两个框都有值，优先取中文
+            if (englishText && chineseText) {
+                performTranslation(chineseText, 'zh', 'en', englishInput);
+                return;
             }
+            
+            // 如果只有英文有值，翻译为中文
+            if (englishText && !chineseText) {
+                performTranslation(englishText, 'en', 'zh', chineseInput);
+                return;
+            }
+            
+            // 如果只有中文有值，翻译为英文
+            if (chineseText && !englishText) {
+                performTranslation(chineseText, 'zh', 'en', englishInput);
+                return;
+            }
+        }
+        
+        // 执行翻译
+        function performTranslation(text, sourceLang, targetLang, targetInput) {
+            if (!text.trim()) return;
+            
+            // 显示翻译中状态
+            const originalValue = targetInput.value;
+            targetInput.value = '翻译中...';
+            targetInput.style.color = '#888';
+            
+            // 使用Google Translate API进行翻译
+            const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data[0] && data[0][0] && data[0][0][0]) {
+                        const translatedText = data[0].map(item => item[0]).join('');
+                        targetInput.value = translatedText;
+                        targetInput.style.color = '#cccccc';
+                    } else {
+                        throw new Error('翻译失败');
+                    }
+                })
+                .catch(error => {
+                    console.error('翻译错误:', error);
+                    targetInput.value = originalValue;
+                    targetInput.style.color = '#cccccc';
+                });
+        }
+        
+        // 防抖翻译
+        function debounceTranslate(tabId, sourceLang) {
+            clearTimeout(window.translateTimeout);
+            window.translateTimeout = setTimeout(() => {
+                translateText(tabId, sourceLang);
+            }, 500);
+        }
+        
+        // 清空翻译内容
+        function clearTranslate(tabId) {
+            const englishInput = document.getElementById(`utils-english-${tabId}`);
+            const chineseInput = document.getElementById(`utils-chinese-${tabId}`);
+            
+            if (englishInput) englishInput.value = '';
+            if (chineseInput) chineseInput.value = '';
+        }
+        
+        // 为翻译工具设置中键粘贴功能
+        function setupTranslateMiddleClickPaste(tabId) {
+            const englishInput = document.getElementById(`utils-english-${tabId}`);
+            const chineseInput = document.getElementById(`utils-chinese-${tabId}`);
+            
+            if (englishInput) setupMiddleClickPaste(englishInput);
+            if (chineseInput) setupMiddleClickPaste(chineseInput);
         }
 
         // 格式化工具功能
@@ -1521,121 +1683,33 @@
             return false;
         }
 
-        // 监听剪贴板变化并自动粘贴
-        function setupClipboardAutoPaste(tabId) {
-            const input = document.getElementById(`timezone-timestamp-${tabId}`);
+        // 为所有输入框添加鼠标中键粘贴功能
+        function setupMiddleClickPaste(input) {
             if (!input) return;
-
-            // 监听粘贴事件
-            input.addEventListener('paste', async (e) => {
-                e.preventDefault();
-                try {
-                    const clipboardText = await navigator.clipboard.readText();
-                    const result = isTimestampOrDate(clipboardText);
-                    
-                    if (result) {
-                        input.value = result.value;
-                        updateAllTimezones(tabId);
-                    } else {
-                        // 如果不是时间戳或日期，正常粘贴
-                        input.value = clipboardText;
-                        updateAllTimezones(tabId);
+            
+            input.addEventListener('mousedown', async (e) => {
+                if (e.button === 1) { // 中键
+                    e.preventDefault();
+                    try {
+                        const clipboardText = await navigator.clipboard.readText();
+                        if (clipboardText) {
+                            input.value = clipboardText;
+                            // 触发input事件以更新相关功能
+                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    } catch (err) {
+                        console.warn('无法读取剪贴板:', err);
                     }
-                } catch (err) {
-                    // 如果无法读取剪贴板，使用默认粘贴行为
-                    const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-                    input.value = pastedText;
-                    updateAllTimezones(tabId);
-                }
-            });
-
-            // 监听焦点事件，检查剪贴板内容
-            input.addEventListener('focus', async () => {
-                try {
-                    const clipboardText = await navigator.clipboard.readText();
-                    const result = isTimestampOrDate(clipboardText);
-                    
-                    if (result && input.value === '') {
-                        // 如果输入框为空且剪贴板是时间戳或日期，自动填充
-                        input.value = result.value;
-                        updateAllTimezones(tabId);
-                    }
-                } catch (err) {
-                    // 忽略剪贴板读取错误
                 }
             });
         }
 
-        // 为spex工具设置剪贴板自动粘贴功能
-        function setupSpexClipboardAutoPaste(tabId) {
+        // 为spex工具设置中键粘贴功能
+        function setupSpexMiddleClickPaste(tabId) {
             const input = document.getElementById(`spex-input-${tabId}`);
             if (!input) return;
-
-            // 监听粘贴事件
-            input.addEventListener('paste', async (e) => {
-                e.preventDefault();
-                try {
-                    const clipboardText = await navigator.clipboard.readText();
-                    
-                    // 检查字符长度限制
-                    if (clipboardText.length > 1024) {
-                        const result = document.getElementById(`spex-result-${tabId}`);
-                        if (result) {
-                            result.innerHTML = `<div style="color: #ff6b6b; padding: 10px; background: #2d2d30; border-radius: 4px; border-left: 4px solid #ff6b6b;">
-                                <strong>错误：</strong>剪贴板内容过长（${clipboardText.length}字符），超过1024字符限制
-                            </div>`;
-                        }
-                        showToast('剪贴板内容过长，已显示错误提示', 'error');
-                        return;
-                    }
-                    
-                    // 如果长度符合要求，正常粘贴
-                    input.value = clipboardText;
-                    convertText(tabId);
-                } catch (err) {
-                    // 如果无法读取剪贴板，使用默认粘贴行为
-                    const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-                    if (pastedText.length > 1024) {
-                        const result = document.getElementById(`spex-result-${tabId}`);
-                        if (result) {
-                            result.innerHTML = `<div style="color: #ff6b6b; padding: 10px; background: #2d2d30; border-radius: 4px; border-left: 4px solid #ff6b6b;">
-                                <strong>错误：</strong>剪贴板内容过长（${pastedText.length}字符），超过1024字符限制
-                            </div>`;
-                        }
-                        showToast('剪贴板内容过长，已显示错误提示', 'error');
-                        return;
-                    }
-                    input.value = pastedText;
-                    convertText(tabId);
-                }
-            });
-
-            // 监听焦点事件，检查剪贴板内容
-            input.addEventListener('focus', async () => {
-                try {
-                    const clipboardText = await navigator.clipboard.readText();
-                    
-                    if (clipboardText && input.value === '') {
-                        // 检查字符长度限制
-                        if (clipboardText.length > 1024) {
-                            const result = document.getElementById(`spex-result-${tabId}`);
-                            if (result) {
-                                result.innerHTML = `<div style="color: #ff6b6b; padding: 10px; background: #2d2d30; border-radius: 4px; border-left: 4px solid #ff6b6b;">
-                                    <strong>错误：</strong>剪贴板内容过长（${clipboardText.length}字符），超过1024字符限制
-                                </div>`;
-                            }
-                            showToast('剪贴板内容过长，已显示错误提示', 'error');
-                            return;
-                        }
-                        
-                        // 如果输入框为空且剪贴板内容符合要求，自动填充
-                        input.value = clipboardText;
-                        convertText(tabId);
-                    }
-                } catch (err) {
-                    // 忽略剪贴板读取错误
-                }
-            });
+            
+            setupMiddleClickPaste(input);
         }
         
         // 复制时区时间戳
@@ -1647,6 +1721,27 @@
                 });
             } else {
                 showToast('输入框为空', 'error');
+            }
+        }
+        
+        // 清空时区输入
+        function clearTimezoneInput(tabId) {
+            const input = document.getElementById(`timezone-timestamp-${tabId}`);
+            if (input) {
+                input.value = '';
+                updateAllTimezones(tabId);
+            }
+        }
+        
+        // 清空Spex输入
+        function clearSpexInput(tabId) {
+            const input = document.getElementById(`spex-input-${tabId}`);
+            const result = document.getElementById(`spex-result-${tabId}`);
+            if (input) {
+                input.value = '';
+                if (result) {
+                    result.innerHTML = '';
+                }
             }
         }
 
@@ -1806,9 +1901,6 @@
             const container = document.getElementById(`timezone-container-${tabId}`);
             if (!container) return;
             
-            // 设置剪贴板自动粘贴功能
-            setupClipboardAutoPaste(tabId);
-            
             // 启动动态更新
             startTimezoneUpdate(tabId);
             
@@ -1853,7 +1945,9 @@
             container.innerHTML = html;
             
             // 设置默认时间（当前时间）
-            updateAllTimezones(tabId);
+            setTimeout(() => {
+                updateAllTimezones(tabId);
+            }, 100);
         }
         
         // 从时间戳输入更新所有时区
