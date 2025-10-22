@@ -1329,14 +1329,19 @@
                                             setupMiddleClickPaste(timezoneInput);
                                         }
                                     }
-                                    const englishInput = editorPane.querySelector('[id^="utils-english-"]');
-                                    const chineseInput = editorPane.querySelector('[id^="utils-chinese-"]');
-                                    if (englishInput) {
-                                        setupMiddleClickPaste(englishInput);
-                                    }
-                                    if (chineseInput) {
-                                        setupMiddleClickPaste(chineseInput);
-                                    }
+                                    // 为中英翻译textareas设置中键粘贴
+                                    setTimeout(() => {
+                                        const englishInput = editorPane.querySelector('[id^="utils-english-"]');
+                                        const chineseInput = editorPane.querySelector('[id^="utils-chinese-"]');
+                                        if (englishInput) {
+                                            setupMiddleClickPaste(englishInput);
+                                            console.log('已设置英文输入框中键粘贴');
+                                        }
+                                        if (chineseInput) {
+                                            setupMiddleClickPaste(chineseInput);
+                                            console.log('已设置中文输入框中键粘贴');
+                                        }
+                                    }, 50);
                                 }
                             }
                         }
@@ -1656,21 +1661,38 @@
         function setupMiddleClickPaste(input) {
             if (!input) return;
             
-            input.addEventListener('mousedown', async (e) => {
+            // 移除可能已存在的监听器
+            input.removeEventListener('mousedown', input._middleClickHandler);
+            
+            // 创建新的处理函数
+            input._middleClickHandler = async (e) => {
                 if (e.button === 1) { // 中键
                     e.preventDefault();
+                    e.stopPropagation();
                     try {
                         const clipboardText = await navigator.clipboard.readText();
                         if (clipboardText) {
-                            input.value = clipboardText;
+                            // 对于textarea，保留光标位置插入
+                            if (input.tagName.toLowerCase() === 'textarea') {
+                                const start = input.selectionStart;
+                                const end = input.selectionEnd;
+                                const text = input.value;
+                                input.value = text.substring(0, start) + clipboardText + text.substring(end);
+                                input.selectionStart = input.selectionEnd = start + clipboardText.length;
+                            } else {
+                                input.value = clipboardText;
+                            }
                             // 触发input事件以更新相关功能
-                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                            const event = new Event('input', { bubbles: true });
+                            input.dispatchEvent(event);
                         }
                     } catch (err) {
                         console.warn('无法读取剪贴板:', err);
                     }
                 }
-            });
+            };
+            
+            input.addEventListener('mousedown', input._middleClickHandler);
         }
 
         // 为spex工具设置中键粘贴功能
