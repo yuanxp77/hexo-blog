@@ -790,6 +790,7 @@
             </div>
             <button class="quick-btn" onclick="openTab('spex')">Business</button>
             <button class="quick-btn" onclick="openTab('tools')">Tools</button>
+            <button class="quick-btn" onclick="openTab('diff')">Diff</button>
             <button class="quick-btn close-all" onclick="closeAllTabs()">关闭所有</button>
         </div>
         <div class="quick-open-hint" id="quick-open-hint">点击工具按钮打开</div>
@@ -833,6 +834,14 @@
             } catch (error) {
                 console.warn('无法保存布局状态:', error);
             }
+        }
+        
+        // 获取tab的默认宽度占比
+        function getTabDefaultWidth(tabName) {
+            if (tabName === 'diff') {
+                return 0.67; // diff工具默认占2/3宽度
+            }
+            return null; // 其他tab使用默认平分
         }
         
         // 从localStorage加载布局状态
@@ -1109,6 +1118,9 @@
                 const count = groups.length;
                 const containerWidth = container.offsetWidth;
                 
+                // 检查是否有diff tab
+                const hasDiff = Array.from(groups).some(g => g.dataset.tab === 'diff');
+                
                 // 重置所有样式
                 groups.forEach(group => {
                     group.style.transition = 'all 0.3s ease';
@@ -1123,6 +1135,19 @@
                     groups.forEach(group => {
                         group.style.flex = '1 1 100%';
                         group.style.minWidth = '100%';
+                    });
+                } else if (count === 2 && hasDiff) {
+                    // 两个tab，其中一个是diff，diff占2/3
+                    groups.forEach(group => {
+                        if (group.dataset.tab === 'diff') {
+                            group.style.flex = '0 0 66.67%';
+                            group.style.minWidth = '66.67%';
+                            group.style.maxWidth = '66.67%';
+                        } else {
+                            group.style.flex = '0 0 33.33%';
+                            group.style.minWidth = '33.33%';
+                            group.style.maxWidth = '33.33%';
+                        }
                     });
                 } else if (count === 2) {
                     // 两个tab各占50%
@@ -1324,7 +1349,8 @@
         function getTabTitle(tabName) {
             const titles = {
                 'spex': 'Business',
-                'tools': 'Tools'
+                'tools': 'Tools',
+                'diff': 'Diff'
             };
             return titles[tabName] || tabName;
         }
@@ -1399,6 +1425,12 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    `;
+                case 'diff':
+                    return `
+                        <div class="tool-container" style="height: 100%; padding: 0;">
+                            <iframe src="diff.html" style="width: 100%; height: 100%; border: none; border-radius: 4px;"></iframe>
                         </div>
                     `;
                 default:
