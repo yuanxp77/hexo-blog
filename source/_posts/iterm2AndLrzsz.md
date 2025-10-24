@@ -87,4 +87,23 @@ sudo chmod 777 /usr/local/bin/iterm2-*
 ste4:
 配置 iterm2
 
-![alt text](image.png)
+![alt text](image1.png)
+
+![alt text](image2.png)
+
+![alt text](image3.png)
+
+规则为
+```shell
+rz waiting to receive.\*\*B0100
+\*\*B00000000000000
+```
+选择两个文件即可
+
+然后就可以测试了
+在服务器运行
+```shell
+rz 
+
+sz file
+\*\*B
