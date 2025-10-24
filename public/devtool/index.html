@@ -2156,21 +2156,38 @@
             if (!sourceInput || !sourceInput.value.trim()) return;
             
             try {
-                // 解析输入的时间
-                const inputTime = new Date(sourceInput.value);
-                if (isNaN(inputTime.getTime())) return;
+                // 解析输入的时间，将其视为源时区的本地时间
+                const inputTimeStr = sourceInput.value;
+                if (!/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(inputTimeStr)) {
+                    return; // 格式不正确，不处理
+                }
+                
+                // 使用更可靠的方法：创建一个在源时区的特定时间点
+                // 将输入时间解析为各个部分
+                const [datePart, timePart] = inputTimeStr.split(' ');
+                const [year, month, day] = datePart.split('-').map(Number);
+                const [hour, minute, second] = timePart.split(':').map(Number);
+                
+                // 创建一个临时的UTC时间，然后调整到源时区
+                const tempUtc = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+                
+                // 获取源时区在该日期的偏移量
+                const sourceOffsetMs = getTimezoneOffset(sourceTimezone, tempUtc);
+                
+                // 计算真正的UTC时间
+                const realUtcTime = new Date(tempUtc.getTime() - sourceOffsetMs);
                 
                 // 更新时间戳输入框
                 const timestampInput = document.getElementById(`timezone-timestamp-${tabId}`);
                 if (timestampInput) {
-                    const timestamp = Math.floor(inputTime.getTime() / 1000);
+                    const timestamp = Math.floor(realUtcTime.getTime() / 1000);
                     timestampInput.value = timestamp.toString();
                 }
                 
-                // 直接使用timezoneData更新所有时区
+                // 使用真正的UTC时间更新所有时区
                 timezoneData.forEach(tz => {
                     const timeInput = document.getElementById(`time-${tabId}-${tz.code}`);
-                    if (timeInput && timeInput.id !== sourceTimeId) {
+                    if (timeInput) {
                         // 使用Intl.DateTimeFormat正确计算时区时间
                         const formatter = new Intl.DateTimeFormat('sv-SE', {
                             timeZone: tz.timezone,
@@ -2182,13 +2199,53 @@
                             second: '2-digit',
                             hour12: false
                         });
-                        const formattedTime = formatter.format(inputTime);
+                        const formattedTime = formatter.format(realUtcTime);
                         timeInput.value = formattedTime;
                     }
                 });
             } catch (error) {
                 console.warn('时间更新失败:', error);
             }
+        }
+        
+        // 获取指定时区在特定时间的偏移量（毫秒）
+        function getTimezoneOffset(timezone, date) {
+            // 获取UTC时间的各个部分
+            const utcYear = date.getUTCFullYear();
+            const utcMonth = date.getUTCMonth();
+            const utcDate = date.getUTCDate();
+            const utcHours = date.getUTCHours();
+            const utcMinutes = date.getUTCMinutes();
+            const utcSeconds = date.getUTCSeconds();
+            
+            // 创建一个表示UTC时间的Date对象
+            const utcTime = new Date(Date.UTC(utcYear, utcMonth, utcDate, utcHours, utcMinutes, utcSeconds));
+            
+            // 使用Intl.DateTimeFormat获取该时间在指定时区的表示
+            const formatter = new Intl.DateTimeFormat('en-CA', {
+                timeZone: timezone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            
+            const parts = formatter.formatToParts(utcTime);
+            const localYear = parseInt(parts.find(p => p.type === 'year').value);
+            const localMonth = parseInt(parts.find(p => p.type === 'month').value) - 1;
+            const localDay = parseInt(parts.find(p => p.type === 'day').value);
+            const localHour = parseInt(parts.find(p => p.type === 'hour').value);
+            const localMinute = parseInt(parts.find(p => p.type === 'minute').value);
+            const localSecond = parseInt(parts.find(p => p.type === 'second').value);
+            
+            // 创建本地时间的Date对象（但当作UTC处理）
+            const localAsUtc = new Date(Date.UTC(localYear, localMonth, localDay, localHour, localMinute, localSecond));
+            
+            // 偏移量 = 本地时间 - UTC时间
+            return localAsUtc.getTime() - utcTime.getTime();
         }
         
         // 复制时区时间
