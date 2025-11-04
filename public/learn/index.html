@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>学习资源管理</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c3e50; 
+            border-bottom: 3px solid #3498db; 
+            padding-bottom: 15px; 
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+        .update-time {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            color: #34495e;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        li { 
+            margin: 0; 
+            padding: 15px; 
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        li:hover {
+            background: #e3f2fd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        a { 
+            color: #2980b9; 
+            text-decoration: none; 
+            font-weight: 500;
+            display: block;
+        }
+        a:hover { 
+            color: #1abc9c;
+            text-decoration: underline; 
+        }
+        .file-item { 
+            display: flex; 
+            align-items: center; 
+        }
+        .file-icon { 
+            margin-right: 12px; 
+            font-size: 1.2em;
+        }
+        .dir { 
+            color: #e74c3c; 
+            font-weight: bold; 
+        }
+        .html-file {
+            color: #27ae60;
+        }
+        .other-file {
+            color: #8e44ad;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+        .empty-state .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .stats {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .stats span {
+            display: inline-block;
+            margin: 0 20px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .refresh-note {
+            background: #d5dbdb;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 学习资源管理中心</h1>
+        <p class="update-time">更新时间: 2025-11-04 17:31:45</p>
+        
+        <div class="refresh-note">
+            💡 提示: 运行 <code>./generate.sh</code> 可以重新生成此页面
+        </div>
+        <div class="stats">
+            <span>📁 文件夹: <strong>1</strong></span>
+            <span>📄 HTML文件: <strong>0</strong></span>
+            <span>📋 其他文件: <strong>0</strong></span>
+            <span>📊 总资源: <strong>1</strong></span>
+        </div>
+        <div class="section">
+            <h2 class="section-title">📁 学习分类</h2>
+            <ul>
+                <li class="file-item">
+                    <span class="file-icon">📁</span>
+                    <div>
+                        <a href="左耳听风/" class="dir">左耳听风</a>
+                        <small style="color: #7f8c8d; display: block; margin-top: 5px;">学习资源分类目录</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 添加一些交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为链接添加点击统计（可选）
+            const links = document.querySelectorAll('a[href]');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    console.log('访问资源:', this.textContent, '路径:', this.href);
+                });
+            });
+            
+            // 添加键盘快捷键支持
+            document.addEventListener('keydown', function(e) {
+                // Ctrl/Cmd + R 刷新页面
+                if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                    location.reload();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
