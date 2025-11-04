@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS阅读器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+
+        .feed-list {
+            list-style: none;
+        }
+
+        .feed-item {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feed-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .feed-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .feed-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .feed-url {
+            font-size: 12px;
+            color: #718096;
+            opacity: 0.8;
+        }
+
+        .feed-item.active .feed-url {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+
+        .content-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #718096;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .article-list {
+            list-style: none;
+        }
+
+        .article-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .article-item:hover {
+            background: #f7fafc;
+            margin: 0 -15px;
+            padding: 20px 15px;
+            border-radius: 10px;
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .article-title:hover {
+            color: #667eea;
+        }
+
+        .article-meta {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .article-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .article-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #718096;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fc8181;
+        }
+
+        .refresh-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .refresh-btn:hover {
+            background: white;
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📰 RSS阅读器</h1>
+            <p>订阅您喜欢的RSS源，随时获取最新资讯</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>📋 RSS订阅源</h2>
+                <ul class="feed-list" id="feedList"></ul>
+            </div>
+
+            <div class="content-area">
+                <button class="refresh-btn" onclick="refreshCurrentFeed()" title="刷新">🔄</button>
+                <div id="contentArea">
+                    <div class="empty-state">
+                        <h3>欢迎使用RSS阅读器！</h3>
+                        <p>请点击左侧的RSS订阅源查看文章。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // 📝 RSS源配置 - 在这里修改您的RSS订阅源
+        // ========================================
+        const RSS_FEEDS = [
+            {
+                id: 1,
+                name: "知乎日报",
+                url: "https://feeds.feedburner.com/zhihu-daily"
+            },
+            {
+                id: 2,
+                name: "少数派",
+                url: "https://sspai.com/feed"
+            },
+            {
+                id: 3,
+                name: "阮一峰的网络日志",
+                url: "http://www.ruanyifeng.com/blog/atom.xml"
+            }
+            // 添加更多RSS源请按照上面的格式继续添加
+        ];
+
+        class RSSReader {
+            constructor() {
+                this.feeds = RSS_FEEDS; // 使用硬编码的RSS源
+                this.currentFeed = null;
+                this.init();
+            }
+
+            init() {
+                this.renderFeeds();
+            }
+
+            async loadFeed(feed) {
+                this.currentFeed = feed;
+                this.updateFeedSelection();
+                
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = '<div class="loading">正在加载RSS内容...</div>';
+
+                try {
+                    // 使用CORS代理服务获取RSS内容
+                    const proxyUrl = 'https://api.allorigins.win/get?url=';
+                    const response = await fetch(proxyUrl + encodeURIComponent(feed.url));
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+
+                    // 检查解析错误
+                    const parseError = xmlDoc.querySelector('parsererror');
+                    if (parseError) {
+                        throw new Error('RSS格式解析失败');
+                    }
+
+                    const articles = this.parseRSS(xmlDoc);
+                    this.renderArticles(articles, feed.name);
+
+                } catch (error) {
+                    console.error('加载RSS失败:', error);
+                    contentArea.innerHTML = `
+                        <div class="error">
+                            <strong>加载失败:</strong> ${error.message}<br>
+                            <small>请检查RSS链接是否正确，或稍后重试</small>
+                        </div>
+                        <div class="empty-state">
+                            <h3>无法加载RSS内容</h3>
+                            <p>可能的原因：</p>
+                            <p>• RSS链接无效或服务器无响应</p>
+                            <p>• 网络连接问题</p>
+                            <p>• RSS格式不正确</p>
+                        </div>
+                    `;
+                }
+            }
+
+            parseRSS(xmlDoc) {
+                const articles = [];
+                
+                // 尝试解析RSS 2.0格式
+                let items = xmlDoc.querySelectorAll('item');
+                
+                // 如果没有找到item，尝试Atom格式
+                if (items.length === 0) {
+                    items = xmlDoc.querySelectorAll('entry');
+                }
+
+                items.forEach((item, index) => {
+                    if (index >= 20) return; // 限制显示20篇文章
+
+                    const article = {};
+                    
+                    // RSS 2.0格式
+                    if (item.tagName === 'item') {
+                        article.title = this.getTextContent(item, 'title');
+                        article.link = this.getTextContent(item, 'link');
+                        article.description = this.getTextContent(item, 'description');
+                        article.pubDate = this.getTextContent(item, 'pubDate');
+                        article.author = this.getTextContent(item, 'author') || this.getTextContent(item, 'dc:creator');
+                    }
+                    // Atom格式
+                    else if (item.tagName === 'entry') {
+                        article.title = this.getTextContent(item, 'title');
+                        const linkEl = item.querySelector('link[href]');
+                        article.link = linkEl ? linkEl.getAttribute('href') : '';
+                        article.description = this.getTextContent(item, 'summary') || this.getTextContent(item, 'content');
+                        article.pubDate = this.getTextContent(item, 'published') || this.getTextContent(item, 'updated');
+                        const authorEl = item.querySelector('author name');
+                        article.author = authorEl ? authorEl.textContent : '';
+                    }
+
+                    // 清理和格式化数据
+                    article.title = this.cleanHtml(article.title || '无标题');
+                    article.description = this.cleanHtml(article.description || '');
+                    article.pubDate = this.formatDate(article.pubDate);
+                    
+                    if (article.title) {
+                        articles.push(article);
+                    }
+                });
+
+                return articles;
+            }
+
+            getTextContent(element, tagName) {
+                const el = element.querySelector(tagName);
+                return el ? el.textContent.trim() : '';
+            }
+
+            cleanHtml(html) {
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                return temp.textContent || temp.innerText || '';
+            }
+
+            formatDate(dateString) {
+                if (!dateString) return '';
+                
+                try {
+                    const date = new Date(dateString);
+                    if (isNaN(date.getTime())) return dateString;
+                    
+                    return date.toLocaleString('zh-CN', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                } catch (e) {
+                    return dateString;
+                }
+            }
+
+            renderArticles(articles, feedName) {
+                const contentArea = document.getElementById('contentArea');
+                
+                if (articles.length === 0) {
+                    contentArea.innerHTML = `
+                        <div class="empty-state">
+                            <h3>暂无文章</h3>
+                            <p>该RSS源暂时没有文章内容</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const articlesHtml = articles.map(article => `
+                    <li class="article-item">
+                        <h3 class="article-title" onclick="window.open('${article.link}', '_blank')">${article.title}</h3>
+                        <div class="article-meta">
+                            ${article.author ? `👤 ${article.author} • ` : ''}
+                            ${article.pubDate ? `📅 ${article.pubDate}` : ''}
+                        </div>
+                        ${article.description ? `<p class="article-description">${article.description.substring(0, 200)}${article.description.length > 200 ? '...' : ''}</p>` : ''}
+                        ${article.link ? `<a href="${article.link}" target="_blank" class="article-link">阅读全文 →</a>` : ''}
+                    </li>
+                `).join('');
+
+                contentArea.innerHTML = `
+                    <h2 style="color: #4a5568; margin-bottom: 20px; font-size: 1.5rem;">📖 ${feedName}</h2>
+                    <ul class="article-list">${articlesHtml}</ul>
+                `;
+            }
+
+            updateFeedSelection() {
+                document.querySelectorAll('.feed-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                if (this.currentFeed) {
+                    const currentItem = document.querySelector(`[data-feed-id="${this.currentFeed.id}"]`);
+                    if (currentItem) {
+                        currentItem.classList.add('active');
+                    }
+                }
+            }
+
+            refreshCurrentFeed() {
+                if (this.currentFeed) {
+                    this.loadFeed(this.currentFeed);
+                }
+            }
+
+            renderFeeds() {
+                const feedList = document.getElementById('feedList');
+                
+                feedList.innerHTML = this.feeds.map(feed => `
+                    <li class="feed-item" data-feed-id="${feed.id}" onclick="rssReader.loadFeed(${JSON.stringify(feed).replace(/"/g, '&quot;')})">
+                        <div>
+                            <div class="feed-name">${feed.name}</div>
+                            <div class="feed-url">${feed.url}</div>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            showEmptyState() {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                    <div class="empty-state">
+                        <h3>欢迎使用RSS阅读器！</h3>
+                        <p>请点击左侧的RSS订阅源查看文章。</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 初始化RSS阅读器
+        const rssReader = new RSSReader();
+
+        // 全局函数供HTML调用
+        function refreshCurrentFeed() {
+            rssReader.refreshCurrentFeed();
+        }
+    </script>
+</body>
+</html>

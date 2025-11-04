@@ -103,7 +103,5 @@ rz waiting to receive.\*\*B0100
 然后就可以测试了
 在服务器运行
 ```shell
-rz 
-
-sz file
+rz waiting to receive.\*\*B0100
 \*\*B
