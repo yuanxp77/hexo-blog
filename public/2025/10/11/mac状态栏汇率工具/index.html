@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>mac状态栏汇率工具 | yuanxp77</title><meta name="author" content="yuanxp77,yuanxp77@outlook.com"><meta name="copyright" content="yuanxp77"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="分享一个自己在用的查看实时货币汇率的mac小插件，是我用cursor写的，还算好用。 首先你需要安装一个工具，叫xbar，用于运行这个脚本。这是他们的官网：https:&#x2F;&#x2F;xbarapp.com 然后按教程使用我下面的脚本，就可以了，效果如图：  #!&#x2F;usr&#x2F;bin&#x2F;env bash # &lt;xbar.title&gt;多币种汇率&lt;&#x2F;xbar.title&gt; # &lt;xbar.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac状态栏汇率工具">
+<meta property="og:url" content="https://yuanxp77.github.io/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="yuanxp77">
+<meta property="og:description" content="分享一个自己在用的查看实时货币汇率的mac小插件，是我用cursor写的，还算好用。 首先你需要安装一个工具，叫xbar，用于运行这个脚本。这是他们的官网：https:&#x2F;&#x2F;xbarapp.com 然后按教程使用我下面的脚本，就可以了，效果如图：  #!&#x2F;usr&#x2F;bin&#x2F;env bash # &lt;xbar.title&gt;多币种汇率&lt;&#x2F;xbar.title&gt; # &lt;xbar.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/79731325">
+<meta property="article:published_time" content="2025-10-11T06:13:32.000Z">
+<meta property="article:modified_time" content="2025-10-20T10:41:38.791Z">
+<meta property="article:author" content="yuanxp77">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/79731325"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://yuanxp77.github.io/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6fae23de65d9cf430a614cabc671210b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Y5QERZ6FJL"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-Y5QERZ6FJL')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-Y5QERZ6FJL', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;56348b4984d948b4a3f76bbd3623dcc1&quot;}"></script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "ouu7xdnzrn");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"Author: yuanxp77","link":"Link: ","source":"Source: yuanxp77","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mac状态栏汇率工具',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-10-20 18:41:38',
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars.githubusercontent.com/u/79731325" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/news/"><i class="fa-fw fas fas fa-archive"></i><span> News</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/release-plan/"><i class="fa-fw fas fa-archive"></i><span> Release Plan</span></a></li><li><a class="site-page child" href="/resources/"><i class="fa-fw fas fa-archive"></i><span> Resources</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/smile.gif" alt="Logo"><span class="site-name">yuanxp77</span></a><a class="nav-page-title" href="/"><span class="site-name">mac状态栏汇率工具</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/news/"><i class="fa-fw fas fas fa-archive"></i><span> News</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/release-plan/"><i class="fa-fw fas fa-archive"></i><span> Release Plan</span></a></li><li><a class="site-page child" href="/resources/"><i class="fa-fw fas fa-archive"></i><span> Resources</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">mac状态栏汇率工具</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-10-11T06:13:32.000Z" title="Created 2025-10-11 14:13:32">2025-10-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-10-20T10:41:38.791Z" title="Updated 2025-10-20 18:41:38">2025-10-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>分享一个自己在用的查看实时货币汇率的mac小插件，是我用cursor写的，还算好用。</p>
+<p>首先你需要安装一个工具，叫xbar，用于运行这个脚本。这是他们的官网：<a target="_blank" rel="noopener" href="https://xbarapp.com/">https://xbarapp.com</a></p>
+<p>然后按教程使用我下面的脚本，就可以了，效果如图：</p>
+<p><img src="/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/2.gif" alt="2.png"></p>
+<pre><code class="shell">#!/usr/bin/env bash
+# &lt;xbar.title&gt;多币种汇率&lt;/xbar.title&gt;
+# &lt;xbar.version&gt;v1.0&lt;/xbar.version&gt;
+# &lt;xbar.author&gt;yuanxp77&lt;/xbar.author&gt;
+# &lt;xbar.author.github&gt;yuanxp77&lt;/xbar.author.github&gt;
+
+# &lt;xbar.desc&gt;显示多种主流货币的人民币购汇价格，支持界面化配置&lt;/xbar.desc&gt;
+# &lt;xbar.dependencies&gt;shell,curl,bc&lt;/xbar.dependencies&gt;
+
+export PATH=&quot;/usr/local/bin:$PATH&quot;
+CONFIG_FILE=&quot;$(cd &quot;$(dirname &quot;$&#123;BASH_SOURCE[0]&#125;&quot;)&quot; &amp;&amp; pwd)/.exchange-rates-config&quot;
+DEFAULT_MAIN_CURRENCIES=&quot;USD,HKD&quot;
+
+# 配置管理
+load_config() &#123; [ -f &quot;$CONFIG_FILE&quot; ] &amp;&amp; source &quot;$CONFIG_FILE&quot; || MAIN_CURRENCIES=&quot;$DEFAULT_MAIN_CURRENCIES&quot;; &#125;
+save_config() &#123; echo &quot;MAIN_CURRENCIES=\&quot;$MAIN_CURRENCIES\&quot;&quot; &gt; &quot;$CONFIG_FILE&quot;; &#125;
+toggle_main_currency() &#123;
+    if [[ &quot;,$MAIN_CURRENCIES,&quot; == *&quot;,$1,&quot;* ]]; then
+        MAIN_CURRENCIES=$(echo &quot;$MAIN_CURRENCIES&quot; | sed &quot;s/,$1,/,/g&quot; | sed &quot;s/^$1,//g&quot; | sed &quot;s/,$1$//g&quot; | sed &quot;s/^$1$//g&quot;)
+    else
+        MAIN_CURRENCIES=&quot;$&#123;MAIN_CURRENCIES:+$MAIN_CURRENCIES,&#125;$1&quot;
+    fi
+    save_config
+&#125;
+is_in_main() &#123; [[ &quot;,$MAIN_CURRENCIES,&quot; == *&quot;,$1,&quot;* ]]; &#125;
+
+# 货币映射
+get_currency_name() &#123;
+    case &quot;$1&quot; in
+        &quot;USD&quot;) echo &quot;美元&quot; ;; &quot;EUR&quot;) echo &quot;欧元&quot; ;; &quot;GBP&quot;) echo &quot;英镑&quot; ;; &quot;JPY&quot;) echo &quot;日元&quot; ;; &quot;HKD&quot;) echo &quot;港币&quot; ;; &quot;AUD&quot;) echo &quot;澳大利亚元&quot; ;; &quot;CAD&quot;) echo &quot;加拿大元&quot; ;; &quot;CHF&quot;) echo &quot;瑞士法郎&quot; ;;
+        &quot;KRW&quot;) echo &quot;韩国元&quot; ;; &quot;THB&quot;) echo &quot;泰国铢&quot; ;; &quot;SGD&quot;) echo &quot;新加坡元&quot; ;; &quot;NZD&quot;) echo &quot;新西兰元&quot; ;; &quot;SEK&quot;) echo &quot;瑞典克朗&quot; ;; &quot;NOK&quot;) echo &quot;挪威克朗&quot; ;; &quot;DKK&quot;) echo &quot;丹麦克朗&quot; ;; &quot;MXN&quot;) echo &quot;墨西哥比索&quot; ;;
+        &quot;ZAR&quot;) echo &quot;南非兰特&quot; ;; &quot;INR&quot;) echo &quot;印度卢比&quot; ;; &quot;MYR&quot;) echo &quot;林吉特&quot; ;; &quot;PHP&quot;) echo &quot;菲律宾比索&quot; ;; &quot;VND&quot;) echo &quot;越南盾&quot; ;; &quot;CZK&quot;) echo &quot;捷克克朗&quot; ;; &quot;HUF&quot;) echo &quot;匈牙利福林&quot; ;; &quot;TRY&quot;) echo &quot;土耳其里拉&quot; ;;
+        &quot;ILS&quot;) echo &quot;以色列谢克尔&quot; ;; *) echo &quot;$1&quot; ;;
+    esac
+&#125;
+get_currency_symbol() &#123;
+    case &quot;$1&quot; in
+        &quot;USD&quot;) echo &quot;$&quot; ;; &quot;EUR&quot;) echo &quot;€&quot; ;; &quot;GBP&quot;) echo &quot;£&quot; ;; &quot;JPY&quot;) echo &quot;¥&quot; ;; &quot;HKD&quot;) echo &quot;HK$&quot; ;; &quot;AUD&quot;) echo &quot;AU$&quot; ;; &quot;CAD&quot;) echo &quot;CA$&quot; ;; &quot;CHF&quot;) echo &quot;CHF&quot; ;;
+        &quot;KRW&quot;) echo &quot;₩&quot; ;; &quot;THB&quot;) echo &quot;฿&quot; ;; &quot;SGD&quot;) echo &quot;S$&quot; ;; &quot;NZD&quot;) echo &quot;NZ$&quot; ;; &quot;SEK&quot;) echo &quot;kr&quot; ;; &quot;NOK&quot;) echo &quot;kr&quot; ;; &quot;DKK&quot;) echo &quot;kr&quot; ;; &quot;MXN&quot;) echo &quot;MX$&quot; ;;
+        &quot;ZAR&quot;) echo &quot;R&quot; ;; &quot;INR&quot;) echo &quot;₹&quot; ;; &quot;MYR&quot;) echo &quot;RM&quot; ;; &quot;PHP&quot;) echo &quot;₱&quot; ;; &quot;VND&quot;) echo &quot;₫&quot; ;; &quot;CZK&quot;) echo &quot;Kč&quot; ;; &quot;HUF&quot;) echo &quot;Ft&quot; ;; &quot;TRY&quot;) echo &quot;₺&quot; ;;
+        &quot;ILS&quot;) echo &quot;₪&quot; ;; *) echo &quot;$1&quot; ;;
+    esac
+&#125;
+
+# 核心功能
+get_exchange_rates() &#123; curl -s -A &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)&quot; &quot;https://www.boc.cn/sourcedb/whpj/index.html&quot; --max-time 15; &#125;
+parse_currency_rate() &#123;
+    local rate_data=$(echo &quot;$2&quot; | grep -A 8 &quot;&lt;td&gt;$1&lt;/td&gt;&quot; | grep -E &quot;&lt;td&gt;[0-9.]+&lt;/td&gt;&quot; | sed &#39;s/&lt;[^&gt;]*&gt;//g&#39; | sed &#39;s/^[[:space:]]*//&#39; | sed &#39;s/[[:space:]]*$//&#39;)
+    [ ! -z &quot;$rate_data&quot; ] &amp;&amp; echo &quot;$(echo $rate_data | awk &#39;&#123;print $3&#125;&#39;)&quot;
+&#125;
+
+# 主程序
+[ &quot;$1&quot; = &quot;toggle_main&quot; ] &amp;&amp; load_config &amp;&amp; toggle_main_currency &quot;$2&quot; &amp;&amp; exit 0
+load_config
+RESPONSE=$(get_exchange_rates)
+[ $? -ne 0 ] || [ -z &quot;$RESPONSE&quot; ] &amp;&amp; echo &quot;❌ 网络错误&quot; &amp;&amp; exit 1
+
+# 构建菜单栏显示
+MAIN_DISPLAY_PARTS=&quot;&quot;
+IFS=&#39;,&#39; read -ra MAIN_ARRAY &lt;&lt;&lt; &quot;$MAIN_CURRENCIES&quot;
+for code in &quot;$&#123;MAIN_ARRAY[@]&#125;&quot;; do
+    [ ! -z &quot;$code&quot; ] &amp;&amp; rate=$(parse_currency_rate &quot;$(get_currency_name &quot;$code&quot;)&quot; &quot;$RESPONSE&quot;) &amp;&amp; [ ! -z &quot;$rate&quot; ] &amp;&amp; [ &quot;$rate&quot; != &quot;0&quot; ] &amp;&amp; MAIN_DISPLAY_PARTS=&quot;$&#123;MAIN_DISPLAY_PARTS:+$MAIN_DISPLAY_PARTS &#125;$(get_currency_symbol &quot;$code&quot;)$rate&quot;
+done
+
+echo &quot;$&#123;MAIN_DISPLAY_PARTS:-💱 汇率&#125;&quot;
+echo &quot;---&quot;
+
+# 显示货币选择按钮
+show_currency_buttons() &#123;
+    echo &quot;$1 | size=12 color=#4A90E2&quot;
+    IFS=&#39;,&#39; read -ra CURRENCY_ARRAY &lt;&lt;&lt; &quot;$2&quot;
+    for code in &quot;$&#123;CURRENCY_ARRAY[@]&#125;&quot;; do
+        [ ! -z &quot;$code&quot; ] &amp;&amp; &#123;
+            currency_name=$(get_currency_name &quot;$code&quot;)
+            currency_symbol=$(get_currency_symbol &quot;$code&quot;)
+            rate=$(parse_currency_rate &quot;$currency_name&quot; &quot;$RESPONSE&quot;)
+            display_text=&quot;$currency_name ($currency_symbol)$([ ! -z &quot;$rate&quot; ] &amp;&amp; [ &quot;$rate&quot; != &quot;0&quot; ] &amp;&amp; echo &quot; - $rate&quot;)&quot;
+            icon=$(is_in_main &quot;$code&quot; &amp;&amp; echo &quot;✅&quot; || echo &quot;⬜&quot;)
+            echo &quot;  $icon $display_text | bash=&#39;$0&#39; param1=toggle_main param2=$code terminal=false refresh=true size=11&quot;
+        &#125;
+    done
+&#125;
+
+show_currency_buttons &quot;🌏 亚洲&quot; &quot;JPY,HKD,KRW,THB,SGD,MYR,PHP,INR,VND&quot;
+show_currency_buttons &quot;🌍 欧美&quot; &quot;USD,EUR,GBP,CHF,SEK,NOK,DKK,CAD,MXN,CZK,HUF,TRY&quot;
+show_currency_buttons &quot;🌍 其他&quot; &quot;ILS,AUD,NZD&quot;
+
+echo &quot;---&quot;
+echo &quot;100当地货币 = x人民币 | size=10 color=green&quot;
+echo &quot;数据来源: 中国银行 $(date &#39;+%H:%M:%S&#39;) | size=10 color=gray&quot;
+echo &quot;刷新数据 | refresh=true&quot;
+```·
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://yuanxp77.github.io">yuanxp77</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://yuanxp77.github.io/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/">https://yuanxp77.github.io/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/79731325" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/24/iterm2AndLrzsz/" title="Mac M1 + iterm2 使用 lrzsz"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Mac M1 + iterm2 使用 lrzsz</div></div><div class="info-2"><div class="info-item-1"> 转载个人自用，方便使用，转载自：https://www.cnblogs.com/elve960520/p/18685205  亲测好用 step1:在服务器安装 lrzsz 官网这个跟官网走就行,没啥要求 step2:本地安装 lrzszbrew install lrzsz step3:新建两个文件,拷贝下面代码并赋运行权限&#x2F;usr&#x2F;local&#x2F;bin&#x2F;iterm2-recv-zmodem.sh 12345678910111213141516171819202122232425262728#!/bin/bash# Author: Matt Mastracci (matthew@mastracci.com)# AppleScript from http://stackoverflow.com/questions/4309087/cancel-button-on-osascript-in-a-bash-script# licensed under cc-wiki with attribution required# Remainder of...</div></div></div></a><a class="pagination-related" href="/2025/07/17/%E6%9B%BC%E8%B0%B7%E6%B8%B8%E8%AE%B0/" title="曼谷游记（todo）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">曼谷游记（todo）</div></div><div class="info-2"><div class="info-item-1"> 以此篇，记录我和月的第一次出国旅行，也是我自己第一次出国旅行，此行的目的地是泰国首都 ——...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/79731325" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yuanxp77</div><div class="author-info-description">a programmer</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanxp77"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:yuanxp77@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Under constructioning 建设中...</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/24/iterm2AndLrzsz/" title="Mac M1 + iterm2 使用 lrzsz">Mac M1 + iterm2 使用 lrzsz</a><time datetime="2025-10-24T04:01:18.000Z" title="Created 2025-10-24 12:01:18">2025-10-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/" title="mac状态栏汇率工具">mac状态栏汇率工具</a><time datetime="2025-10-11T06:13:32.000Z" title="Created 2025-10-11 14:13:32">2025-10-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/17/%E6%9B%BC%E8%B0%B7%E6%B8%B8%E8%AE%B0/" title="曼谷游记（todo）">曼谷游记（todo）</a><time datetime="2025-07-17T02:22:34.000Z" title="Created 2025-07-17 10:22:34">2025-07-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/11/zlib/" title="zlib">zlib</a><time datetime="2025-06-11T02:32:19.000Z" title="Created 2025-06-11 10:32:19">2025-06-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/15/technology-article/" title="程序员阅读清单：我喜欢的 100 篇技术文章">程序员阅读清单：我喜欢的 100 篇技术文章</a><time datetime="2025-04-15T04:06:37.000Z" title="Created 2025-04-15 12:06:37">2025-04-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By yuanxp77</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional and Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liZK5jiVBFAtBCFJ',
+      clientSecret: '142acb9fce312d852e8f9739a2a093e217215d79',
+      repo: 'yuanxp77.github.io',
+      owner: 'yuanxp77',
+      admin: ['yuanxp77'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '47621d62d30c97416edd764cb7c0f1c5'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

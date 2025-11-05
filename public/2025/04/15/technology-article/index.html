@@ -1,0 +1,664 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>程序员阅读清单：我喜欢的 100 篇技术文章 | yuanxp77</title><meta name="author" content="yuanxp77,yuanxp77@outlook.com"><meta name="copyright" content="yuanxp77"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转自https:&#x2F;&#x2F;www.piglei.com&#x2F;articles&#x2F;programmer-reading-list-1 ,仅用于个人记录、学习，以下为原文：  程序员们也许是互联网上最爱分享的群体之一，他们不仅喜欢开源自己写的软件，也爱通过写文章来分享知识。从业以来，我阅读过大量技术文章，其中不乏一些佳作。这些佳作中，有些凭借深刻的技术洞见令我深受启发，也有些以庖丁解牛般的精湛手法解释一项技术，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员阅读清单：我喜欢的 100 篇技术文章">
+<meta property="og:url" content="https://yuanxp77.github.io/2025/04/15/technology-article/index.html">
+<meta property="og:site_name" content="yuanxp77">
+<meta property="og:description" content="转自https:&#x2F;&#x2F;www.piglei.com&#x2F;articles&#x2F;programmer-reading-list-1 ,仅用于个人记录、学习，以下为原文：  程序员们也许是互联网上最爱分享的群体之一，他们不仅喜欢开源自己写的软件，也爱通过写文章来分享知识。从业以来，我阅读过大量技术文章，其中不乏一些佳作。这些佳作中，有些凭借深刻的技术洞见令我深受启发，也有些以庖丁解牛般的精湛手法解释一项技术，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/79731325">
+<meta property="article:published_time" content="2025-04-15T04:06:37.000Z">
+<meta property="article:modified_time" content="2025-05-07T06:44:35.018Z">
+<meta property="article:author" content="yuanxp77">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/79731325"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://yuanxp77.github.io/2025/04/15/technology-article/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6fae23de65d9cf430a614cabc671210b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Y5QERZ6FJL"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-Y5QERZ6FJL')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-Y5QERZ6FJL', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;56348b4984d948b4a3f76bbd3623dcc1&quot;}"></script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "ouu7xdnzrn");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"Author: yuanxp77","link":"Link: ","source":"Source: yuanxp77","info":"Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source."}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '程序员阅读清单：我喜欢的 100 篇技术文章',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-05-07 14:44:35',
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars.githubusercontent.com/u/79731325" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/news/"><i class="fa-fw fas fas fa-archive"></i><span> News</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/release-plan/"><i class="fa-fw fas fa-archive"></i><span> Release Plan</span></a></li><li><a class="site-page child" href="/resources/"><i class="fa-fw fas fa-archive"></i><span> Resources</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/smile.gif" alt="Logo"><span class="site-name">yuanxp77</span></a><a class="nav-page-title" href="/"><span class="site-name">程序员阅读清单：我喜欢的 100 篇技术文章</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/news/"><i class="fa-fw fas fas fa-archive"></i><span> News</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/release-plan/"><i class="fa-fw fas fa-archive"></i><span> Release Plan</span></a></li><li><a class="site-page child" href="/resources/"><i class="fa-fw fas fa-archive"></i><span> Resources</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">程序员阅读清单：我喜欢的 100 篇技术文章</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-04-15T04:06:37.000Z" title="Created 2025-04-15 12:06:37">2025-04-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-05-07T06:44:35.018Z" title="Updated 2025-05-07 14:44:35">2025-05-07</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">10.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>31mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><blockquote>
+<p>转自<a target="_blank" rel="noopener" href="https://www.piglei.com/articles/programmer-reading-list-1">https://www.piglei.com/articles/programmer-reading-list-1</a> ,仅用于个人记录、学习，以下为原文：</p>
+</blockquote>
+<p>程序员们也许是互联网上最爱分享的群体之一，他们不仅喜欢开源自己写的软件，也爱通过写文章来分享知识。从业以来，我阅读过大量技术文章，其中不乏一些佳作。这些佳作中，有些凭借深刻的技术洞见令我深受启发，也有些以庖丁解牛般的精湛手法解释一项技术，让我读后大呼过瘾。</p>
+<p>作为”爱分享”的程序员中的一份子，我想当一次推荐人，将读过的好文章分享给大家。我给这个系列起名为《程序员阅读清单：我喜欢的 100 篇技术文章》。</p>
+<p>受限于本人的专业与兴趣所在，清单中的文章对以下几个领域有所偏重：程序员通识、软件工程、后端开发、技术写作、Python 语言、Go 语言。</p>
+<ol>
+<li><p>《开发者应学习的 10 件有关”学习”的事》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/">10 Things Software Developers Should Learn about Learning</a></li>
+<li>作者：Neil C.C. Brown, Felienne F. J. Hermans, and Lauren E. Margulieux</li>
+</ul>
+<p> 学习对于任何一个人都很重要，对于软件开发者来说更是如此。这是一篇有关”学习”的科普类文章，从介绍人类记忆的工作原理开始，引出专家与新手的区别、间隔与重复的重要性等主题。</p>
+<p> 文章中的一些观点相当具有启发性。比如”抽象和具象”：新知识对于初学者来说先是抽象的，然后通过大量例子将其具象化，最终彻底掌握后又重新变回抽象。又比如：做智力题和编程能力并没有关联性——这和我们认知中的”聪明人更会编程”大不相同。</p>
+</li>
+<li><p>《开发者如何管理自驱力》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://mbuffett.com/posts/maintaining-motivation/">Managing My Motivation, as a Solo Dev</a></li>
+<li>作者：Marcus Buffett</li>
+</ul>
+<p> 作者是一名单兵作战的开发者，分享在管理自驱力方面的心得。文章提供了许多提高自驱力的切实可行的小点子，比如：</p>
+<p> 开发一个通知机器人，当自己的软件有新订阅时通知自己——外力驱动；<br> 每天的开发任务做到 90% 后停止，留到第二天完成——让新一天有盼头；<br> 为了避免自己被”今日一事无成”的罪恶感击溃，先干点高产出的正事，再做其他。</p>
+</li>
+<li><p>《用 Go 语言分析 10 亿行数据，从 95 秒到 1.96 秒》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://r2p.dev/b/2024-03-18-1brc-go/">One Billion Row Challenge in Golang - From 95s to 1.96s</a></li>
+<li>作者：Renato Pereira</li>
+</ul>
+<p> 一篇很不错的 Go 语言性能优化文章，涉及到这些知识点：文件读取性能优化、生产者消费者模型优化、channel 对比 mutex、自定义 hash 算法，等等。</p>
+<p> 作者的思维模式、用到的工具链及优化手法非常规范，整个调优过程层层递进，文章行文也很工整。非常值得一读。</p>
+</li>
+<li><p><strong>《在开发高质量软件上的花费值得吗？》</strong></p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://martinfowler.com/articles/is-quality-worth-cost.html">Is High Quality Software Worth the Cost?</a>  </li>
+<li>作者：Martin Fowler</li>
+</ul>
+<p> 对于大多数事物而言，如果想要追求更高的质量，必然要花费更多的成本，但对软件而言是否也是如此？作者 Martin Fowler 将软件质量分为两类：外在与内在。</p>
+<p> 由于软件的内在质量很难被外人所感知，因此花在改善内在质量上的成本常被质疑。但实际上，在内在质量上投入并不增加成本，反而能降低整体花费。文章会通过详细的分析与对比告诉你为什么。</p>
+</li>
+<li><p><strong>《错误抽象》</strong></p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction">The Wrong Abstraction</a>  </li>
+<li>作者：Sandi Metz</li>
+</ul>
+<p> 如果你想要建造一栋楼房，假如地基不正，最终只能收获一栋歪歪扭扭的残次品。对编程而言，抽象便是地基，良好的抽象是一切美好事物的前提。</p>
+<p> 这篇文章探讨了复用与抽象间的关系，作者犀利地指出一个事实：对”沉没成本”的恐惧常常孕育出错误抽象，而后者将引发项目质量恶化。</p>
+<p> 一篇短小精悍的经典之作，不容错过。</p>
+</li>
+<li><p>《谷歌技术写作课：编写有帮助的错误信息》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://developers.google.com/tech-writing/error-messages">Writing Helpful Error Messages</a></li>
+<li>作者：谷歌工程团队</li>
+</ul>
+<p> 在软件开发中，错误信息是一种极为微妙的存在，糟糕的错误信息使人沮丧，时刻提醒着我们：”魔鬼藏在细节中”。</p>
+<p> 对此，谷歌团队提供了一份关于错误信息的写作建议，包含：精确描述、提供解决方案、面向目标读者写作、用正确的语气写作，等等。我认为这应该成为每位程序员的必修课。</p>
+</li>
+<li><p>《深入 Python 字典——一份”可探索”的解释》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://just-taking-a-ride.com/inside_python_dict/chapter1.html">Inside python dict — an explorable explanation</a></li>
+<li>作者：Alexander Putilin</li>
+</ul>
+<p> 毫不夸张的说，网上介绍 Python 字典原理的文章多到泛滥。但这篇比较特别，它的特别主要体现在标题里的”可探索”上。</p>
+<p> 在文章中，作者用一些 Python 代码模拟了字典数据类型。这些代码可在页面上点击执行，过程完全可视化。比如当字典中出现哈希冲突时，会有非常细致的动画，看起来妙趣横生。</p>
+</li>
+<li><p>《愿意让自己显得愚蠢》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://danluu.com/look-stupid/">Willingness to look stupid</a></li>
+<li>作者：Dan Luu</li>
+</ul>
+<p> 人们天生在意他人的看法，每个人都希望自己是别人眼里的”聪明人”，而不是”傻瓜”。不过，本文作者分享了一个不太常见的观点：做一些让自己显得愚蠢的事，利远大于弊。 比方说：提出愚蠢问题往往能获得对事物更深入的理解；用别人眼中的蠢办法学习，效果更好。</p>
+</li>
+<li><p>《我们为什么坚持使用 Ruby on Rails》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://about.gitlab.com/blog/2022/07/06/why-were-sticking-with-ruby-on-rails/">Why we’re sticking with Ruby on Rails</a></li>
+<li>作者：Sid Sijbrandij</li>
+</ul>
+<p> 著名的开源软件 GitLab 的大部分代码都在一个 Rails 单体项目里。GitLab 采用”模块化单体”架构，并未使用近年颇为流行的微服务架构。作者在文章中解释了 GitLab 这么做的原因：微服务架构徒增偶然复杂度，却对降低本质复杂度帮助不大。</p>
+<p> 我很认同文章中的一句话：架构该为需求服务，而不是反过来。</p>
+</li>
+<li><p>《ChatGPT 是互联网的一张模糊的 JPEG 图》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://readwise.io/reader/shared/01gry4pcabx8kh4k1pkpf2e2pe/">ChatGPT Is a Blurry JPEG of the Web</a></li>
+<li>作者：Ted Chiang</li>
+</ul>
+<p>这篇文章发表于大语言模型爆发前夜：GPT-3.5 已经问世，GPT-4 蓄势待发。虽然文章的主体论调偏（有理由的）消极，但是文章中的大量精彩类比，以及作者优美的文笔，令人击节称叹。也许你不一定认同作者关于大模型的观点，但你很难不被作者字里行间所流露出的深邃思考所打动。</p>
+<p>阅读这篇文章时，我曾多次感叹：”怎么写得这么好？”。我将页面拖动到顶部，仔细检查作者的名字——谜底揭开：”难怪，作者是特德·姜！”</p>
+<p>注：特德·姜，当代美国著名科幻作家，小说作品曾获得星云奖、雨果奖等多项大奖。</p>
+</li>
+<li><p>《重新发明 Python notebook 时学到的教训》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://marimo.io/blog/lessons-learned">Lessons learned reinventing the Python notebook</a></li>
+<li>作者：Akshay</li>
+</ul>
+<p>一篇与产品设计有关的总结文章。文章主角是 marimo——一个类似 Jupyter 的 Python 笔记本软件。本文所涉及的内容包括：如何利用有向无环图让笔记总是可重现；为什么强约束的简单设计优于弱约束的复杂，等等。</p>
+<p>我很爱读这类文章，因为由技术人写的优秀产品设计经验，如珍珠般少见。</p>
+</li>
+<li><p>《断点单步跟踪是一种低效的调试方法》</p>
+<ul>
+<li>原文链接： <a target="_blank" rel="noopener" href="https://blog.codingnow.com/2018/05/ineffective_debugger.html">断点单步跟踪是一种低效的调试方法</a></li>
+<li>作者：云风</li>
+</ul>
+<p>曾经的我以为编程像解数学题，不同人的解法或稍有区别，但终究殊途同归。然而最近两年，我发现编程更像是画画或写作，每个人信奉着自己的道。</p>
+<p>云风的这篇文章的标题，坦率来说有些骇人听闻，但仔细读过后，的确能感受到一种独特的编程智慧，一种专属于有着数十年经验的编程匠人的哲思。</p>
+</li>
+<li><p>《作为”胶水”》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://noidea.dog/glue">Being Glue</a></li>
+<li>作者：Tanya Reilly</li>
+</ul>
+<p>软件工程师的日常工作除编码以外，还有大量其他事务，比如总结文档、优化工具链等，作者将这类事务统称为”胶水工作”。</p>
+<p>胶水工作看似不起眼，但对于项目的成败至关重要。本文指出了一个被人忽视的事实：承担更多胶水工作的有责任心的工程师，反而更不易晋升。针对这一点，作者提供了一些有用的建议。</p>
+</li>
+<li><p>《拥抱苦差事》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://jacobian.org/2021/apr/7/embrace-the-grind/">Embrace the Grind</a></li>
+<li>中文翻译：<a target="_blank" rel="noopener" href="https://www.piglei.com/articles/embrace-the-grind-cn-translation/">拥抱苦差事</a></li>
+<li>作者：Jacob Kaplan-Moss</li>
+</ul>
+<p>本文以一个魔术揭秘开头，引出作者如何通过完成”苦差事”，将整个开发团队拉出泥沼的故事；之间穿插着对程序员金句”懒惰是程序员的美德”的思考。</p>
+<p>重读这篇文章时，我想起最近在一本书上看到的另一句话，大意是这样的：”外行人做事时渴求及时反馈与成就感，而专业人士在一切变得乏味后，仍然继续向前。”</p>
+</li>
+<li><p>《也许是时候停止推荐〈代码整洁之道了〉》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://qntm.org/clean">It’s probably time to stop recommending Clean Code</a></li>
+<li>作者：qntm</li>
+</ul>
+<p>作为一本经典书籍，《代码整洁之道》长期出现在各类编程书单中。但是，本文作者发现，这本出版于十几年前的书中的大量内容已经过时，其中的不少代码示例质量糟糕。</p>
+<p>在这篇文章中，本文作者对书中的部分 Java 代码片段进行了几乎称得上是”凶残”的 Code Review。文章观点有一定争议性，但也不乏道理。</p>
+</li>
+<li><p>《我在编辑时考虑的事》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://evaparish.com/blog/how-i-edit">What I think about when I edit</a></li>
+<li>作者：Eva Parish</li>
+</ul>
+<p>作为一名专业的技术写作者，作者 Eva 常常帮其他人编辑技术文档。久而久之，她总结出了 9 条编辑建议，比如：明确文章主题、有理由的重复，等等。</p>
+<p>虽然文章中的部分建议更适用于英文写作场景，但我仍然很推荐它。因为你很容易发现，这篇文章虽然信息量大，但读来非常流畅、舒服——我想这就是优秀的”编辑”带来的魔力。</p>
+</li>
+<li><p>《修复流行 Python 库的内存泄露问题》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://www.paulsprogrammingnotes.com/2021/12/python-memory-leaks.html">Fixing Memory Leaks In Popular Python Libraries</a></li>
+<li>作者：Paul Brown</li>
+</ul>
+<p>这篇文章的标题很大，但其实只是一篇短文，里面的 Python 示例代码不超过 10 行。</p>
+<p>在一次黑客马拉松活动中， 本文作者和同事一起定位了 py-amqp 库的一个内存泄露问题。提交 PR 后，他在 redis-py 等流行的库中发现了类似的情况。问题和 Python 中的 try&#x2F;except 语句块有关，迷惑性很强。</p>
+</li>
+<li><p>《UI 设计原则》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="http://bokardo.com/principles-of-user-interface-design/">Principles of_ User Interface Design</a></li>
+<li>作者：Joshua Porter</li>
+</ul>
+<p>文章总结了 19 条 UI 设计原则，包括：清晰最重要、让用户有掌控感、渐进式披露，等等。我最喜欢的是第 17 条原则：”伟大的设计是隐形的”，它让我想起一些优秀的开源软件库。</p>
+<p>虽然名为 UI 设计，但这些原则并不只属于设计师，我认为每个人都可以从中受益。作为程序员，每当我们写下一个函数定义语句，实际就是在做一次 UI 设计。</p>
+</li>
+<li><p>《你的数据库技能不是”锦上添花”》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://renegadeotter.com/2023/11/12/your-database-skills-are-not-good-to-have.html">Your Database Skills Are Not ‘Good to Have’</a></li>
+<li>作者：Andrei Taranchenko</li>
+</ul>
+<p>在文章中，作者 Andrei 先分享了一个 20 年前的故事：用 MySQL 巧妙完成了一项困难的业务需求。然后引出文章主题：如今大家对数据库技能的关注度不应该这么低。</p>
+<p>我很认同作者对于关系数据库和 ORM 等工具的观点。有时候，当项目遇到性能问题时，分明加个索引、优化下查询就能解决，许多人却大喊着：”快点，上缓存！换 DB！”——实在大可不必。</p>
+</li>
+<li><p>《预估开发时间很难，但还是得做》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://jacobian.org/2021/may/20/estimation/">Software Estimation Is Hard. Do It Anyway.</a></li>
+<li>作者：Jacob Kaplan-Moss</li>
+</ul>
+<p>在软件开发中，”估时间”是一项令人头疼的事。我们都曾有过类似的经历：拍胸脯说 3 天搞定的任务，最后足足耗费了大半个月。</p>
+<p>到后来，”估时间”成了到底留 1 倍还是 2 倍 buffer 的无聊游戏。但正如本文的标题所言，预估开发时间虽然难，却不可避免。这篇文章（系列）提供了一些与之相关的技巧，相信可以给你一些启发。</p>
+</li>
+<li><p>《人生短暂》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://paulgraham.com/vb.html">Life Is Short</a></li>
+<li>作者：Paul Graham</li>
+</ul>
+<p>人生很短，到底该如何花费自己的时间？传奇投资人、程序员 Paul Graham 在文章中给出了他的建议。总结起来，一共 3 条：尽你所能地避免 bullshit 类事务，比如无用会议、网上吵架；对重要的事情不拖拉，意识到有些东西不会永远停在原地等你；珍惜你所拥有的每一滴时间。</p>
+<p>从任何角度看，上面这些建议都称不上有多新奇。但是，作者通过真诚地分享自身经历和感受，给内容注入了不一样的灵魂。或许你会像我一样，读后能获得一些新的感悟。</p>
+</li>
+<li><p>《有”产品意识”的软件工程师》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://blog.pragmaticengineer.com/the-product-minded-engineer/">The Product-Minded Software Engineer</a></li>
+<li>作者：Gergely Orosz</li>
+</ul>
+<p>从事程序员越久，你大概率会越来越频繁地听到一个词：”产品意识”。人人都说产品意识好，但是它看不见摸不着，到底是个什么东西？是指程序员该自己画线框图？还是说程序员应该写用户故事？</p>
+<p>本文作者以软件工程师的视角，对”产品意识”做了全面的解读。简单来说，产品意识就是关注产品、对产品拥有好奇心、对用户拥有同理心；有产品意识的人在做技术方案时，不光思考工程角度，更能靠全局的”产品+工程”视角思考决策。</p>
+<p>“产品意识”——工程师们最为强大的思维杠杆之一。</p>
+</li>
+<li><p>《Python 的 range 不是迭代器》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">Python: range is not an iterator</a></li>
+<li>作者：Trey Hunner</li>
+</ul>
+<p>range 是 Python 语言中最常用的内置对象之一，功能是生产一段数字序列，比如 range(10) &#x3D;&gt; 0, 1, …, 9。作为循环语句中被迭代的常客，range 常被误认为是一种迭代器（iterator）。但是，正如文章标题所说，虽然可被迭代，但 range 却并不是迭代器。</p>
+<p>可如果不是迭代器的话，range 究竟是什么？在文章中，作者用精要的说明和代码片段做出了解答。看起来像咬文嚼字，实则是相当重要的 Python 基础概念。</p>
+<p>😊 有关迭代器和可迭代对象这个主题，我也很推荐另一篇自己写的内容：<a target="_blank" rel="noopener" href="https://www.piglei.com/book/ch06_loop.html">《Python工匠》第六章 6.1.1 “迭代器与可迭代对象</a>“。</p>
+</li>
+<li><p>《有关 TLS&#x2F;SSL 证书的一切》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://www.kawabangga.com/posts/5330">有关 TLS&#x2F;SSL 证书的一切</a></li>
+<li>作者：laixintao</li>
+</ul>
+<p>一篇和证书有关的科普文。</p>
+<p>虽是科普，但这篇和其他科普文章不太一样。你除了能读到一些轻松愉快的小故事，还会被一些不知从哪里冒出来的 shell 命令和大段伪代码”突然袭击”。看似不协调的素材，在作者的精心编排下，却如交响乐团般演奏出一段优美流畅的乐章，让人读来如沐春风。</p>
+</li>
+<li><p>《让困难的事情变容易》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://jvns.ca/blog/2023/10/06/new-talk--making-hard-things-easy/">New talk: Making Hard Things Easy</a></li>
+<li>作者：Julia Evans</li>
+</ul>
+<p>也许是胡说八道，但我还是想说：技术人普遍有一种”复杂崇拜”情结。实践一门技术，人们常常会踩进许多坑、遇到很多困难，但大部分人对此绝口不提，仿佛抱怨一门技术过于复杂，会显得自己能力不足似的。</p>
+<p>尤其，当这些技术是大家口中公认的”基础技术”（比如 DNS、HTTP）时，更是如此。技术人接受复杂、理解复杂，最终认同复杂为理所当然。</p>
+<p>正因如此，我很喜欢 Julia Evans 的这个分享。它指出在许多所谓的”基础技术”背后，隐藏着太多难以掌握的复杂元素。不少人都会在它们上面栽跟斗，但并非所有人都会站出来，改善现状。</p>
+<p>所以，我们需要让复杂事物变得更容易。针对这一点，文章挑选了几种有代表性的技术，比如 DNS、BASH、SQL 等，提供了切实可行的建议，包括：分享有用的工具和参考文档、从大的功能列表中筛选你真正使用的、展示不可见的内容，等等。</p>
+</li>
+<li><p>《The Hiring Post》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://sockpuppet.org/blog/2015/03/06/the-hiring-post/">The Hiring Post</a></li>
+<li>作者：Thomas &amp; Erin Ptacek</li>
+</ul>
+<p>作者在一家名为 Matasano 的安全公司任职。一天，他接到一份报告，其中描述了一种针对 DSA 的新型攻击手法。由于步骤复杂、条件苛刻，作者认为这种攻击方式有些不切实际，难以实施（时间以月为单位计算）。不过，他还是把报告分享到了团队中（忘了提及”不切实际”）。</p>
+<p>两天后，团队里一位名叫 Alex 的新人找到他，说自己完成了一个可工作的漏洞利用程序。</p>
+<p>Alex 非常优秀，但是，如果把时间拨回几年前，他根本不会被招进公司。他的简历平平无奇，而当时公司依赖简历和面试来招聘人才。直到后来，Matasano 公司优化了招聘策略，才挖掘出越来越多像 Alex 的人才。</p>
+<p>接着开篇的小故事，作者探讨了技术行业在人才招聘方面的一些问题。比方说，许多能力出众的候选人常因招聘环节不合理而无法通过面试。与之相对的是，一些善于面试、对抽象概念总能侃侃而谈的人，却能轻松拿到 offer。针对这些问题，文章给出了一些建议，比如：让候选人热身、使用接近工作场景的测试问题，等等。值得一读。</p>
+</li>
+<li><p>《13 年后，我如何用 Go 写 HTTP 服务》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://grafana.com/blog/2024/02/09/how-i-write-http-services-in-go-after-13-years/">How I write HTTP services in Go after 13 years</a></li>
+<li>作者：Mat Ryer</li>
+</ul>
+<p>一篇 Go 语言方面的最佳实践类文章，只涉及标准库中的 HTTP 基建，不涉及其他第三方 Web 框架或库。作者有十余年的 Go 编程经验，经验丰富。</p>
+<p>文章除了展示具体的代码编写与组织技巧，也谈了一些”为什么如此处理”背后的设计考量，包括：长参数列表的函数、请求编解码处理、用闭包结合 http.Handler、E2E 测试和单元测试，等等。透过这些考量，能感受到作者多年经验与智慧的沉淀。</p>
+</li>
+<li><p>《Rust std fs 比 Python 更慢！？》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/">Rust std fs slower than Python!? No, it’s hardware!</a></li>
+<li>作者：Xuanwo</li>
+</ul>
+<p>一篇精彩的短篇侦探小说。</p>
+<p>有一天，Xuanwo 接到用户上报一个奇怪的案件：一段 Rust 实现的 Python SDK 中的文件操作代码，执行起来却比原生 Python 代码更慢。一通排查后，更离谱的事件出现，不止 Rust，甚至同样的 C 代码也比 Python 更慢。但这怎么可能，Python 语言解释器本身都是用 C 写的呀？！</p>
+<p>就像任何一篇精彩的侦探小说一样，最后，悬疑气氛推到最高点，凶手身份被揭露时，你会自言自语道：”意料之外，情理之中”。</p>
+</li>
+<li><p>《选择乏味的技术》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://boringtechnology.club/">Choose Boring Technology</a></li>
+<li>作者：Dan McKinley</li>
+</ul>
+<p>作为技术人员，我们喜欢尝试新技术，这让我们感到快乐。但许多时候，比起闪闪发光的新玩意，”乏味”的技术才是更优的选择。</p>
+<p>当我们觉得一项技术”乏味”、痛恨它时，根本原因是我们过于了解它，无法从它身上获得任何新鲜感（比如 Django 之于我）。但别忘了，这同时也意味着我们对这项技术的每个坑都了如指掌。在项目中采用它，能让我们更容易专注在核心业务问题上。</p>
+<p>很喜欢本文里的”创新代币”比喻。”创新代币”是一种用来处理创造性任务的有限能力。假设你一共拥有 3 枚”创新代币”，你会如何花费它们？也许，和某个新奇的技术栈比起来，产品核心功能上的创新，更需要那枚代币。</p>
+</li>
+<li><p>《Python 3.10 中的结构化模式匹配》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://benhoyt.com/writings/python-pattern-matching/">Structural pattern matching in Python 3.10</a></li>
+<li>作者：Ben Hoyt</li>
+</ul>
+<p>在 3.10 版本中，Python 新增了”结构化模式匹配”语法（ match … case）。因为看上去和 switch … case 语句十分相似，不少人认为”结构化模式匹配”就是 switch 换皮。但事实上，它和 switch 语句有着比较大的差异，用作者的话讲：它更适合被当成”迭代式解包”来理解。</p>
+<p>本文发布于 2021 年（Python 3.10 发布前夕），其中简单介绍了”结构化模式匹配”的功能，并列举了一些它最适用的代码场景。在总结中，针对该语法的未来，作者持略为悲观的复杂态度。</p>
+<p>和”结构化模式匹配”相关的文章中，除几篇 PEP 之外，我认为这是最值得阅读的一篇。</p>
+</li>
+<li><p>《你想要的是模块，不是微服务》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://blogs.newardassociates.com/blog/2023/you-want-modules-not-microservices.html">You Want Modules, Not Microservices</a></li>
+<li>作者：Neward &amp; Associates</li>
+</ul>
+<p>文章的开头很有意思。从一篇介绍微服务的文章中，作者摘抄出了微服务架的 10 条优势。随后，他逐条分析这些优势，发现其中至少有一半，可以原封不动地套用在”模块”上。</p>
+<p>“只关注一小块代码”、”独立开发”、”版本化”、”独立发布”——以上能力模块无一不具备。对了，此处谈及的”模块”，就是那个诞生于 20 世纪 70 年代的技术概念，也是如今所有编程语言的标配能力。</p>
+<p>分析完模块和微服务的相似性后，文章继续层层推进，试着回答一个重要问题：微服务架构解决的本质矛盾究竟是什么？</p>
+</li>
+<li><p>《我不喜欢 Go 语言默认的 HTTP Handlers》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://preslav.me/2022/08/09/i-dont-like-golang-default-http-handlers/">I Don’t Like Go’s Default HTTP Handlers</a></li>
+<li>作者：Preslav Rachev</li>
+</ul>
+<p>在编写 HTTP handler 函数时，作者意识到这类函数存在一个设计问题，它会促使人们写出有 bug 的代码。该问题大多数 Go 开发者都知道（也可能犯过）：回写响应体后忘记 return，导致代码错误地继续执行。为了优化它，作者提出了一种思路。</p>
+<p>技术层面上，这是一篇非常简单的文章，最终方案也无非是”多封装一层”而已。不过，我喜欢作者对细节的关注，也认可文章的价值观：通过优化工具与环境，来杜绝人类犯错的可能性。</p>
+</li>
+<li><p>《对人类更友好的”超时”与”取消”》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://vorpus.org/blog/timeouts-and-cancellation-for-humans/">Timeouts and cancellation for humans</a></li>
+<li>作者：Nathaniel J. Smith</li>
+</ul>
+<p>做网络编程时，”超时配置”是一个非常重要但又常常被忽视的细节。不当的超时配置就像是鞋底里的一粒沙，开始你甚至觉察不到它的存在，但随着时间累积，沙子会磨破脚底，产生巨大危害。</p>
+<p>“作为最常见的超时配置方式，为什么 get(url, timeout&#x3D;10) 这类 API 不够好？”</p>
+<p>从这个问题出发，作者列举并分析了一些常见的超时 API 设计，最后详细介绍了 trio 库的相关功能。作者认为它是一种”对人类更友好”的设计。</p>
+</li>
+<li><p>《20 年软件工程师生涯，学到 20 件事》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://www.simplethread.com/20-things-ive-learned-in-my-20-years-as-a-software-engineer/">20 Things I’ve Learned in my 20 Years as a Software Engineer</a></li>
+<li>作者：Justin Etheredge</li>
+</ul>
+<p>从业 20 年后，软件工程师 Justin Etheredge 回顾自己的职业生涯，总结出了 20 条经验。这些经验短小精悍、富有洞见，我读后对其中大部分都很有共鸣。</p>
+<p>比如其中的第 5 条：”最好的工程师像设计师一样思考”。有许多次，我在一个问题卡住，苦思冥想，寻不到最优解。但当我转换思路，学着像设计师一样站在用户（或调用方、依赖方）角度思考时，答案呼之欲出。再比如其中的第 9 条：”问’为什么’，永远不嫌多”——旺盛的好奇心和求知欲，正是助我们精进技术的最佳催化剂。</p>
+</li>
+<li><p>《为什么你的 mock 不工作》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://nedbatchelder.com/blog/201908/why_your_mock_doesnt_work.html">Why your mock doesn’t work</a></li>
+<li>作者：Ned Batchelder</li>
+</ul>
+<p>用 Python 写测试代码时，经常会用到 mock 模块。初次接触 mock，不少人都遇到过 mock 不生效的问题。明明用 mock.patch(…) 替换了模块，代码执行时，引用到的却依旧是原始值。</p>
+<p>Ned Batchelder 的这篇文章细致解释了”mock 不生效”问题。因为写的是个常见问题，所以文章中的知识点对你来说可能并不新鲜。但即便如此，我还是很推荐它。文章结构清晰、措辞准确，里面的每张示意图和每段代码，都出现得恰到好处。哪怕不为学知识，略读一遍后，也让人心情舒畅。在技术写作方面，能从中学到不少。</p>
+<p>同时推荐作者的另一篇文章：《Python 的名字和值》，内容与 mock 这篇有关联。</p>
+</li>
+<li><p>《实用的 Go：来自真实世界的编写可维护 Go 程序的建议》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://dave.cheney.net/practical-go/presentations/qcon-china.html">Practical Go: Real world advice for writing maintainable Go programs</a></li>
+<li>作者：Dave Cheney</li>
+</ul>
+<p>互联网上，”Go 代码可读性”方面的资料不算太多，这篇或许是你能找到的最好的之一。</p>
+<p>本文包含数十条与提升 Go 代码可维护性有关的建议，覆盖从变量命名到 API 设计等多项主题，十分全面。我喜欢它最重要的原因，除了其写作质量上佳之外，还在于作者为每条建议精心搭配了示例代码，这些代码使得文章内容非常容易阅读，知识很好消化。一篇干货满满的经典之作，值得每位 Go 工程师阅读。</p>
+</li>
+<li><p>《编写系统软件：代码注释》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="http://antirez.com/news/124">Writing system software: code comments.</a></li>
+<li>作者：antirez</li>
+</ul>
+<p>在”代码注释”这个主题上，Redis 作者 antirez 的这篇文章是我的最爱之一。通过整理 redis 项目里的所有注释，antirez 将注释一共划分成 9 类，各自承担不同功用。</p>
+<p>本文的独到之处，在于立足”用注释解释代码中的 ‘why？’”这条共识上，重点介绍了”教学性&#x2F;指引性注释”这类不太常规的注释。文章提到，指引性注释是 redis 中数量最多的注释，充斥整个项目，人们认为 Redis 的源码可读性佳，指引性注释功不可没。</p>
+<p>某种程度上，这篇文章影响了我的编码习惯。再次回顾它，脑海闪过那句人们重复提及的老话： “代码主要是写给人看的，顺便被计算机执行。”</p>
+</li>
+<li><p>《编写易于删除，而不是易于扩展的代码》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://programmingisterrible.com/post/139222674273/write-code-that-is-easy-to-delete-not-easy-to">Write code that is easy to delete, not easy to extend.</a></li>
+<li>作者：tef</li>
+</ul>
+<p>程序员们有一条朴素的共识：”重复代码坏，复用代码好”。这篇文章站在另一个角度，反思了这条共识。人们习惯于讨论复用的好处，却往往忽视了它的缺点：一段代码被复用越多，意味着它与更多的使用方产生了耦合关系，自然也导致它更难被修改。</p>
+<p>代码写出来后便需要被维护，而业务发展又会让旧代码不断过时。以这个为前提，重新思考软件项目的可维护性，会发现”易于删除”变成了一个形容代码的好特征。这篇文章或许写得没那么易读，但个中观点确能引发思考。</p>
+</li>
+<li><p>《如何提出好问题》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://jvns.ca/blog/good-questions/">How to ask good questions</a></li>
+<li>作者：Julia Evans</li>
+</ul>
+<p>在人际沟通中，”善于提问”是一种顶级技能（ 评级：SSR✨）。在关键时刻提出一个好问题，能让沟通事半功倍，事情水到渠成。</p>
+<p>Julia Evans 的这篇文章，囊括了与提问有关的若干条经验和技巧，比如：向对方陈述并确认你所知道的现状；选择向谁提问；通过提问让不够显而易见的概念变得明确，等等。文章不止内容好，写作风格也是一如既往的友善、清晰易读，强力推荐。</p>
+</li>
+<li><p>《每天写代码》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://johnresig.com/blog/write-code-every-day/">Write Code Every Day</a></li>
+<li>作者：John Resig</li>
+</ul>
+<p>程序员 John Resig （JQuery 库作者） 遇上了一件烦心事。他想完成一些兴趣项目（side projects），却发现在保证全职工作效率的前提下，很难推进。他常在每个周末疯狂赶工，力求完成更多，但压力和焦虑感总是爆棚，状态难以维系。</p>
+<p>有一天，在他人启发下，John 决定换一种策略：每天写代码。原本用整个周末投入兴趣项目，如今拆分到每一天，花不少于 30 分钟编程。半年后，他发现新策略产生了神奇的效果，他取得了超多成果：开发多个新网站、重写若干个框架、完成大量新模块。更重要的是，曾经困扰他的焦虑感，也烟消云散。</p>
+<p>我很喜欢这篇文章，它是程序员版本的”日拱一卒”，John 也是一位极好的榜样。</p>
+</li>
+<li><p>《抽象泄露法则》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/">The Law of Leaky Abstractions</a></li>
+<li>作者：Joel Spolsky</li>
+</ul>
+<p>用 AI，花 5 分钟开发一个新功能。验证时，却发现新功能在某个特殊情况下无法正常工作。为了解决这个 bug，你只能逐行排查调试。等修复好问题，一看表， 1 个小时过去了。</p>
+<p>上面的经历对你来说是否有些似曾相识？早在 2002 年，程序员 Joel Spolsky 就敏锐地发现了这类现象，并将它们总结为：”抽象泄露法则”。软件世界是一层抽象套着另一层的千层饼，就好像 HTTP 协议下有 TCP、TCP 下有 IP，每一层抽象都声称自己是完美的：”你无需关注在我之下的任何细节”。</p>
+<p>但事实却是，所有抽象必定泄露。而当抽象泄露时，就像要从 AI 的 1000 行代码里找到那个错误——事情非常棘手，但我们别无选择。</p>
+</li>
+<li><p>《如何设计一个好的 API 及其重要性》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://fwdinnovations.net/whitepaper/APIDesign.pdf">How to Design a Good API and Why it Matters</a></li>
+<li>演讲视频：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=aAb7hSCtvGw&ab_channel=GoogleTechTalks">How To Design A Good API and Why it Matters - Youtube</a></li>
+<li>作者：Joshua Bloch</li>
+</ul>
+<p>这份资料来自 Joshua Bloch（时任首席 Java 架构师）在 Google 公司的内部演讲。虽然距今已 17 年，但它读起来却没有任何过时的感觉，对现代软件开发仍具备指导价值。</p>
+<p>Joshua 系统性地阐述了 API 设计的方方面面。包括：</p>
+<p>带着怀疑的眼光收集用户用例（use cases）；<br>写代码前，先用最简单的文字描述 API（一页纸以内），并和相关人员讨论完善；<br>如果迟疑于是否提供某个功能，就先不要提供（后续新增比删除要简单得多）；<br>API 应当和它所被使用的平台和谐共存，比如 SDK 不应被原样从一门语言搬运到另一门。</p>
+<p>如果你之前从未深入思考过 API 设计，读读看，它极有可能改变你未来开发软件的方式。</p>
+</li>
+<li><p>《我构建软件的原则+实践”让无效状态不可表示”》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://kevinmahoney.co.uk/articles/my-principles-for-building-software/">My Principles for Building Software</a></li>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://kevinmahoney.co.uk/articles/applying-misu/">Applying “Make Invalid States Unrepresentable”</a></li>
+<li>作者：Kevin Mahoney</li>
+</ul>
+<p>关于软件开发原则的文章有很多，这篇的特别之处在于，作者 Kevin 着重强调了数据对于软件设计的影响。</p>
+<p>比如，Kevin 提出在设计时，应当优先考虑数据结构而不是代码，因为前者更为重要。正如《人月神话》的作者 Fred Brooks 曾经说过：”如果提供了程序流程图，而没有表数据，我仍然会很迷惑。而给我看表数据，往往就不再需要流程图，程序结构是非常清晰的。”</p>
+<p>Kevin 提到的另一条原则是”让无效状态不可表示”。软件的业务逻辑中，难免会存在一些”无效状态”。为了处理它们，代码常需要做一些额外工作。然而，通过调整数据结构设计，使得数据层无法表现无效状态后，程序复杂度就可以降低。《实践”让无效状态不可表示”》中有本原则的一个具体应用案例。</p>
+<p>除了上述原则外，文章中的其他原则，比如”关注基础概念而不是具体技术”、”避免用局部简单换取全局复杂”，等等，都充满智慧。</p>
+</li>
+<li><p>《不，不是编译器的问题，从来都不是》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://blog.plover.com/2017/11/12/">No, it is not a compiler error. It is never a compiler error.</a></li>
+<li>作者：Mark Dominus</li>
+</ul>
+<p>一段代码的正常运行，依赖着无数隐藏在其背后的组件和库。当程序出现 bug 时，程序员不在第一时间怀疑自己的代码，而是去质疑那些久经考验的依赖库，从来不是一个明智的选择。正如文章的标题所言：”从来都不是编译器的问题。”</p>
+<p>然而，”编译器”也是由人编写，并非真的永远正确。”编译器”一旦犯错，问题的诡异程度常常会出乎意料。在文章的后半段，常年信奉”编译器不出错”的作者，还真就遇上了一次”编译器错误”。</p>
+</li>
+<li><p>《关于在除夕前一天换了一个洗衣机的故事》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://wklken.me/posts/2023/01/23/about-buy-a-new-washing-machine-before-chinese-new-year.html">关于在除夕前一天换了一个洗衣机的故事</a></li>
+<li>作者：wklken</li>
+</ul>
+<p>一名程序员家中服役 6 年的洗衣机坏了，不能脱水。因为之前花大价钱换过一次排水泵，他以为这次是旧病复发，便决定置换一台新机器。可没想到的是，新洗衣机装好后同样不能脱水。</p>
+<p>本来只是一件普普通通的糟心事，但作者显然不这么想，他在文章后半居然从洗衣机转向了软件开发。从故障码到说明书，从 debug 到选品牌，真是很有意思。相当好的观察与思考。</p>
+</li>
+<li><p>《你的函数是什么颜色？》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">What Color is Your Function?</a></li>
+<li>作者：Bob Nystrom</li>
+</ul>
+<p>有人发明了一门编程语言，它非常特别，因为它的函数以颜色来区分类型。函数一共有两种颜色：”红色”和”蓝色”。函数的颜色不止影响外观，更会影响你使用它们的方式，比方说：红函数只能调用红函数，不能调用蓝函数。</p>
+<p>虽然以上面这略为不知所云的内容开场，但这篇文章讨论的主题实际上相当严肃。在文章中，作者 Bob 分享了自己对异步编程风格一些思考（猜猜函数的”颜色”代表什么？），从回调、Promise，到线程和 await&#x2F;async，均有涉及。</p>
+<p>除了观点鞭辟入里，文章的写作质量也相当高。严肃内容间不时穿插一点作者的小幽默。对于爱好异步编程的人来说，这是一篇不可错过的佳作。</p>
+</li>
+<li><p>《健康的文档》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://vadimkravcenko.com/shorts/proper-documentation/">Healthy Documentation</a></li>
+<li>作者：Vadim Kravcenko</li>
+</ul>
+<p>程序员们是一个奇怪的群体，他们对许多事物持有矛盾态度，”文档”就是其中之一。</p>
+<p>作为消费者时，每位程序员都希望自己所使用的每个 API、函数，接手的每个系统都能找到详尽而准确的文档。而当他摇身一变，变成生产者时，却很少愿意在”写文档”这件事上投入精力——常常是”宁编百行码，不写一行字”。</p>
+<p>然而，文档对于软件开发的重要性毋庸置疑。正如作者提到：”每个未被记录下的东西，都等同于一种资源的浪费，会在未来带来麻烦。”通过写文档，我们将自己脑中的知识具象化，从而在未来帮助到其他人。对于个人而言，文档不仅是一种学习、交流和分享知识的工具，也是一种建立个人影响力的捷径。而对于团队来说，如果每位成员都重视文档的价值，乐于编写清晰、可靠的文档来替代无休止的会议，那么这种”文档优先”的氛围，对于团队的长期发展大有裨益。</p>
+</li>
+<li><p>《如何像人类一样做代码评审》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://mtlynch.io/human-code-reviews-1/">How to Do Code Reviews Like a Human (Part One)</a></li>
+<li>作者：Micheal Lynch</li>
+</ul>
+<p>一篇关于代码评审的文章，里面涵盖了许多入门和进阶经验，包括：别把评审时间花在风格与样式问题上，让工具来代劳；评论应该以”请求”的口吻，而不是”命令”；评审不是只找缺点，对于好代码应该不吝赞美，等等。</p>
+<p>强烈推荐给每一位需要参与代码评审的程序员。</p>
+</li>
+<li><p>《关于 Python 3.13 你需要了解的一切 - JIT 和 GIL》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://drew.silcock.dev/blog/everything-you-need-to-know-about-python-3-13/">Everything you need to know about Python 3.13 – JIT and GIL went up the hill</a></li>
+<li>作者：Drew Silcock</li>
+</ul>
+<p>Python 3.13 版本引入了许多激动人心的改动，比如基于 “copy-and-patch”技术的即时编译（JIT），以及终于去掉了全局解释器锁（GIL）的”自由线程”模式，等等。</p>
+<p>Drew 的这篇文章介绍了以上改动。文章的写作风格非常友好，内容也很全面。既有零基础的概念科普，也有实际的代码实验与 benchmark 环节。知识多，篇幅却控制得恰到好处，推荐阅读。</p>
+</li>
+<li><p>《入行 14 年，我还是觉得编程很难》</p>
+<ul>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://www.piglei.com/articles/programming-is-still-hard-after-14-years/">入行 14 年，我还是觉得编程很难</a></li>
+<li>作者：piglei</li>
+</ul>
+<p>这是清单的第 50 篇，也标记着整个”程序员阅读清单”系列完成了一半。考虑再三，决定奉上拙作一篇，我把这作为对自己的一个小小鼓励。</p>
+<p>编程难吗？不同的人会有不同的答案。十几岁时，还在上学的我觉得编程很难，各类算法、API 让人头晕目眩。我期望多年以后，大量的开发经验会让编程变得像吃饭一样简单。</p>
+<p>如今十几年过去，编程好像只是变简单了那么一丁点，距离”像吃饭一样简单”还差得很远。</p>
+<p>在这篇文章里，我分享了自己对编程这件事的一些思考与总结。比如：打造高效试错的环境至关重要，编程的精髓是”创造”，等等，希望能对你有所启发。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://yuanxp77.github.io">yuanxp77</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://yuanxp77.github.io/2025/04/15/technology-article/">https://yuanxp77.github.io/2025/04/15/technology-article/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a></div><div class="post-share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/79731325" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/11/zlib/" title="zlib"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">zlib</div></div><div class="info-2"><div class="info-item-1"> 转自: https://zhuanlan.zhihu.com/p/28891796322  zlibrary电脑客户端&#x2F;安卓appzlibrary（windows&#x2F;mac&#x2F;安卓&#x2F;ipad）安装包下载：夸克网盘分享 （随时失效，先保存） zlibrary（1800W书资源）：夸克网盘分享 （在线解析）无需魔法就能正常使用，比镜像站稳定。随时失效，先保存，网盘有更新会自动通知 Z-library 官方客户端每天可以下载20本电子书，比网页版多10本，防止丢失，先转存。 zlibrary镜像网址入口  zlibrary镜像网址：https://www.rymdh.com/​ （可用，2025&#x2F;03&#x2F;08） zlibrary镜像入口：https://zh.101ml.world/ （可用） zlibrary镜像入口：https://zh.z-lib.rest/ （可用） zlibrary镜像地址：https://z-libraryrt.github.io/...</div></div></div></a><a class="pagination-related" href="/2024/12/03/PlantUML%E7%BB%98%E5%88%B6%E6%97%B6%E5%BA%8F%E5%9B%BE/" title="PlantUML绘制时序图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">PlantUML绘制时序图</div></div><div class="info-2"><div class="info-item-1">PlantUML 绘制时序图时序图是什么？  时序图（Sequence Diagram），又名序列图、循序图，是一种UML交互图。它通过描述对象之间发送消息的时间顺序显示多个对象之间的动态协作。它可以表示用例的行为顺序，当执行一个用例行为时，其中的每条消息对应一个类操作或状态机中引起转换的触发事件。  基本用法用 -&gt; 来绘制参与者之间传递的消息，--&gt; 表示虚线。各种箭头的写法： 1234567891011121314@startumlBob -&gt;x AliceBob -&gt; AliceBob -&gt;&gt; AliceBob -\ AliceBob \\- AliceBob //-- AliceBob -&gt;o AliceBob o\\-- AliceBob &lt;-&gt; AliceBob &lt;-&gt;o Alice@enduml  关键字 autonumber 用于自动对消息编号 12345678@startumlautonumberAlice -&gt; Bob: Authentication RequestBob --&gt;...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/79731325" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yuanxp77</div><div class="author-info-description">a programmer</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanxp77"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:yuanxp77@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Under constructioning 建设中...</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/24/iterm2AndLrzsz/" title="Mac M1 + iterm2 使用 lrzsz">Mac M1 + iterm2 使用 lrzsz</a><time datetime="2025-10-24T04:01:18.000Z" title="Created 2025-10-24 12:01:18">2025-10-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/11/mac%E7%8A%B6%E6%80%81%E6%A0%8F%E6%B1%87%E7%8E%87%E5%B7%A5%E5%85%B7/" title="mac状态栏汇率工具">mac状态栏汇率工具</a><time datetime="2025-10-11T06:13:32.000Z" title="Created 2025-10-11 14:13:32">2025-10-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/17/%E6%9B%BC%E8%B0%B7%E6%B8%B8%E8%AE%B0/" title="曼谷游记（todo）">曼谷游记（todo）</a><time datetime="2025-07-17T02:22:34.000Z" title="Created 2025-07-17 10:22:34">2025-07-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/11/zlib/" title="zlib">zlib</a><time datetime="2025-06-11T02:32:19.000Z" title="Created 2025-06-11 10:32:19">2025-06-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/15/technology-article/" title="程序员阅读清单：我喜欢的 100 篇技术文章">程序员阅读清单：我喜欢的 100 篇技术文章</a><time datetime="2025-04-15T04:06:37.000Z" title="Created 2025-04-15 12:06:37">2025-04-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By yuanxp77</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional and Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liZK5jiVBFAtBCFJ',
+      clientSecret: '142acb9fce312d852e8f9739a2a093e217215d79',
+      repo: 'yuanxp77.github.io',
+      owner: 'yuanxp77',
+      admin: ['yuanxp77'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '618eefbdbc196cc6df5f8453c75c6154'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
