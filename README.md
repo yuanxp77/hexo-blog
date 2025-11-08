@@ -1,3 +1,3 @@
 # hexo-blog
 
-[Go to Hexo](yuanxp77.github.io)
+yuanxp77.github.io
