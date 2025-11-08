@@ -1,1 +1,9 @@
+.vscode
+.idea
+.cursor
+.history
+.cro
 .DS_Store
+.deploy_git
+node_modules
+nohup.out
