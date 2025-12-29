@@ -44,6 +44,8 @@ date: 2025-04-10 10:09:41
   - Google Search Console https://search.google.com/search-console/welcome
   - cloudflare https://dash.cloudflare.com/402626bc76e7aa10a4f068758f7e4fd5/web-analytics/sites
   - Microsoft https://clarity.microsoft.com/projects
+- system
+  - 系统设计面试 https://learning-guide.gitbook.io/system-design-interview 
 - other
 
   - zlib https://zhuanlan.zhihu.com/p/28891796322
