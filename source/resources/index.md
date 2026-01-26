@@ -13,16 +13,18 @@ date: 2025-04-10 10:09:41
   - https://go101.org/quizzes/101.html
   - https://gobyexample.com/
   - Go语言圣经 https://gopl-zh.github.io/index.html
-- DB
+- learn
 
   - 阿里数据库月报 http://mysql.taobao.org/monthly/
-- middleware
-
   - 详解Prometheus https://juejin.cn/post/7315720126988124175
-- frame
-
   - DDIA 阅读笔记 https://www.yuque.com/fuxuemingzhu/ddia/kpqcs3
   - DDIA 开源翻译 https://vonng.gitbooks.io/ddia-cn/content/
+  - 扣哒世界学编程 https://codecombat.com
+  - C语言 https://akaedu.github.io/book/index.html
+  - 实现你自己的xxx https://github.com/codecrafters-io/build-your-own-x
+  - 计算机教育中缺失的一课 https://missing-semester-cn.github.io
+  - TeachYoursel https://github.com/izackwu/TeachYourselfCS-CN/blob/master/TeachYourselfCS-CN.md
+  - shell十三问 http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=218853&page=1#pid1452197
 - blog
 
   - 卡瓦邦噶 https://www.kawabangga.com/collection
@@ -44,19 +46,15 @@ date: 2025-04-10 10:09:41
   - Google Search Console https://search.google.com/search-console/welcome
   - cloudflare https://dash.cloudflare.com/402626bc76e7aa10a4f068758f7e4fd5/web-analytics/sites
   - Microsoft https://clarity.microsoft.com/projects
-- system
-  - 系统设计面试 https://learning-guide.gitbook.io/system-design-interview 
+  
 - other
 
-  - zlib https://zhuanlan.zhihu.com/p/28891796322
-  - lks https://lkssite.vip
-  - C语言 https://akaedu.github.io/book/index.html
-  - 扣哒世界 游戏学编程 https://codecombat.com/
-  - 计算机教育中缺失的一课 https://missing-semester-cn.github.io
-  - TeachYoursel https://github.com/izackwu/TeachYourselfCS-CN/blob/master/TeachYourselfCS-CN.md
+  - LKs网站推荐合集 https://lkssite.vip
   - MC开服教程 https://www.minebbs.com/threads/nitwikit.26356/
-  - 实现你自己的xxx https://github.com/codecrafters-io/build-your-own-x
-  - 让github每天都是绿的 https://cloud.tencent.com/developer/article/1796848
-  - shell 十三问 http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=218853&page=1#pid1452197
-  - 妙匠良品 https://seiyacasa.netlify.app/?dt_platform=wechat_friends&dt_dapp=1
+  - 妙匠良品 https://seiyacasa.netlify.app
   - 在线游戏 https://dos.zone
+
+- job
+  
+  - Go 语言设计与实现 https://draven.co/golang
+  - 系统设计面试：内幕指南 https://learning-guide.gitbook.io/system-design-interview/
