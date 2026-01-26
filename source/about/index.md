@@ -19,7 +19,7 @@ date: 2024-12-09 18:31:23
 ### Go 后端开发 | 虾皮 [Shopee](https://shopee.cn/about)
 
 *2024年3月 – 至今*
-[Affiliate Network](https://help.shopee.sg/portal/10/article/123798-What-is-Shopee-Ambassador-Programme) （校招）深圳 ShenZhen
+[Affiliate Network](https://shopee.cn/edu/courseDetail/766?lessonId=2673) （校招）深圳 ShenZhen
 
 ### 云计算开发 | 超聚变 [Xfusion](https://www.xfusion.com/cn/about)
 
