@@ -57,4 +57,5 @@ date: 2025-04-10 10:09:41
 - Job
   
   - Go 语言设计与实现 https://draven.co/golang
+  - 为什么这样设计 https://draven.co/whys-the-design/
   - 系统设计面试：内幕指南 https://learning-guide.gitbook.io/system-design-interview/
