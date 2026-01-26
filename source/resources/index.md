@@ -13,7 +13,7 @@ date: 2025-04-10 10:09:41
   - https://go101.org/quizzes/101.html
   - https://gobyexample.com/
   - Go语言圣经 https://gopl-zh.github.io/index.html
-- learn
+- Learn
 
   - 阿里数据库月报 http://mysql.taobao.org/monthly/
   - 详解Prometheus https://juejin.cn/post/7315720126988124175
@@ -25,18 +25,18 @@ date: 2025-04-10 10:09:41
   - 计算机教育中缺失的一课 https://missing-semester-cn.github.io
   - TeachYoursel https://github.com/izackwu/TeachYourselfCS-CN/blob/master/TeachYourselfCS-CN.md
   - shell十三问 http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=218853&page=1#pid1452197
-- blog
+- Blog
 
   - 卡瓦邦噶 https://www.kawabangga.com/collection
   - 张洪Heo https://blog.zhheo.com/
   - 入行 14 年，我还是觉得编程很难 https://www.piglei.com/articles/programming-is-still-hard-after-14-years/
   - 程序员阅读清单：我喜欢的 100 篇技术文章 https://www.piglei.com/articles/programmer-reading-list-1/
-- tool
+- Tool
 
   - 文本对比 https://www.jq22.com/textDifference#google_vignette
   - 时间戳 https://www.sojson.com/unixtime.html
   - json工具 https://www.bejson.com
-- web3
+- Web3
 
   - https://defi-learning.org/f22
 - 网站分析
@@ -47,14 +47,14 @@ date: 2025-04-10 10:09:41
   - cloudflare https://dash.cloudflare.com/402626bc76e7aa10a4f068758f7e4fd5/web-analytics/sites
   - Microsoft https://clarity.microsoft.com/projects
   
-- other
+- Other
 
   - LKs网站推荐合集 https://lkssite.vip
   - MC开服教程 https://www.minebbs.com/threads/nitwikit.26356/
   - 妙匠良品 https://seiyacasa.netlify.app
   - 在线游戏 https://dos.zone
 
-- job
+- Job
   
   - Go 语言设计与实现 https://draven.co/golang
   - 系统设计面试：内幕指南 https://learning-guide.gitbook.io/system-design-interview/
