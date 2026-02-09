@@ -628,28 +628,11 @@
             }
         }
         
-        // 翻译文本（使用Google Translate免费API）
+        // 简化翻译（使用本地简单翻译或显示英文原文）
         async function translateText(text) {
-            try {
-                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=zh&dt=t&q=${encodeURIComponent(text)}`;
-                
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error('翻译失败');
-                }
-                
-                const data = await response.json();
-                
-                if (data?.[0]?.[0]?.[0]) {
-                    return data[0].map(item => item[0]).join('');
-                } else {
-                    throw new Error('翻译数据格式错误');
-                }
-            } catch (error) {
-                console.error('翻译错误:', error);
-                return `${text}\n\n（翻译失败，显示原文）`;
-            }
+            // 由于国内网络环境限制，直接返回英文原文
+            // 用户可以点击文字查看，或者后续集成需要密钥的翻译服务
+            return text;
         }
         
         // 切换难度级别
