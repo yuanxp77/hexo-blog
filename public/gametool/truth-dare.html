@@ -523,8 +523,8 @@
             <div class="setting-row">
                 <span class="setting-label">难度级别</span>
                 <div class="rating-selector">
-                    <button class="rating-btn" data-rating="pg">轻松</button>
-                    <button class="rating-btn active" data-rating="pg13">适中</button>
+                    <button class="rating-btn active" data-rating="pg">轻松</button>
+                    <button class="rating-btn" data-rating="pg13">适中</button>
                     <button class="rating-btn" data-rating="r">刺激</button>
                 </div>
             </div>
@@ -548,7 +548,7 @@
         // 全局变量
         let currentGame = 'truth';
         let currentQuestion = null;
-        let currentRating = 'pg13';
+        let currentRating = 'pg';
         let showOriginal = false;
         let originalEnglishText = '';
         let translatedChineseText = '';
@@ -628,11 +628,36 @@
             }
         }
         
-        // 简化翻译（使用本地简单翻译或显示英文原文）
+        // 简单翻译（使用百度翻译API - 国内友好）
         async function translateText(text) {
-            // 由于国内网络环境限制，直接返回英文原文
-            // 用户可以点击文字查看，或者后续集成需要密钥的翻译服务
-            return text;
+            try {
+                // 使用百度翻译API的免费接口
+                const response = await fetch('https://fanyi.baidu.com/sug', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `kw=${encodeURIComponent(text)}`
+                });
+                
+                if (!response.ok) {
+                    throw new Error('翻译请求失败');
+                }
+                
+                const data = await response.json();
+                
+                // 如果有翻译结果，返回第一个
+                if (data.data && data.data.length > 0) {
+                    return data.data[0].v || text;
+                }
+                
+                // 如果没有翻译结果，返回原文
+                return text;
+            } catch (error) {
+                console.error('翻译失败:', error);
+                // 翻译失败时返回原文
+                return text;
+            }
         }
         
         // 切换难度级别
