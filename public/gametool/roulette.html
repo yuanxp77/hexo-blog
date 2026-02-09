@@ -318,11 +318,7 @@
         }
 
         .center-dot:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 
-                inset 0 3px 8px rgba(0, 0, 0, 0.9),
-                inset 0 -2px 5px rgba(255, 255, 255, 0.1),
-                0 5px 20px rgba(255, 215, 0, 0.5);
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
         .center-dot:active {
@@ -1023,8 +1019,8 @@
                 // 如果targetIndex=1，应该是-90-anglePerChamber度
                 let targetAngle = -90 - (targetIndex * anglePerChamber);
                 
-                // 添加3-5圈旋转，确保最终角度是anglePerChamber的整数倍
-                const extraRotations = Math.floor(3 + Math.random() * 2) * 360;
+                // 添加5-8圈旋转，增加视觉效果
+                const extraRotations = Math.floor(5 + Math.random() * 3) * 360;
                 
                 // 从当前角度计算，确保最终停在精确位置
                 // 找到离当前角度最近的、能让targetIndex在顶部的角度
@@ -1042,15 +1038,15 @@
                 // 更新提示信息
                 document.querySelector('.info-text').textContent = '随机旋转中...';
                 
-                // 使用CSS过渡实现旋转动画
+                // 使用CSS过渡实现旋转动画，使用更平滑的缓动曲线
                 const revolver = document.querySelector('.revolver');
-                revolver.style.transition = 'transform 3s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                revolver.style.transition = 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)';
                 currentRotation = finalAngle;
                 revolver.style.transform = `rotate(${currentRotation}deg)`;
                 
                 // 动画期间更新弹仓内容旋转（但不更新高亮）
                 let animationStartTime = Date.now();
-                const animationDuration = 3000;
+                const animationDuration = 4000;
                 
                 function updateDuringAnimation() {
                     const elapsed = Date.now() - animationStartTime;
@@ -1083,10 +1079,22 @@
             document.getElementById('fireBtn').addEventListener('click', fire);
             document.getElementById('resetBtn').addEventListener('click', resetGame);
             
-            // 点击中心转轴触发随机旋转
-            document.querySelector('.center-dot').addEventListener('click', function(e) {
-                e.stopPropagation(); // 防止触发拖拽事件
-                if (gameStarted && !gameOver) {
+            // 点击中心转轴触发随机旋转（支持触摸和鼠标）
+            const centerDot = document.querySelector('.center-dot');
+            
+            // 鼠标点击
+            centerDot.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (gameStarted && !gameOver && !isRandomSpinning) {
+                    randomSpin();
+                }
+            });
+            
+            // 触摸事件（手机端）
+            centerDot.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (gameStarted && !gameOver && !isRandomSpinning) {
                     randomSpin();
                 }
             });
