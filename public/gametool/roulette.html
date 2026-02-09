@@ -158,6 +158,24 @@
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
+        .chamber.fired-safe {
+            background: #2e7d32;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .chamber.fired-danger {
+            background: #8B0000;
+            border-color: #FF0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            animation: danger-pulse 0.5s ease-in-out;
+        }
+
+        @keyframes danger-pulse {
+            0%, 100% { transform: translate(var(--x), var(--y)) translate(-50%, -50%) scale(1); }
+            50% { transform: translate(var(--x), var(--y)) translate(-50%, -50%) scale(1.2); }
+        }
+
         .center-dot {
             width: 40px;
             height: 40px;
@@ -246,28 +264,6 @@
             cursor: not-allowed;
         }
 
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-            color: white;
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-
         @media (max-width: 400px) {
             .revolver-container {
                 padding: 30px;
@@ -290,7 +286,7 @@
                 <label class="setting-label">弹仓容量（格数）</label>
                 <div class="input-group">
                     <div class="input-wrapper">
-                        <input type="number" id="chambers" min="3" max="12" value="6" placeholder="3-12">
+                        <input type="number" id="chambers" min="3" max="8" value="6" placeholder="3-8">
                     </div>
                     <span class="unit">格</span>
                 </div>
@@ -307,39 +303,32 @@
             </div>
         </div>
 
-        <div class="revolver-container">
-            <div class="revolver" id="revolver">
-                <div class="cylinder" id="cylinder"></div>
-                <div class="center-dot"></div>
-            </div>
-        </div>
-
-        <div class="info-panel" id="infoPanel">
-            <div class="info-text">配置参数后点击开火</div>
-            <div class="info-subtext">设置弹仓格数和子弹数量</div>
-        </div>
-
-        <div class="btn-group">
-            <button class="btn btn-primary" id="fireBtn">
-                🔫 开火
-            </button>
-            <button class="btn btn-secondary" id="resetBtn">
-                🔄 重置
+        <div class="btn-group" style="margin-bottom: 20px;">
+            <button class="btn btn-primary" id="startBtn">
+                ▶️ 开始游戏
             </button>
         </div>
 
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value" id="safeCount">0</div>
-                <div class="stat-label">安全</div>
+        <div id="gameArea" style="display: none;">
+            <div class="revolver-container">
+                <div class="revolver" id="revolver">
+                    <div class="cylinder" id="cylinder"></div>
+                    <div class="center-dot"></div>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value" id="dangerCount">0</div>
-                <div class="stat-label">中弹</div>
+
+            <div class="info-panel" id="infoPanel">
+                <div class="info-text">准备就绪</div>
+                <div class="info-subtext">配置：<span id="configInfo"></span></div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value" id="totalCount">0</div>
-                <div class="stat-label">总次数</div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" id="fireBtn">
+                    🔫 开火
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    🔄 重置
+                </button>
             </div>
         </div>
     </div>
@@ -349,7 +338,7 @@
         let bullets = 1;
         let bulletPositions = [];
         let currentPosition = 0;
-        let stats = { safe: 0, danger: 0, total: 0 };
+        let firedPositions = []; // 记录已开火的位置
 
         // 初始化转轮
         function initRevolver() {
@@ -357,8 +346,8 @@
             const bulletsCount = parseInt(document.getElementById('bullets').value) || 1;
 
             // 验证参数
-            if (chambersCount < 3 || chambersCount > 12) {
-                alert('弹仓容量必须在3-12之间');
+            if (chambersCount < 3 || chambersCount > 8) {
+                alert('弹仓容量必须在3-8之间');
                 return false;
             }
 
@@ -380,6 +369,7 @@
             }
 
             currentPosition = 0;
+            firedPositions = []; // 重置开火记录
 
             // 渲染转轮
             renderCylinder();
@@ -398,13 +388,28 @@
             for (let i = 0; i < chambers; i++) {
                 const chamber = document.createElement('div');
                 chamber.className = 'chamber';
+                chamber.dataset.index = i;
                 
                 const angle = (i * angleStep - 90) * (Math.PI / 180);
                 const x = radius * Math.cos(angle);
                 const y = radius * Math.sin(angle);
                 
+                chamber.style.setProperty('--x', `${x}px`);
+                chamber.style.setProperty('--y', `${y}px`);
                 chamber.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
                 chamber.textContent = i + 1;
+
+                // 检查是否已开火
+                const firedRecord = firedPositions.find(f => f.position === i);
+                if (firedRecord) {
+                    if (firedRecord.isBullet) {
+                        chamber.classList.add('fired-danger');
+                        chamber.textContent = '💥';
+                    } else {
+                        chamber.classList.add('fired-safe');
+                        chamber.textContent = '✓';
+                    }
+                }
 
                 // 标记子弹位置（开发时可见，实际使用时注释掉）
                 // if (bulletPositions.includes(i)) {
@@ -437,15 +442,14 @@
                 // 检查是否中弹
                 const isBullet = bulletPositions.includes(currentPosition);
 
-                // 更新统计
-                stats.total++;
-                if (isBullet) {
-                    stats.danger++;
-                } else {
-                    stats.safe++;
-                }
+                // 记录开火位置
+                firedPositions.push({
+                    position: currentPosition,
+                    isBullet: isBullet
+                });
 
-                updateStats();
+                // 重新渲染转轮以显示开火记录
+                renderCylinder();
 
                 // 显示结果
                 if (isBullet) {
@@ -491,13 +495,6 @@
             `;
         }
 
-        // 更新统计
-        function updateStats() {
-            document.getElementById('safeCount').textContent = stats.safe;
-            document.getElementById('dangerCount').textContent = stats.danger;
-            document.getElementById('totalCount').textContent = stats.total;
-        }
-
         // 页面加载完成后初始化
         window.addEventListener('DOMContentLoaded', function() {
             // 初始化转轮
@@ -511,7 +508,7 @@
             document.getElementById('chambers').addEventListener('change', function() {
                 const value = parseInt(this.value);
                 if (value < 3) this.value = 3;
-                if (value > 12) this.value = 12;
+                if (value > 8) this.value = 8;
                 
                 // 调整子弹数量上限
                 const bulletsInput = document.getElementById('bullets');
