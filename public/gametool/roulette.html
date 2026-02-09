@@ -114,11 +114,18 @@
             width: 200px;
             height: 200px;
             position: relative;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.3s ease-out;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .revolver:active {
+            cursor: grabbing;
         }
 
         .revolver.spinning {
             animation: spin 1s ease-out;
+            pointer-events: none;
         }
 
         @keyframes spin {
@@ -186,6 +193,21 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .fire-indicator {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #FF4444;
+            filter: drop-shadow(0 2px 4px rgba(255, 68, 68, 0.5));
+            z-index: 10;
         }
 
         .info-panel {
@@ -311,6 +333,7 @@
 
         <div id="gameArea" style="display: none;">
             <div class="revolver-container">
+                <div class="fire-indicator"></div>
                 <div class="revolver" id="revolver">
                     <div class="cylinder" id="cylinder"></div>
                     <div class="center-dot"></div>
@@ -339,6 +362,142 @@
         let bulletPositions = [];
         let currentPosition = 0;
         let firedPositions = []; // 记录已开火的位置
+        let gameStarted = false; // 游戏是否已开始
+        let currentRotation = 0; // 当前转轮旋转角度
+        let isDragging = false;
+        let startAngle = 0;
+        let lastAngle = 0;
+
+        // 开始游戏
+        function startGame() {
+            if (!initRevolver()) {
+                return;
+            }
+
+            gameStarted = true;
+            
+            // 隐藏开始按钮，显示游戏区域
+            document.getElementById('startBtn').parentElement.style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
+            
+            // 更新配置信息
+            document.getElementById('configInfo').textContent = `${chambers}格弹仓，${bullets}颗子弹`;
+            
+            // 更新提示信息
+            document.getElementById('infoPanel').innerHTML = `
+                <div class="info-text">准备就绪</div>
+                <div class="info-subtext">旋转转轮选择位置，红色箭头指向当前格子</div>
+            `;
+            
+            // 禁用参数输入
+            document.getElementById('chambers').disabled = true;
+            document.getElementById('bullets').disabled = true;
+            
+            // 初始化拖拽功能
+            initDragRotation();
+        }
+
+        // 初始化拖拽旋转功能
+        function initDragRotation() {
+            const revolver = document.getElementById('revolver');
+            const revolverContainer = revolver.parentElement;
+            
+            function getAngle(event, element) {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                let clientX, clientY;
+                if (event.touches) {
+                    clientX = event.touches[0].clientX;
+                    clientY = event.touches[0].clientY;
+                } else {
+                    clientX = event.clientX;
+                    clientY = event.clientY;
+                }
+                
+                const deltaX = clientX - centerX;
+                const deltaY = clientY - centerY;
+                return Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            }
+            
+            function handleStart(event) {
+                if (revolver.classList.contains('spinning')) return;
+                
+                isDragging = true;
+                startAngle = getAngle(event, revolverContainer);
+                lastAngle = startAngle;
+                revolver.style.transition = 'none';
+            }
+            
+            function handleMove(event) {
+                if (!isDragging) return;
+                event.preventDefault();
+                
+                const currentAngle = getAngle(event, revolverContainer);
+                const deltaAngle = currentAngle - lastAngle;
+                
+                currentRotation += deltaAngle;
+                revolver.style.transform = `rotate(${currentRotation}deg)`;
+                
+                lastAngle = currentAngle;
+                
+                // 更新格子文字方向
+                updateChamberRotation();
+                
+                // 计算当前指向的格子
+                updateCurrentPosition();
+            }
+            
+            function handleEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                // 吸附到最近的格子
+                snapToNearest();
+            }
+            
+            // 鼠标事件
+            revolver.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+            
+            // 触摸事件
+            revolver.addEventListener('touchstart', handleStart, { passive: false });
+            document.addEventListener('touchmove', handleMove, { passive: false });
+            document.addEventListener('touchend', handleEnd);
+        }
+        
+        // 更新当前位置（计算正上方箭头指向的格子）
+        function updateCurrentPosition() {
+            const anglePerChamber = 360 / chambers;
+            // 正上方是-90度（顶部），格子0在-90度位置
+            // 将旋转角度标准化到0-360
+            let normalizedAngle = ((currentRotation % 360) + 360) % 360;
+            // 计算正上方对应的格子索引
+            // 加上anglePerChamber/2是为了让吸附更准确
+            currentPosition = Math.round(normalizedAngle / anglePerChamber) % chambers;
+        }
+        
+        // 吸附到最近的格子
+        function snapToNearest() {
+            const revolver = document.getElementById('revolver');
+            const anglePerChamber = 360 / chambers;
+            
+            // 计算最近的格子角度
+            const targetAngle = Math.round(currentRotation / anglePerChamber) * anglePerChamber;
+            
+            revolver.style.transition = 'transform 0.3s ease-out';
+            revolver.style.transform = `rotate(${targetAngle}deg)`;
+            currentRotation = targetAngle;
+            
+            updateCurrentPosition();
+            
+            // 更新格子文字方向
+            setTimeout(() => {
+                updateChamberRotation();
+            }, 50);
+        }
 
         // 初始化转轮
         function initRevolver() {
@@ -396,90 +555,105 @@
                 
                 chamber.style.setProperty('--x', `${x}px`);
                 chamber.style.setProperty('--y', `${y}px`);
+                
+                // 创建内容容器，让数字保持正向
+                const content = document.createElement('div');
+                content.style.position = 'absolute';
+                content.style.width = '100%';
+                content.style.height = '100%';
+                content.style.display = 'flex';
+                content.style.alignItems = 'center';
+                content.style.justifyContent = 'center';
+                
                 chamber.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-                chamber.textContent = i + 1;
-
+                
                 // 检查是否已开火
                 const firedRecord = firedPositions.find(f => f.position === i);
                 if (firedRecord) {
                     if (firedRecord.isBullet) {
                         chamber.classList.add('fired-danger');
-                        chamber.textContent = '💥';
+                        content.textContent = '💥';
                     } else {
                         chamber.classList.add('fired-safe');
-                        chamber.textContent = '✓';
+                        content.textContent = '✓';
                     }
+                } else {
+                    content.textContent = i + 1;
                 }
 
-                // 标记子弹位置（开发时可见，实际使用时注释掉）
-                // if (bulletPositions.includes(i)) {
-                //     chamber.classList.add('bullet');
-                // }
-
+                chamber.appendChild(content);
                 cylinder.appendChild(chamber);
             }
+            
+            // 更新所有格子的文字方向，抵消转轮旋转
+            updateChamberRotation();
+        }
+        
+        // 更新格子内容的旋转，保持文字始终正向
+        function updateChamberRotation() {
+            const chambers = document.querySelectorAll('.chamber > div');
+            chambers.forEach(chamber => {
+                chamber.style.transform = `rotate(${-currentRotation}deg)`;
+            });
         }
 
         // 开火
         function fire() {
-            if (!initRevolver()) {
+            const fireBtn = document.getElementById('fireBtn');
+            const infoPanel = document.getElementById('infoPanel');
+
+            // 检查当前位置是否已经开过火
+            if (firedPositions.find(f => f.position === currentPosition)) {
+                infoPanel.innerHTML = `
+                    <div class="info-text">⚠️ 这个位置已经开过火了</div>
+                    <div class="info-subtext">请旋转转轮选择其他位置</div>
+                `;
                 return;
             }
 
-            const fireBtn = document.getElementById('fireBtn');
-            const revolver = document.getElementById('revolver');
-            const infoPanel = document.getElementById('infoPanel');
-
-            // 禁用按钮
+            // 禁用按钮和拖拽
             fireBtn.disabled = true;
+            isDragging = false;
 
-            // 旋转动画
-            revolver.classList.add('spinning');
+            // 检查是否中弹
+            const isBullet = bulletPositions.includes(currentPosition);
 
+            // 记录开火位置
+            firedPositions.push({
+                position: currentPosition,
+                isBullet: isBullet
+            });
+
+            // 重新渲染转轮以显示开火记录
+            renderCylinder();
+
+            // 显示结果
+            if (isBullet) {
+                infoPanel.innerHTML = `
+                    <div class="result-text result-danger">💥 砰！</div>
+                    <div class="info-subtext">你中弹了！接受惩罚吧</div>
+                `;
+            } else {
+                infoPanel.innerHTML = `
+                    <div class="result-text result-safe">✅ 安全</div>
+                    <div class="info-subtext">你活下来了，旋转转轮继续下一轮</div>
+                `;
+            }
+
+            // 如果打完所有格子
+            if (firedPositions.length === chambers) {
+                setTimeout(() => {
+                    infoPanel.innerHTML = `
+                        <div class="info-text">已完成一轮</div>
+                        <div class="info-subtext">点击重置开始新一轮</div>
+                    `;
+                }, 2000);
+            }
+
+            // 重新启用按钮
             setTimeout(() => {
-                revolver.classList.remove('spinning');
-
-                // 检查是否中弹
-                const isBullet = bulletPositions.includes(currentPosition);
-
-                // 记录开火位置
-                firedPositions.push({
-                    position: currentPosition,
-                    isBullet: isBullet
-                });
-
-                // 重新渲染转轮以显示开火记录
-                renderCylinder();
-
-                // 显示结果
-                if (isBullet) {
-                    infoPanel.innerHTML = `
-                        <div class="result-text result-danger">💥 砰！</div>
-                        <div class="info-subtext">你中弹了！接受惩罚吧</div>
-                    `;
-                } else {
-                    infoPanel.innerHTML = `
-                        <div class="result-text result-safe">✅ 安全</div>
-                        <div class="info-subtext">你活下来了，继续下一轮</div>
-                    `;
-                }
-
-                // 移动到下一个位置
-                currentPosition = (currentPosition + 1) % chambers;
-
-                // 如果打完所有子弹，自动重置
-                if (currentPosition === 0) {
-                    setTimeout(() => {
-                        infoPanel.innerHTML = `
-                            <div class="info-text">已完成一轮</div>
-                            <div class="info-subtext">点击重置开始新一轮</div>
-                        `;
-                    }, 2000);
-                }
-
-                // 重新启用按钮
                 fireBtn.disabled = false;
-            }, 1000);
+            }, 500);
         }
 
         // 重置游戏
@@ -488,19 +662,23 @@
                 return;
             }
 
+            const revolver = document.getElementById('revolver');
             const infoPanel = document.getElementById('infoPanel');
+            
+            // 重置旋转角度
+            currentRotation = 0;
+            revolver.style.transform = 'rotate(0deg)';
+            
             infoPanel.innerHTML = `
                 <div class="info-text">游戏已重置</div>
-                <div class="info-subtext">配置：${chambers}格弹仓，${bullets}颗子弹</div>
+                <div class="info-subtext">旋转转轮选择位置，然后开火</div>
             `;
         }
 
         // 页面加载完成后初始化
         window.addEventListener('DOMContentLoaded', function() {
-            // 初始化转轮
-            initRevolver();
-
             // 绑定按钮
+            document.getElementById('startBtn').addEventListener('click', startGame);
             document.getElementById('fireBtn').addEventListener('click', fire);
             document.getElementById('resetBtn').addEventListener('click', resetGame);
 
