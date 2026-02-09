@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚会游戏工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .menu-item .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .menu-item p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 聚会游戏工具</h1>
+            <p>让每次聚会都充满欢乐</p>
+        </div>
+
+        <div class="menu-grid">
+            <a href="lottery.html" class="menu-item">
+                <div class="icon">🎲</div>
+                <h3>幸运抽奖</h3>
+                <p>随机抽取幸运儿，公平公正</p>
+            </a>
+
+            <a href="roulette.html" class="menu-item">
+                <div class="icon">🎯</div>
+                <h3>转盘抽奖</h3>
+                <p>旋转转盘，看谁是今天的幸运星</p>
+            </a>
+
+            <a href="truth-dare.html" class="menu-item">
+                <div class="icon">💬</div>
+                <h3>真心话大冒险</h3>
+                <p>经典游戏，增进彼此了解</p>
+            </a>
+
+            <a href="dice.html" class="menu-item">
+                <div class="icon">🎲</div>
+                <h3>摇骰子</h3>
+                <p>简单有趣的骰子游戏</p>
+            </a>
+
+            <a href="random-team.html" class="menu-item">
+                <div class="icon">👥</div>
+                <h3>随机分组</h3>
+                <p>快速随机分配队伍</p>
+            </a>
+
+            <a href="number-bomb.html" class="menu-item">
+                <div class="icon">💣</div>
+                <h3>数字炸弹</h3>
+                <p>紧张刺激的猜数字游戏</p>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>💡 提示：点击任意工具开始游戏</p>
+        </div>
+    </div>
+</body>
+</html>
