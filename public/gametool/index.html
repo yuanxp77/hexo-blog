@@ -9,94 +9,147 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            padding: 20px 15px;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 500px;
             width: 100%;
+            margin: 0 auto;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: white;
+            padding-top: 10px;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 8px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
         .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .menu-item {
             background: white;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
             text-decoration: none;
             color: #333;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        .menu-item:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .menu-item .icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .menu-item .content {
+            flex: 1;
+            text-align: left;
         }
 
         .menu-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
             color: #667eea;
+            font-weight: 600;
         }
 
         .menu-item p {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .menu-item .arrow {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-left: 10px;
         }
 
         .footer {
             text-align: center;
             color: white;
             opacity: 0.8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            padding: 15px 0;
         }
 
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2rem;
+        /* 针对小屏幕进一步优化 */
+        @media (max-width: 400px) {
+            body {
+                padding: 15px 10px;
             }
-            
-            .menu-grid {
-                grid-template-columns: 1fr;
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .menu-item {
+                padding: 18px 15px;
+            }
+
+            .menu-item .icon {
+                font-size: 2.2rem;
+                margin-right: 15px;
+            }
+
+            .menu-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .menu-item p {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* 防止在移动设备上的双击缩放 */
+        @media (hover: none) {
+            .menu-item:hover {
+                transform: none;
             }
         }
     </style>
@@ -111,38 +164,56 @@
         <div class="menu-grid">
             <a href="lottery.html" class="menu-item">
                 <div class="icon">🎲</div>
-                <h3>幸运抽奖</h3>
-                <p>随机抽取幸运儿，公平公正</p>
+                <div class="content">
+                    <h3>幸运抽奖</h3>
+                    <p>随机抽取幸运儿，公平公正</p>
+                </div>
+                <div class="arrow">›</div>
             </a>
 
             <a href="roulette.html" class="menu-item">
                 <div class="icon">🎯</div>
-                <h3>转盘抽奖</h3>
-                <p>旋转转盘，看谁是今天的幸运星</p>
+                <div class="content">
+                    <h3>转盘抽奖</h3>
+                    <p>旋转转盘，看谁是今天的幸运星</p>
+                </div>
+                <div class="arrow">›</div>
             </a>
 
             <a href="truth-dare.html" class="menu-item">
                 <div class="icon">💬</div>
-                <h3>真心话大冒险</h3>
-                <p>经典游戏，增进彼此了解</p>
+                <div class="content">
+                    <h3>真心话大冒险</h3>
+                    <p>经典游戏，增进彼此了解</p>
+                </div>
+                <div class="arrow">›</div>
             </a>
 
             <a href="dice.html" class="menu-item">
                 <div class="icon">🎲</div>
-                <h3>摇骰子</h3>
-                <p>简单有趣的骰子游戏</p>
+                <div class="content">
+                    <h3>摇骰子</h3>
+                    <p>简单有趣的骰子游戏</p>
+                </div>
+                <div class="arrow">›</div>
             </a>
 
             <a href="random-team.html" class="menu-item">
                 <div class="icon">👥</div>
-                <h3>随机分组</h3>
-                <p>快速随机分配队伍</p>
+                <div class="content">
+                    <h3>随机分组</h3>
+                    <p>快速随机分配队伍</p>
+                </div>
+                <div class="arrow">›</div>
             </a>
 
             <a href="number-bomb.html" class="menu-item">
                 <div class="icon">💣</div>
-                <h3>数字炸弹</h3>
-                <p>紧张刺激的猜数字游戏</p>
+                <div class="content">
+                    <h3>数字炸弹</h3>
+                    <p>紧张刺激的猜数字游戏</p>
+                </div>
+                <div class="arrow">›</div>
             </a>
         </div>
 

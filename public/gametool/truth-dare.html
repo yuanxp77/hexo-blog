@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真心话大冒险</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 15px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .mode-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .mode-btn:active {
+            transform: scale(0.98);
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .card-content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-content.loading {
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .draw-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .draw-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .draw-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .source-switch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                padding: 30px 20px;
+                min-height: 220px;
+            }
+
+            .card-content {
+                font-size: 1.1rem;
+            }
+
+            .draw-btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← 返回</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>💬 真心话大冒险</h1>
+            <p>准备好接受挑战了吗？</p>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="truth" id="truthBtn">
+                真心话 😊
+            </button>
+            <button class="mode-btn" data-mode="dare" id="dareBtn">
+                大冒险 😈
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon" id="cardIcon">💭</div>
+            <div class="card-content" id="cardContent">
+                点击下方按钮开始抽取
+            </div>
+            <div id="difficultyBadge"></div>
+        </div>
+
+        <div class="btn-container">
+            <div class="source-switch">
+                <span>本地题库</span>
+                <label class="switch">
+                    <input type="checkbox" id="sourceToggle">
+                    <span class="slider"></span>
+                </label>
+                <span>在线题库</span>
+            </div>
+
+            <button class="draw-btn" id="drawBtn">
+                🎲 开始抽取
+            </button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="truthCount">0</div>
+                <div class="stat-label">真心话</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="dareCount">0</div>
+                <div class="stat-label">大冒险</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'truth';
+        let useOnlineSource = false;
+        let stats = { truth: 0, dare: 0 };
+
+        // 本地题库
+        const localQuestions = {
+            truth: [
+                { text: "你最想忘记的一件尴尬事是什么？", difficulty: "easy" },
+                { text: "你暗恋过在场的某个人吗？", difficulty: "medium" },
+                { text: "你做过最后悔的一件事是什么？", difficulty: "hard" },
+                { text: "如果可以穿越，你最想回到哪一天？", difficulty: "easy" },
+                { text: "你最羡慕在场的哪一个人？为什么？", difficulty: "medium" },
+                { text: "你有什么不为人知的特殊癖好？", difficulty: "hard" },
+                { text: "你的初恋是什么时候？", difficulty: "easy" },
+                { text: "你做过最丢脸的事情是什么？", difficulty: "medium" },
+                { text: "如果世界末日，你最想和谁在一起？", difficulty: "medium" },
+                { text: "你最不想让父母知道的秘密是什么？", difficulty: "hard" },
+                { text: "你有偷偷喜欢过朋友的对象吗？", difficulty: "hard" },
+                { text: "你最想改变自己的哪一点？", difficulty: "easy" },
+                { text: "你曾经撒过最大的谎是什么？", difficulty: "medium" },
+                { text: "你手机里最不想被别人看到的是什么？", difficulty: "hard" },
+                { text: "你做过最疯狂的事情是什么？", difficulty: "medium" }
+            ],
+            dare: [
+                { text: "唱一首歌给大家听", difficulty: "easy" },
+                { text: "给通讯录里第五个人发送"我喜欢你"", difficulty: "hard" },
+                { text: "做20个俯卧撑", difficulty: "medium" },
+                { text: "模仿在场任意一个人的动作或说话方式", difficulty: "easy" },
+                { text: "让在场的人随意摆弄你的发型", difficulty: "medium" },
+                { text: "给暗恋的人打一个电话（不能说明原因）", difficulty: "hard" },
+                { text: "用最搞笑的表情拍一张照片发朋友圈", difficulty: "medium" },
+                { text: "吃一口辣椒（或其他食物组合）", difficulty: "medium" },
+                { text: "即兴表演一段舞蹈", difficulty: "medium" },
+                { text: "说出在场所有人的三个优点", difficulty: "easy" },
+                { text: "给异性一个拥抱", difficulty: "medium" },
+                { text: "学狗叫三声", difficulty: "easy" },
+                { text: "在朋友圈发表对某人的表白（可以是玩笑）", difficulty: "hard" },
+                { text: "原地转10圈再走直线", difficulty: "easy" },
+                { text: "对着窗外大喊"我是最棒的"三遍", difficulty: "medium" }
+            ]
+        };
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            
+            const icon = mode === 'truth' ? '💭' : '🎯';
+            document.getElementById('cardIcon').textContent = icon;
+            document.getElementById('cardContent').textContent = '点击下方按钮开始抽取';
+            document.getElementById('difficultyBadge').innerHTML = '';
+        }
+
+        function toggleSource() {
+            useOnlineSource = document.getElementById('sourceToggle').checked;
+        }
+
+        async function drawQuestion() {
+            const btn = document.getElementById('drawBtn');
+            const content = document.getElementById('cardContent');
+            const badge = document.getElementById('difficultyBadge');
+            
+            btn.disabled = true;
+            content.classList.add('loading');
+            content.textContent = '抽取中...';
+            badge.innerHTML = '';
+
+            try {
+                let question;
+                
+                if (useOnlineSource) {
+                    question = await fetchOnlineQuestion();
+                } else {
+                    question = getLocalQuestion();
+                }
+
+                // 动画效果
+                setTimeout(() => {
+                    content.classList.remove('loading');
+                    content.textContent = question.text;
+                    
+                    const difficultyClass = `difficulty-${question.difficulty}`;
+                    const difficultyText = {
+                        'easy': '简单',
+                        'medium': '中等',
+                        'hard': '困难'
+                    };
+                    badge.innerHTML = `<span class="difficulty-badge ${difficultyClass}">${difficultyText[question.difficulty]}</span>`;
+                    
+                    // 更新统计
+                    stats[currentMode]++;
+                    document.getElementById(currentMode + 'Count').textContent = stats[currentMode];
+                    
+                    btn.disabled = false;
+                }, 500);
+            } catch (error) {
+                content.classList.remove('loading');
+                content.textContent = '获取失败，请重试或切换到本地题库';
+                btn.disabled = false;
+            }
+        }
+
+        function getLocalQuestion() {
+            const questions = localQuestions[currentMode];
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            return questions[randomIndex];
+        }
+
+        async function fetchOnlineQuestion() {
+            try {
+                const response = await fetch('https://v1.hitokoto.cn/?c=i');
+                const data = await response.json();
+                
+                if (data && data.hitokoto) {
+                    return {
+                        text: data.hitokoto,
+                        difficulty: ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)]
+                    };
+                } else {
+                    throw new Error('API返回数据格式错误');
+                }
+            } catch (error) {
+                console.error('在线获取失败，使用本地题库:', error);
+                return getLocalQuestion();
+            }
+        }
+
+        // 页面加载完成后绑定事件
+        document.addEventListener('DOMContentLoaded', function() {
+            // 绑定抽取按钮
+            document.getElementById('drawBtn').addEventListener('click', drawQuestion);
+            
+            // 绑定模式切换按钮
+            document.getElementById('truthBtn').addEventListener('click', () => switchMode('truth'));
+            document.getElementById('dareBtn').addEventListener('click', () => switchMode('dare'));
+            
+            // 绑定开关
+            document.getElementById('sourceToggle').addEventListener('change', toggleSource);
+            
+            // 添加键盘事件支持
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && !document.getElementById('drawBtn').disabled) {
+                    e.preventDefault();
+                    drawQuestion();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
