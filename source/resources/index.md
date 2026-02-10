@@ -36,6 +36,7 @@ date: 2025-04-10 10:09:41
   - 文本对比 https://www.jq22.com/textDifference#google_vignette
   - 时间戳 https://www.sojson.com/unixtime.html
   - json工具 https://www.bejson.com
+  - 趣记单词 https://qujidanci.xieyonglin.com
 - Web3
 
   - https://defi-learning.org/f22
@@ -46,16 +47,14 @@ date: 2025-04-10 10:09:41
   - Google Search Console https://search.google.com/search-console/welcome
   - cloudflare https://dash.cloudflare.com/402626bc76e7aa10a4f068758f7e4fd5/web-analytics/sites
   - Microsoft https://clarity.microsoft.com/projects
-  
 - Other
 
   - LKs网站推荐合集 https://lkssite.vip
-  - MC开服教程 https://www.minebbs.com/threads/nitwikit.26356/
+  - MC开服教程 https://www.minebbs.com/threads/nitwikit.26356
   - 妙匠良品 https://seiyacasa.netlify.app
   - 在线游戏 https://dos.zone
-
 - Job
-  
+
   - Go 语言设计与实现 https://draven.co/golang
-  - 为什么这样设计 https://draven.co/whys-the-design/
-  - 系统设计面试：内幕指南 https://learning-guide.gitbook.io/system-design-interview/
+  - 为什么这样设计 https://draven.co/whys-the-design
+  - 系统设计面试：内幕指南 https://learning-guide.gitbook.io/system-design-interview
