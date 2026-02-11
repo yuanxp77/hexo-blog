@@ -26,6 +26,7 @@ date: 2025-04-10 10:09:41
   - TeachYoursel https://github.com/izackwu/TeachYourselfCS-CN/blob/master/TeachYourselfCS-CN.md
   - shell十三问 http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=218853&page=1#pid1452197
   - Learn X in Y minutes https://learnxinyminutes.com
+  - 廖雪峰教程 https://liaoxuefeng.com/index.html
 - Blog
 
   - 卡瓦邦噶 https://www.kawabangga.com/collection
