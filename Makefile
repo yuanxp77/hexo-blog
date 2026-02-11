@@ -8,10 +8,6 @@ test:
 	@nohup hexo g &
 	@nohup hexo s &
 
-	cd ./public/melon/ && chmod +x generate.sh && ./generate.sh
-	cd ./public/static/ && chmod +x generate.sh && ./generate.sh
-	cd ./public/learn/ && chmod +x generate.sh && ./generate.sh
-
 	@sleep 2;
 	@open -a "/Applications/Safari.app" 'http://localhost:$(PORT)' &
 
