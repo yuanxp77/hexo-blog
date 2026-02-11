@@ -25,6 +25,7 @@ date: 2025-04-10 10:09:41
   - 计算机教育中缺失的一课 https://missing-semester-cn.github.io
   - TeachYoursel https://github.com/izackwu/TeachYourselfCS-CN/blob/master/TeachYourselfCS-CN.md
   - shell十三问 http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=218853&page=1#pid1452197
+  - Learn X in Y minutes https://learnxinyminutes.com
 - Blog
 
   - 卡瓦邦噶 https://www.kawabangga.com/collection
